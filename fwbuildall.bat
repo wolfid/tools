@@ -5,18 +5,15 @@ set DSPTTL="%~dp0title%~x0"
 set SETPRJ="%~dp0setprj%~x0"
 set SETENV="%~dp0setenv%~x0"
 set CMDLST="%~dp0cmdlst"
-call %ENVCHK% DEVTTL %DSPTTL%
+call %ENVCHK% DSPMOD %SETENV% q
+call %ENVCHK% DEVTTL %DSPTTL% %DSPMOD%
 echo ###########################################################
 echo ###                                    ~\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %ENVCHK% DEVPRJ %SETPRJ%
+call %ENVCHK% DEVPRJ %SETPRJ% %DSPMOD%
 echo ###########################################################
 echo ### Development Project: %DEVPRJ%
-echo ###########################################################
-call %ENVCHK% INTMOD %SETENV%
-echo ###########################################################
-echo ### Interactive Mode: %INTMOD%
 echo ###########################################################
 for /f %%i in (%CMDLST:"=%) do call :CMDCHK %%i
 goto :END
@@ -35,7 +32,7 @@ echo ###########################################################
 if "%USRINP%"=="y" goto :DOCMDEXE
 exit /b 0
 :DOCMDEXE
-call %CMDEXE% %EXEPTH%
+call %CMDEXE% %EXEPTH% %DSPMOD%
 exit /b 0
 :END
 if "%INTMOD%"=="y" pause

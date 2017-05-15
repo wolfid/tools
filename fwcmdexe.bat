@@ -4,7 +4,7 @@ set CMDEXE="%~dp0Common\cmdexe%~x0"
 set DSPTTL="%~dp0title%~x0"
 set SETPRJ="%~dp0setprj%~x0"
 set SETENV="%~dp0setenv%~x0"
-call %ENVCHK% DEVTTL %DSPTTL%
+call %ENVCHK% DEVTTL %DSPTTL% q
 echo ###########################################################
 echo ###                                  ~\%~nx0 ###
 echo ###                                    %~t0 ###
