@@ -8,7 +8,7 @@ echo ###########################################################
 echo ###                                 ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %ENVCHK% DEVBRA %SETENV%
+call %ENVCHK% DEVBRA %SETENV% %1
 echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
@@ -16,7 +16,7 @@ if not "%SVNDRV%"=="" %SVNDRV%:
 if not "%SVNDIR%"=="" cd "%SVNDIR:"=%"
 cd "%PRJDIR%"
 if not "%DEVBRA%"=="%DEVTRK%" cd "%DEVBRA%"
-call %CMDEXE% %GETREV%
+call %CMDEXE% %GETREV% %1
 echo ###########################################################
 echo ### SVN Revision: %SVNREV%
 echo ###########################################################
@@ -32,7 +32,7 @@ if "%DEVBRA%"=="%DEVTRK%" (set BINPTH="%PRJDRV%:\%PRJDIR:"=%\%SDKDIR%\%IMGDIR:"=
 ) else set BINPTH="%PRJDRV%:\%PRJDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%"
 set PHYPTH="%BINPTH:"=%\%IMGPHY%.%IMGEXT%"
 set BINPTH="%BINPTH:"=%\%IMGBIN%.%IMGEXT%"
-call %CMDEXE% %GETDAT% %BINPTH%
+call %CMDEXE% %GETDAT% %1 %BINPTH%
 echo ###########################################################
 echo ### Binary File Date: %dd%%mmm%%yyyy% %hour%:%min%:%sec%
 echo ###########################################################

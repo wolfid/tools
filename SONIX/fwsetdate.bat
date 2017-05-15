@@ -24,4 +24,4 @@ echo ###########################################################
 echo ### Time: year %yyyy% month %mm% day %dd% hour %hour% min %min% sec %sec% timezone %timezone%
 echo ###########################################################
 if "%INTMOD%"=="y" pause
-call %JSNCMD% synctime year %yyyy% month %mm% day %dd% hour %hour% min %min% sec %sec% timezone %timezone%
+call %JSNCMD% q synctime year %yyyy% month %mm% day %dd% hour %hour% min %min% sec %sec% timezone %timezone%

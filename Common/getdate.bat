@@ -1,4 +1,5 @@
 @echo off
+if "%1"=="q" shift
 if "%1"=="" (set DATSRC=%date%) else set DATSRC=%~t1
 for /f "tokens=1,2,3 delims=/" %%i in ("%DATSRC%") do set dd=%%i && set mm=%%j && set yyyy=%%k
 set dd=%dd: =%

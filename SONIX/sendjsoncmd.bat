@@ -5,10 +5,12 @@ echo ###########################################################
 echo ###                             ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %ENVCHK% TGTADR %SETENV%
+call %ENVCHK% TGTADR %SETENV% %1
 echo ###########################################################
 echo ### Target Address: %TGTADR%
 echo ###########################################################
+if "%1"=="" goto :JSNERR
+if "%1"=="q" shift
 if "%1"=="" goto :JSNERR
 set CMDSTR="type":"%1"
 shift
