@@ -20,7 +20,12 @@ echo ###########################################################
 set COMEXE="%~dp0%DEVCOM%\%~nx0"
 set PRJEXE="%~dp0%DEVPRJ%\%~nx0"
 set USREXE="%~dp0%DEVPRJ%\%~1%~x0"
-if "%1"=="" (if exist %PRJEXE% (call %CMDEXE% %PRJEXE%
-) else call %CMDEXE% %COMEXE%
-) else call %CMDEXE% %USREXE% %2 %3 %4 %5 %6 %7 %8 %9
+if "%1"=="" goto :DOPRJEXE
+if "%1"=="q" goto :DOPRJEXE
+call %CMDEXE% %USREXE% %2 %3 %4 %5 %6 %7 %8 %9
+goto :END
+:DOPRJEXE
+if exist %PRJEXE% (call %CMDEXE% %PRJEXE% %1
+) else call %CMDEXE% %COMEXE% %1
+:END
 if "%INTMOD%"=="y" pause

@@ -12,7 +12,7 @@ set SELENT=%CURDEX%
 echo ###########################################################
 set /p SELENT= ### Choose Entry Number(%CURDEX%)?
 echo ###########################################################
-if "%SELENT%"=="%CURDEX%" goto :END
+if "%SELENT%"=="%CURDEX%" goto :ENTSAME
 if %SELENT% lss %LSTMIN% goto :ENTERR
 if %SELENT% gtr %LSTNUM% goto :ENTERR
 echo ###########################################################
@@ -41,6 +41,12 @@ echo ###########################################################
 set SELENT=%1
 set /a LSTCNT=%LSTNUM%+1
 exit /b 0
+:ENTSAME
+echo ###########################################################
+echo ### No change
+echo ###########################################################
+set SELENT=
+goto :END
 :LSTERR
 echo ###########################################################
 echo ### %1 does not exist
