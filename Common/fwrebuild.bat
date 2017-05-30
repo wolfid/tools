@@ -9,11 +9,13 @@ call %ENVCHK% DEVBRA %SETENV% %1
 echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
-if "%DEVBRA%"=="%DEVTRK%" (set SRCPTH=%PRJDIR:\=/%) else set SRCPTH=%PRJDIR:\=/%/%DEVBRA%
+set SRCPTH=%PRJDIR:\=/%
+set SRCPTH="%PRJDIR:"=%/%SUBDIR:"=%"
+if not "%DEVBRA%"=="%DEVTRK%" set SRCPTH="%SRCPTH:"=%/%DEVBRA%"
 if not "%SDKDIR%"=="" set SRCPTH=%SRCPTH:"=%/%SDKDIR:"=%
 if not "%MAKDIR%"=="" set SRCPTH=%SRCPTH:"=%/%MAKDIR:"=%
 echo ###########################################################
-echo ### Rebuilding %DEVPRJ% Firmware in ~/%SRCPTH% on %BLDTGT%
+echo ### Rebuilding %DEVPRJ% Firmware in ~/%SRCPTH:"=% on %BLDTGT%
 echo ###########################################################
 if "%INTMOD%"=="y" pause
-%PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd ~/%SRCPTH%; %CLNCMD:"=%; %MAKCMD:"=%
+%PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd "~/%SRCPTH%"; %CLNCMD:"=%; %MAKCMD:"=%

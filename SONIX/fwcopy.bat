@@ -9,7 +9,8 @@ call %ENVCHK% DEVBRA %SETENV% %1
 echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
-if "%DEVBRA%"=="%DEVTRK%" (set SRCPTH=%PRJDIR:\=/%) else set SRCPTH=%PRJDIR:\=/%/%DEVBRA%
+set SRCPTH=%SUBDIR%
+if not "%DEVBRA%"=="%DEVTRK%" set SRCPTH="%SRCPTH:"=%/%DEVBRA%"
 if not "%SDKDIR:"=%"=="" set SRCPTH=%SRCPTH%\%SDKDIR:"=%
 if not "%IMGDIR:"=%"=="" set SRCPTH=%SRCPTH%\%IMGDIR:"=%
 set SRCPTH=%SRCPTH:"=%

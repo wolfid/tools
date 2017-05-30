@@ -22,11 +22,11 @@ if "%UPGMOD%"=="0" goto :FLIGTHBOARD
 echo ###########################################################
 echo ### Upgrading Wi-Fi Board Firmware
 echo ###########################################################
-set SRCPTH=%PRJDIR%
-if not "%DEVBRA%"=="%DEVTRK%" set SRCPTH=%PRJDIR%\%DEVBRA%
-if not "%PRJDRV%"=="" set SRCPTH=%PRJDRV%:\%SRCPTH%
-if not "%SDKDIR%"=="" set SRCPTH=%SRCPTH%\%SDKDIR:"=%
-if not "%IMGDIR%"=="" set SRCPTH=%SRCPTH%\%IMGDIR:"=%
+set SRCPTH=%SUBDIR%
+if not "%DEVBRA%"=="%DEVTRK%" set SRCPTH="%SRCPTH:"=%\%DEVBRA%"
+if not "%PRJDRV%"=="" set SRCPTH="%PRJDRV%:\%SRCPTH:"=%"
+if not "%SDKDIR%"=="" set SRCPTH="%SRCPTH:"=%\%SDKDIR:"=%"
+if not "%IMGDIR%"=="" set SRCPTH="%SRCPTH:"=%\%IMGDIR:"=%"
 set SRCPTH=%SRCPTH:/=\%
 call :FWUPGRADE "%SRCPTH:"=%\%IMGBIN:~0,-2%.%IMGEXT%"
 goto :END

@@ -14,7 +14,7 @@ echo ### Development Branch: %DEVBRA%
 echo ###########################################################
 if not "%SVNDRV%"=="" %SVNDRV%:
 if not "%SVNDIR%"=="" cd "%SVNDIR:"=%"
-cd "%PRJDIR%"
+cd "%SUBDIR:"=%"
 if not "%DEVBRA%"=="%DEVTRK%" cd "%DEVBRA%"
 call %CMDEXE% %GETREV% %1
 echo ###########################################################

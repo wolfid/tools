@@ -1,1 +1,1 @@
-set DEVPRJ=Recoil
+set DEVPRJ=SONIX
