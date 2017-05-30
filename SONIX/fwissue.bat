@@ -2,7 +2,7 @@
 set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
 set CMDEXE="%~dp0..\%DEVCOM%\cmdexe%~x0"
 set GETDAT="%~dp0..\%DEVCOM%\getdate%~x0"
-set GETREV="%~dp0..\%DEVCOM%\getsvnrev%~x0"
+set GETREV="%~dp0..\%DEVCOM%\getrev%~x0"
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
 echo ###########################################################
 echo ###                                 ~\%DEVPRJ%\%~nx0 ###
@@ -12,24 +12,24 @@ call %ENVCHK% DEVBRA %SETENV% %1
 echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
-if not "%SVNDRV%"=="" %SVNDRV%:
-if not "%SVNDIR%"=="" cd "%SVNDIR:"=%"
-cd "%SUBDIR:"=%"
-if not "%DEVBRA%"=="%DEVTRK%" cd "%DEVBRA%"
-call %CMDEXE% %GETREV% %1
+if not "%SVNDRV%"=="" set SVNPTH=%SVNDRV:"=%:
+if not "%SVNDIR%"=="" set SVNPTH="%SVNPTH:"=%%SVNDIR:"=%"
+if not "%SUBDIR%"=="" set SVNPTH="%SVNPTH:"=%\%SUBDIR:"=%"
+if not "%DEVBRA%"=="%DEVTRK%" set SVNPTH="%SVNPTH:"=%\%DEVBRA:"=%"
+call %CMDEXE% %GETREV% %1 %SVNPTH%
 echo ###########################################################
 echo ### SVN Revision: %SVNREV%
 echo ###########################################################
-if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%PRJDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.conf"
-) else set CFGPTH="%PRJDRV%:\%PRJDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.conf"
+if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.conf"
+) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.conf"
 set PRDCOD=%DEFCOD%
 set PRDDIR=%DEFDIR%
 call :SETPRD %CFGPTH% %STRCFG% %STRSET% %STRCOD% %STRDIR%
 echo ###########################################################
 echo ### Product Directory/Code: %PRDDIR:"=%/%PRDCOD%
 echo ###########################################################
-if "%DEVBRA%"=="%DEVTRK%" (set BINPTH="%PRJDRV%:\%PRJDIR:"=%\%SDKDIR%\%IMGDIR:"=%"
-) else set BINPTH="%PRJDRV%:\%PRJDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%"
+if "%DEVBRA%"=="%DEVTRK%" (set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGDIR:"=%"
+) else set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%"
 set PHYPTH="%BINPTH:"=%\%IMGPHY%.%IMGEXT%"
 set BINPTH="%BINPTH:"=%\%IMGBIN%.%IMGEXT%"
 call %CMDEXE% %GETDAT% %1 %BINPTH%
