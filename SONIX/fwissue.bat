@@ -31,29 +31,14 @@ echo ###########################################################
 if "%DEVBRA%"=="%DEVTRK%" (set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGDIR:"=%"
 ) else set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%"
 set PHYPTH="%BINPTH:"=%\%IMGPHY%.%IMGEXT%"
+set FEXPTH="%BINPTH:"=%\%IMGBIN%%IMGFEX%.%IMGEXT%"
 set BINPTH="%BINPTH:"=%\%IMGBIN%.%IMGEXT%"
 call %CMDEXE% %GETDAT% %1 %BINPTH%
 echo ###########################################################
 echo ### Binary File Date: %dd%%mmm%%yyyy% %hour%:%min%:%sec%
 echo ###########################################################
 set ISSPTH="%ISSDRV%:\%ISSDIR:"=%\%PRDDIR:"=%\%TGTPRF%%PRDCOD%%TGTSUF%%SVNREV%_%dd%%mmm%%yyyy%"
-if "%INTMOD%"=="y" goto :USRINP
-set DOCOPY=y
-set DOZIP=y
-if not "%ISSMOD%"=="" (if not "%ISSMOD%"=="ALL" (if "%ISSMOD%"=="COPY" (set DOZIP=n) else if "%ISSMOD%"=="ZIP" set DOCOPY=n))
-goto :DOCOPY
-:USRINP
-set DOCOPY=n
-set DOZIP=n
-echo ###########################################################
-set /p DOCOPY= ### Copy %BINPTH% to "%ISSPTH:"=%.%IMGEXT%"(%DOCOPY%)?
-echo ###########################################################
-echo ###########################################################
-set /p DOZIP= ### Zip %BINPTH%, %PHYPTH% to "%ISSPTH:"=%.zip"(%DOZIP%)?
-echo ###########################################################
-:DOCOPY
-if "%DOCOPY%"=="y" call :DOCOPY %BINPTH% "%ISSPTH:"=%.%IMGEXT%"
-if "%DOZIP%"=="y" call :DOZIP "%ISSPTH:"=%.zip" %BINPTH% %PHYPTH%%
+call :DOCOPY "%ISSPTH:"=%" %BINPTH% %PHYPTH% %FEXPTH%
 goto :END
 :SETPRD
 echo ###########################################################
@@ -68,14 +53,12 @@ exit /b 0
 exit /b 0
 :DOCOPY
 echo ###########################################################
-echo ### Copying %1 to %2
+echo ### Copying %2, %3, %4 to %1
 echo ###########################################################
-%CPYCMD% %CPYFLG:"=% %1 %2
-exit /b 0
-:DOZIP
-echo ###########################################################
-echo ### Zipping %2, %3 to %1
-echo ###########################################################
-%ZIPEXE% a %1 %2 %3
+if "%INTMOD%"=="y" pause
+if not exist %1 md %1
+if not "%4"=="" %CPYCMD% %CPYFLG:"=% %4 %1
+if not "%3"=="" %CPYCMD% %CPYFLG:"=% %3 %1
+if not "%2"=="" %CPYCMD% %CPYFLG:"=% %2 %1
 exit /b 0
 :END

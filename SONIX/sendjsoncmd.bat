@@ -40,7 +40,7 @@ echo ###########################################################
 goto :END
 :RETERR
 echo ###########################################################
-echo ### No response - make sure you are connected...
+echo ### Invalid response - make sure you are connected...
 echo ###########################################################
 goto :END
 :JSNERR
