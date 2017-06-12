@@ -37,7 +37,7 @@ call %CMDEXE% %GETDAT% %1 %BINPTH%
 echo ###########################################################
 echo ### Binary File Date: %dd%%mmm%%yyyy% %hour%:%min%:%sec%
 echo ###########################################################
-set ISSPTH="%ISSDRV%:\%ISSDIR:"=%\%PRDDIR:"=%\%TGTPRF%%PRDCOD%%TGTSUF%%SVNREV%_%dd%%mmm%%yyyy%"
+set ISSPTH="%ISSDRV%:\%ISSDIR:"=%\%PRDDIR:"=%\%SNXPRF%%PRDCOD%%SNXSUF%%SVNREV%_%dd%%mmm%%yyyy%"
 call :DOCOPY "%ISSPTH:"=%" %BINPTH% %PHYPTH% %FEXPTH%
 goto :END
 :SETPRD

@@ -35,7 +35,7 @@ set /a RETTYP*=256
 set /a RETVAL-=%RETTYP%
 set /a RETTYP/=256
 echo ###########################################################
-echo ### Return Type: %RETTYP%; Return Status: %RETVAL%
+echo ### Function Index: %RETTYP%; Return Status: %RETVAL%
 echo ###########################################################
 goto :END
 :RETERR
