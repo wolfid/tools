@@ -17,13 +17,14 @@ call %ENVCHK% INTMOD %SETENV% %2
 echo ###########################################################
 echo ### Interactive Mode: %INTMOD%
 echo ###########################################################
+if "%1"=="" goto :DOCOMEXE
+if "%1"=="q" goto :DOCOMEXE
+set COMEXE="%~dp0%DEVCOM%\%~1%~x0"
+set PRJEXE="%~dp0%DEVPRJ%\%~1%~x0"
+goto :DOPRJEXE
+:DOCOMEXE
 set COMEXE="%~dp0%DEVCOM%\%~nx0"
 set PRJEXE="%~dp0%DEVPRJ%\%~nx0"
-set USREXE="%~dp0%DEVPRJ%\%~1%~x0"
-if "%1"=="" goto :DOPRJEXE
-if "%1"=="q" goto :DOPRJEXE
-call %CMDEXE% %USREXE% %2 %3 %4 %5 %6 %7 %8 %9
-goto :END
 :DOPRJEXE
 if exist %PRJEXE% (call %CMDEXE% %PRJEXE% %1
 ) else call %CMDEXE% %COMEXE% %1

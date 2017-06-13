@@ -26,8 +26,8 @@ if "%USRINP%"=="y" goto :CMDEXE
 goto :END
 :CMDEXE
 echo ###########################################################
-echo ### Call %~dp0%FMWPRF%%~1%~x0
+echo ### Call %~dp0%CMDPRF%%~1%~x0
 echo ###########################################################
-if exist "%~dp0%DEVPRJ%\%FMWPRF%%~1%~x0" (call %CMDEXE% "%~dp0%DEVPRJ%\%FMWPRF%%~1%~x0"
-) else call %CMDEXE% "%~dp0%DEVCOM%\%FMWPRF%%~1%~x0"
+if exist "%~dp0%DEVPRJ%\%CMDPRF%%~1%~x0" (call %CMDEXE% "%~dp0%DEVPRJ%\%CMDPRF%%~1%~x0"
+) else call %CMDEXE% "%~dp0%DEVCOM%\%CMDPRF%%~1%~x0"
 if "%INTMOD%"=="y" pause

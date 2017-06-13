@@ -1,8 +1,8 @@
 @echo off
-set JSNCMD="%~dp0..\%DEVPRJ%\sendjsoncmd%~x0"
+set JSNCMD="%~dp0..\%DEVCOM%\sendjsoncmd%~x0"
 set GETDAT="%~dp0..\%DEVCOM%\getdate%~x0"
 echo ###########################################################
-echo ###                               ~\%DEVPRJ%\%~nx0 ###
+echo ###                              ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
 call %GETDAT%

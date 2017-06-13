@@ -1,8 +1,8 @@
 @echo off
 set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
 set LSTCHK="%~dp0..\%DEVCOM%\lstchk%~x0"
+set JSNCMD="%~dp0..\%DEVCOM%\sendjsoncmd%~x0"
 set DRNLST="%~dp0..\%DEVPRJ%\drnlst"
-set JSNCMD="%~dp0..\%DEVPRJ%\sendjsoncmd%~x0"
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
 echo ###########################################################
 echo ###                               ~\%DEVPRJ%\%~nx0 ###
@@ -53,7 +53,7 @@ call :DRONETYPE
 set SRCPTH="%ISSDIR:"=%\%SDRDIR:"=%"
 if not "%ISSDRV%"=="" set SRCPTH="%ISSDRV:"=%:\%SRCPTH:"=%"
 set SRCPTH=%SRCPTH:/=\%
-call :FWUPGRADE "%SRCPTH:"=%\%FLBPRF%%SDRCOD%%FLBSUF%%FLBREV%_%FLBDAT%.%FLBEXT%"
+call :FWUPGRADE "%SRCPTH:"=%\%FMWPRF%%FLBPRF%%SDRCOD%%FLBSUF%%FLBREV%_%FLBDAT%.%FLBEXT%"
 goto :END
 :FWUPGRADE
 echo ###########################################################
@@ -79,7 +79,7 @@ if not "%SELENT%"=="" set SDRDIR=%SELENT%
 echo ###########################################################
 echo ### Upgrading %SDRDIR:"=% Drone
 echo ###########################################################
-set SRCPTH=%ISSDIR:"=%\%SDRDIR:"=%\%SNXPRF%%SDRCOD%%SNXSUF%%SNXREV%_%SNXDAT%
+set SRCPTH=%ISSDIR:"=%\%SDRDIR:"=%\%FMWPRF%%SNXPRF%%SDRCOD%%SNXSUF%%SNXREV%_%SNXDAT%
 if not "%ISSDRV%"=="" set SRCPTH=%ISSDRV%:\%SRCPTH%
 exit /b 0
 :RETERR

@@ -1,1 +1,1 @@
-set DEVPRJ=SONIX
+set DEVPRJ=Mebo

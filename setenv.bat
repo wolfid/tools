@@ -11,5 +11,5 @@ set ZIPEXE="C:\Program Files\7-Zip\7z.exe"
 set REVEXE="C:\Program Files\CollabNet\Subversion Client\svnversion.exe"
 set VBMEXE="C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
 set CPYCMD=copy
-set FMWPRF=fw
+set CMDPRF=fw
 set DEVCOM=Common

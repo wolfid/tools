@@ -1,10 +1,10 @@
 @echo off
 echo ###########################################################
-echo ###                                  ~\%DEVPRJ%\%~nx0 ###
+echo ###                                   ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
 set DEVTRK=trunk
-set DEVBRA=WPA2
+set DEVBRA=Mebo
 set BLDTGT=192.168.56.101
 set BLDUSR=sonix_user
 set BLDPWD=sonix
@@ -22,7 +22,7 @@ set SUBDIR="sonix_firmware"
 set ISSDRV=T
 set ISSDIR="SkyRocketToys\Firmware2017"
 set SDKDIR=snx_sdk
-set SDRDIR="SpiderDrone_WiFi"
+set SDRDIR="Mebo2"
 set SDRCOD=01749
 set STRDIR="Streaming"
 set STRCOD=01735
@@ -38,14 +38,15 @@ set MAKDIR="buildscript"
 set MAKCMD="make; if [ $? -eq 0 ]; then make install; fi"
 set CLNCMD="make clean"
 set CFGDIR="include\config"
-set IMGDIR="image\dashcam"
+set IMGDIR="image"
 set IMGBIN=FIRMWARE_660R
 set IMGFEX=_F
 set IMGPHY=PHY-SF
 set IMGEXT=bin
-set SNXPRF=FW_SX_
+set FMWPRF=FW_
+set SNXPRF=SX_
 set SNXSUF=_PD_
-set FLBPRF=FW_FB_
+set FLBPRF=FB_
 set FLBSUF=_PD_
 set FLBEXT=hex
 set UPGMOD=0

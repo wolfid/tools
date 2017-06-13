@@ -18,8 +18,8 @@ echo ###########################################################
 for /f %%i in (%CMDLST:"=%) do call :CMDCHK %%i
 goto :END
 :CMDCHK
-if exist "%~dp0%DEVPRJ%\%FMWPRF%%~1%~x0" (set EXEPTH="%~dp0%DEVPRJ%\%FMWPRF%%~1%~x0"
-) else if exist "%~dp0%DEVCOM%\%FMWPRF%%~1%~x0" (set EXEPTH="%~dp0%DEVCOM%\%FMWPRF%%~1%~x0"
+if exist "%~dp0%DEVPRJ%\%CMDPRF%%~1%~x0" (set EXEPTH="%~dp0%DEVPRJ%\%CMDPRF%%~1%~x0"
+) else if exist "%~dp0%DEVCOM%\%CMDPRF%%~1%~x0" (set EXEPTH="%~dp0%DEVCOM%\%CMDPRF%%~1%~x0"
 ) else exit /b 0
 echo ###########################################################
 echo ### Execute %EXEPTH% ?

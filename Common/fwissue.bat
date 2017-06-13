@@ -5,7 +5,7 @@ set GETDAT="%~dp0..\%DEVCOM%\getdate%~x0"
 set GETREV="%~dp0..\%DEVCOM%\getrev%~x0"
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
 echo ###########################################################
-echo ###                                 ~\%DEVPRJ%\%~nx0 ###
+echo ###                                 ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
 call %ENVCHK% DEVBRA %SETENV% %1
@@ -37,7 +37,7 @@ call %CMDEXE% %GETDAT% %1 %BINPTH%
 echo ###########################################################
 echo ### Binary File Date: %dd%%mmm%%yyyy% %hour%:%min%:%sec%
 echo ###########################################################
-set ISSPTH="%ISSDRV%:\%ISSDIR:"=%\%PRDDIR:"=%\%SNXPRF%%PRDCOD%%SNXSUF%%SVNREV%_%dd%%mmm%%yyyy%"
+set ISSPTH="%ISSDRV%:\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%SNXPRF%%PRDCOD%%SNXSUF%%SVNREV%_%dd%%mmm%%yyyy%"
 call :DOCOPY "%ISSPTH:"=%" %BINPTH% %PHYPTH% %FEXPTH%
 goto :END
 :SETPRD
@@ -53,12 +53,28 @@ exit /b 0
 exit /b 0
 :DOCOPY
 echo ###########################################################
-echo ### Copying %2, %3, %4 to %1
-echo ###########################################################
+if "%1"=="" goto :DOCOPY_ERR
+if "%2"=="" goto :DOCOPY_ERR_2
+echo ### Copying the following to %1:
 if "%INTMOD%"=="y" pause
 if not exist %1 md %1
-if not "%4"=="" %CPYCMD% %CPYFLG:"=% %4 %1
-if not "%3"=="" %CPYCMD% %CPYFLG:"=% %3 %1
-if not "%2"=="" %CPYCMD% %CPYFLG:"=% %2 %1
+set CPYPTH=%1
+:DOCOPY_CHK
+shift
+if "%1"=="" goto :DOCOPY_PTH
+echo ### %1;
+if "%INTMOD%"=="y" pause
+%CPYCMD% %CPYFLG:"=% %1 %CPYPTH%
+goto :DOCOPY_CHK
+:DOCOPY_ERR
+echo ### No Destination Specified
+goto :DOCOPY_EXIT
+:DOCOPY_ERR_2
+echo ### Nothing to Copy
+goto :DOCOPY_EXIT
+:DOCOPY_PTH
+echo ### 
+:DOCOPY_EXIT
+echo ###########################################################
 exit /b 0
 :END
