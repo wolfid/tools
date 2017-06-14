@@ -21,6 +21,7 @@ if "%1"=="" goto :DOCOMEXE
 if "%1"=="q" goto :DOCOMEXE
 set COMEXE="%~dp0%DEVCOM%\%~1%~x0"
 set PRJEXE="%~dp0%DEVPRJ%\%~1%~x0"
+shift
 goto :DOPRJEXE
 :DOCOMEXE
 set COMEXE="%~dp0%DEVCOM%\%~nx0"
