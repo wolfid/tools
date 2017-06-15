@@ -1,6 +1,5 @@
 @echo off
 set ENVCHK="%~dp0Common\envchk%~x0"
-set CMDEXE="%~dp0Common\cmdexe%~x0"
 set DSPTTL="%~dp0title%~x0"
 set SETPRJ="%~dp0setprj%~x0"
 set SETENV="%~dp0setenv%~x0"
@@ -32,7 +31,7 @@ echo ###########################################################
 if "%USRINP%"=="y" goto :DOCMDEXE
 exit /b 0
 :DOCMDEXE
-call %CMDEXE% %EXEPTH% %DSPMOD%
+call %ENVCHK% JUSTDOIT %EXEPTH% %DSPMOD%
 exit /b 0
 :END
 if "%INTMOD%"=="y" pause

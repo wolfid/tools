@@ -1,6 +1,5 @@
 @echo off
 set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
-set CMDEXE="%~dp0..\%DEVCOM%\cmdexe%~x0"
 set GETDAT="%~dp0..\%DEVCOM%\getdate%~x0"
 set GETREV="%~dp0..\%DEVCOM%\getrev%~x0"
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
@@ -16,7 +15,7 @@ if not "%SVNDRV%"=="" set SVNPTH=%SVNDRV:"=%:
 if not "%SVNDIR%"=="" set SVNPTH="%SVNPTH:"=%%SVNDIR:"=%"
 if not "%SUBDIR%"=="" set SVNPTH="%SVNPTH:"=%\%SUBDIR:"=%"
 if not "%DEVBRA%"=="%DEVTRK%" set SVNPTH="%SVNPTH:"=%\%DEVBRA:"=%"
-call %CMDEXE% %GETREV% %1 %SVNPTH%
+call %ENVCHK% JUSTDOIT %GETREV% %1 %SVNPTH%
 echo ###########################################################
 echo ### SVN Revision: %SVNREV%
 echo ###########################################################
@@ -33,7 +32,7 @@ if "%DEVBRA%"=="%DEVTRK%" (set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGDIR:"=
 set PHYPTH="%BINPTH:"=%\%IMGPHY%.%IMGEXT%"
 set FEXPTH="%BINPTH:"=%\%IMGBIN%%IMGFEX%.%IMGEXT%"
 set BINPTH="%BINPTH:"=%\%IMGBIN%.%IMGEXT%"
-call %CMDEXE% %GETDAT% %1 %BINPTH%
+call %ENVCHK% JUSTDOIT %GETDAT% %1 %BINPTH%
 echo ###########################################################
 echo ### Binary File Date: %dd%%mmm%%yyyy% %hour%:%min%:%sec%
 echo ###########################################################
