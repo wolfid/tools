@@ -58,12 +58,14 @@ echo ### Copying/Zipping files to %~1(.zip):
 if "%INTMOD%"=="y" pause
 if not exist %1 md %1
 set CPYPTH=%1
+set CPYCNT=0
 :DOCOPY_CHK
 shift
-if "%1"=="" goto :DOCOPY_PTH
-echo ### %1;
+if "%1"=="" goto :DOCOPY_EXIT
+set /a CPYCNT+=1
+echo ### %CPYCNT%: %1
 if "%INTMOD%"=="y" pause
-%CPYCMD% %CPYFLG:"=% %1
+%CPYCMD% %CPYFLG:"=% %1 %CPYPTH%
 %ZIPEXE% a %CPYPTH%.zip %1
 goto :DOCOPY_CHK
 :DOCOPY_ERR
@@ -71,9 +73,6 @@ echo ### No Destination Specified
 goto :DOCOPY_EXIT
 :DOCOPY_ERR_2
 echo ### No Binaries Specified
-goto :DOCOPY_EXIT
-:DOCOPY_PTH
-echo ### 
 :DOCOPY_EXIT
 echo ###########################################################
 exit /b 0
