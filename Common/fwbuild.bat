@@ -19,3 +19,4 @@ echo ### Building %DEVPRJ% Firmware in ~/%SRCPTH:"=% on %BLDTGT%
 echo ###########################################################
 if "%INTMOD%"=="y" pause
 %PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd "~/%SRCPTH:"=%"; %MAKCMD:"=%
+type "%PRJDRV:"=%:\%SUBDIR:"=%\%DEVBRA:"=%\%SDKDIR:"=%\app\%IMGTYP:"=%\src\main_flow\%DEFDIR:"=%\web_server\files\sdk_version.html"

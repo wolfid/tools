@@ -23,12 +23,12 @@ if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.conf"
 set PRDCOD=%DEFCOD%
 set PRDDIR=%DEFDIR%
-call :SETPRD %CFGPTH% %STRCFG% %STRSET% %STRCOD% %STRDIR%
+if not "%STRCFG%"=="" call :SETPRD %CFGPTH% %STRCFG% %STRSET% %ALTCOD% %ALTDIR%
 echo ###########################################################
 echo ### Product Directory/Code: %PRDDIR:"=%/%PRDCOD%
 echo ###########################################################
-if "%DEVBRA%"=="%DEVTRK%" (set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGDIR:"=%"
-) else set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%"
+if "%DEVBRA%"=="%DEVTRK%" (set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
+) else set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
 set PHYPTH="%BINPTH:"=%\%IMGPHY%.%IMGEXT%"
 set FEXPTH="%BINPTH:"=%\%IMGBIN%%IMGFEX%.%IMGEXT%"
 set BINPTH="%BINPTH:"=%\%IMGBIN%.%IMGEXT%"
@@ -54,7 +54,7 @@ exit /b 0
 echo ###########################################################
 if "%1"=="" goto :DOCOPY_ERR
 if "%2"=="" goto :DOCOPY_ERR_2
-echo ### Copying the following to %1:
+echo ### Copying/Zipping files to %~1(.zip):
 if "%INTMOD%"=="y" pause
 if not exist %1 md %1
 set CPYPTH=%1
@@ -63,13 +63,14 @@ shift
 if "%1"=="" goto :DOCOPY_PTH
 echo ### %1;
 if "%INTMOD%"=="y" pause
-%CPYCMD% %CPYFLG:"=% %1 %CPYPTH%
+%CPYCMD% %CPYFLG:"=% %1
+%ZIPEXE% a %CPYPTH%.zip %1
 goto :DOCOPY_CHK
 :DOCOPY_ERR
 echo ### No Destination Specified
 goto :DOCOPY_EXIT
 :DOCOPY_ERR_2
-echo ### Nothing to Copy
+echo ### No Binaries Specified
 goto :DOCOPY_EXIT
 :DOCOPY_PTH
 echo ### 

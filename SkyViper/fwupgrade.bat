@@ -41,6 +41,7 @@ if not "%DEVBRA%"=="%DEVTRK%" set SRCPTH="%SRCPTH:"=%\%DEVBRA%"
 if not "%PRJDRV%"=="" set SRCPTH="%PRJDRV%:\%SRCPTH:"=%"
 if not "%SDKDIR%"=="" set SRCPTH="%SRCPTH:"=%\%SDKDIR:"=%"
 if not "%IMGDIR%"=="" set SRCPTH="%SRCPTH:"=%\%IMGDIR:"=%"
+if not "%IMGTYP%"=="" set SRCPTH="%SRCPTH:"=%\%IMGTYP:"=%"
 :DOFWUPGRADE
 set SRCPTH=%SRCPTH:/=\%
 call :FWUPGRADE "%SRCPTH:"=%\%IMGBIN%.%IMGEXT%"
@@ -50,7 +51,7 @@ echo ###########################################################
 echo ### Upgrading Flight Board Firmware
 echo ###########################################################
 call :DRONETYPE
-set SRCPTH="%ISSDIR:"=%\%SDRDIR:"=%"
+set SRCPTH="%ISSDIR:"=%\%DEFDIR:"=%"
 if not "%ISSDRV%"=="" set SRCPTH="%ISSDRV:"=%:\%SRCPTH:"=%"
 set SRCPTH=%SRCPTH:/=\%
 call :FWUPGRADE "%SRCPTH:"=%\%FMWPRF%%FLBPRF%%SDRCOD%%FLBSUF%%FLBREV%_%FLBDAT%.%FLBEXT%"
@@ -72,14 +73,14 @@ if "%INTMOD%"=="y" pause
 exit /b 0
 :DRONETYPE
 echo ###########################################################
-echo ### Current Drone Type: %SDRDIR:"=%
+echo ### Current Drone Type: %DEFDIR:"=%
 echo ###########################################################
-call %LSTCHK% %DRNLST% %SDRDIR%
-if not "%SELENT%"=="" set SDRDIR=%SELENT%
+call %LSTCHK% %DRNLST% %DEFDIR%
+if not "%SELENT%"=="" set DEFDIR=%SELENT%
 echo ###########################################################
-echo ### Upgrading %SDRDIR:"=% Drone
+echo ### Upgrading %DEFDIR:"=% Drone
 echo ###########################################################
-set SRCPTH=%ISSDIR:"=%\%SDRDIR:"=%\%FMWPRF%%SNXPRF%%SDRCOD%%SNXSUF%%SNXREV%_%SNXDAT%
+set SRCPTH=%ISSDIR:"=%\%DEFDIR:"=%\%FMWPRF%%SNXPRF%%SDRCOD%%SNXSUF%%SNXREV%_%SNXDAT%
 if not "%ISSDRV%"=="" set SRCPTH=%ISSDRV%:\%SRCPTH%
 exit /b 0
 :RETERR

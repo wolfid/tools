@@ -4,7 +4,7 @@ echo ###                                   ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
 set DEVTRK=trunk
-set DEVBRA=Mebo
+set DEVBRA=Mebo2
 set BLDTGT=192.168.56.101
 set BLDUSR=sonix_user
 set BLDPWD=sonix
@@ -22,22 +22,18 @@ set SUBDIR="sonix_firmware"
 set ISSDRV=T
 set ISSDIR="SkyRocketToys\Firmware2017"
 set SDKDIR=snx_sdk
-set SDRDIR="Mebo2"
-set SDRCOD=01749
-set STRDIR="Streaming"
-set STRCOD=01735
-set STRCFG=CONFIG_APP_STREAMING
 set STRSET=y
-set DEFDIR=%SDRDIR%
-set DEFCOD=%SDRCOD%
+set DEFDIR="Mebo2"
+set DEFCOD=MEBO2
 set ISSMOD=ALL
 set SVNDRV=Z
 set SVNDIR=
 set BRADIR=
 set MAKDIR="buildscript"
 set MAKCMD="make; if [ $? -eq 0 ]; then make install; fi"
-set CLNCMD="make clean"
+set CLNCMD="make clean; make mavlink"
 set CFGDIR="include\config"
+set IMGTYP="dashcam"
 set IMGDIR="image"
 set IMGBIN=FIRMWARE_660R
 set IMGFEX=_F

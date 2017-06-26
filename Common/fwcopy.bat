@@ -13,6 +13,7 @@ set SRCPTH=%SUBDIR%
 if not "%DEVBRA%"=="%DEVTRK%" set SRCPTH="%SRCPTH:"=%/%DEVBRA%"
 if not "%SDKDIR:"=%"=="" set SRCPTH=%SRCPTH%\%SDKDIR:"=%
 if not "%IMGDIR:"=%"=="" set SRCPTH=%SRCPTH%\%IMGDIR:"=%
+if not "%IMGTYP:"=%"=="" set SRCPTH=%SRCPTH%\%IMGTYP:"=%
 set SRCPTH=%SRCPTH:"=%
 set SRCPTH=%SRCPTH:/=\%
 set BINPTH="%PRJDRV%:\%SRCPTH%\%IMGBIN%%IMGFEX%.%IMGEXT%"
