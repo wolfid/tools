@@ -31,9 +31,16 @@ call %ENVCHK% JUSTDOIT %GETDAT% %1
 echo ###########################################################
 echo ### Current Date: %dd%%mmm%%yyyy% %hour%:%min%:%sec%
 echo ###########################################################
-if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\app\%IMGTYP%\src\%BDVNAM%.c"
-) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\app\%IMGTYP%\src\%BDVNAM%.c"
+if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
+) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
+if %hour% lss 10 set hour=0%hour%
 echo const char *%BDVNAM%="%FMWPRF%%SNXPRF%%PRDCOD%%SNXSUF%%SVNREV%_%dd%%mmm%%yyyy%_%hour%%min%"; > %CFGPTH%
+if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%SDVNAM%.%VEREXT%"
+) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%SDVNAM%.%VEREXT%"
+for /f "tokens=*" %%i in (%CFGPTH:"=%) do set ISSPTH=%%i
+if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\main_flow\Mebo2\web_server\files\version_details.html"
+) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\main_flow\Mebo2\web_server\files\version_details.html"
+call :VERSION_DETAILS %CFGPTH% %ISSPTH:~25,-3% %FMWPRF%%SNXPRF%%PRDCOD%%SNXSUF%%SVNREV%_%dd%%mmm%%yyyy%_%hour%%min%
 set SRCPTH=%PRJDIR:\=/%
 set SRCPTH="%PRJDIR:"=%/%SUBDIR:"=%"
 if not "%DEVBRA%"=="%DEVTRK%" set SRCPTH="%SRCPTH:"=%/%DEVBRA%"
@@ -44,5 +51,16 @@ echo ### Building %DEVPRJ% Firmware in ~/%SRCPTH:"=% on %BLDTGT%
 echo ###########################################################
 if "%INTMOD%"=="y" pause
 %PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd "~/%SRCPTH:"=%"; %MAKCMD:"=%
-type %CFGPTH:bld_=sdk_%
 type %CFGPTH%
+goto :END
+:VERSION_DETAILS
+echo ^<^!DOCTYPE HTML^> > %1
+echo ^<html^> >> %1
+echo ^<body^> >> %1
+echo ^<b^>SDK:^<^/b^> %2 >> %1
+echo ^<p^> >> %1
+echo ^<b^>BLD:^<^/b^> %3 >> %1
+echo ^<^/body^> >> %1
+echo ^<^/html^> >> %1
+exit /b 0
+:END

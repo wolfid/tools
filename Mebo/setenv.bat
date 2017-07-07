@@ -6,6 +6,7 @@ echo ###########################################################
 set DEVTRK=trunk
 set DEVBRA=Mebo2.151a
 set SDKVER=SN986_1.20_151a_20170512_1950
+set SDKSUF=_Mebo2_20170703
 set BLDTGT=192.168.56.101
 set BLDUSR=sonix_user
 set BLDPWD=sonix
