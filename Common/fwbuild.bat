@@ -24,7 +24,7 @@ echo ###########################################################
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.conf"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.conf"
 set PRDCOD=%DEFCOD%
-if not "%STRCFG%"=="" %ENVCHK% JUSTDOIT %SETPRD% %1 %CFGPTH% %STRCFG% %STRSET% %ALTCOD% %ALTDIR%
+if not "%STRCFG%"=="" call %ENVCHK% JUSTDOIT %SETPRD% %1 %CFGPTH% %STRCFG% %STRSET% %ALTCOD% %ALTDIR%
 echo ###########################################################
 echo ### Product Code: %PRDCOD%
 echo ###########################################################
