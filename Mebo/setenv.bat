@@ -33,8 +33,8 @@ set SVNDRV=Z
 set SVNDIR=
 set BRADIR=
 set MAKDIR="buildscript"
-set MAKVER="Makefile.version"
-set MAKCMD="make; if [ $? -eq 0 ]; then make install; fi"
+set MAKVER=Makefile.version
+set MAKCMD="make MAKVER=%%MAKVER%% SVNREV=%%SVNREV%% SDKSUF="%%SDKSUF%% "PRDCOD="%%PRDCOD%%"; if [ $? -eq 0 ]; then make install; fi"
 set CLNCMD="make clean"
 set CFGDIR="include\config"
 set CFGEXT=conf
