@@ -10,6 +10,7 @@ if "%1"=="" (for /f "tokens=1,2,3 delims=:" %%i in ("%time%") do set hour=%%i &&
 ) else set hour=%yyyy:~5,2% && set min=%yyyy:~8,2% && set sec=00
 set yyyy=%yyyy:~0,4%
 set hour=%hour: =%
+if %hour% lss 10 set hour=0%hour%
 set min=%min: =%
 set sec=%sec: =%
 for /f "tokens=3" %%i in ('systeminfo ^| find "Time Zone"') do set timezone=%%i
