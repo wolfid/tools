@@ -7,17 +7,15 @@ echo ###                                ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
 call %ENVCHK% DEVBRA %SETENV% %1
+:DEVBRA
 echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%\%BDVNAM%.%VEREXT%"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%\%BDVNAM%.%VEREXT%"
 for /f "tokens=*" %%i in (%CFGPTH:"=%) do set ISSPTH=%%i
-set PRDDIR=%DEFDIR%
-if "%STRCFG%"=="" goto :PRDDIR
-if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
-) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
-call %ENVCHK% JUSTDOIT %SETPRD% %1 %CFGPTH% %STRCFG% %STRSET% %ALTCOD% %ALTDIR%
+if "%ISSPTH:~31,-26%"=="%ALTCOD%" (set PRDDIR=%ALTDIR%
+) else (set PRDDIR=%DEFDIR%)
 :PRDDIR
 echo ###########################################################
 echo ### Product Directory: %PRDDIR:"=%
@@ -39,7 +37,7 @@ set CPYCNT=0
 shift
 :DOCOPY_CHK
 shift
-if "%1"=="" goto :DOCOPY_EXIT
+if "%1"=="" goto :DOCOPY_END
 set /a CPYCNT+=1
 echo ### %CPYCNT%: %CPYSRC:"=%\%1
 if "%INTMOD%"=="y" pause
@@ -48,7 +46,7 @@ if "%INTMOD%"=="y" pause
 goto :DOCOPY_CHK
 :DOCOPY_ERR
 echo ### Not Enough Copy Parameters
-:DOCOPY_EXIT
+:DOCOPY_END
 echo ###########################################################
 exit /b 0
 :END

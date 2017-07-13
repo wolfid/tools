@@ -6,6 +6,7 @@ echo ###                                 ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
 call %ENVCHK% DEVBRA %SETENV% %1
+:DEVBRA
 echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
@@ -18,6 +19,7 @@ set SRCPTH=%SRCPTH:"=%
 set SRCPTH=%SRCPTH:/=\%
 set BINPTH="%PRJDRV%:\%SRCPTH%\%IMGBIN%%IMGFEX%.%IMGEXT%"
 if "%SDCDRV%"=="" (set DSTPTH="%SDCDIR:"=%") else set DSTPTH="%SDCDRV%:%SDCDIR:"=%"
+:CPYCMD
 echo ###########################################################
 echo ### Copying %BINPTH% to %DSTPTH%
 echo ###########################################################
