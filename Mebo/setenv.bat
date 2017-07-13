@@ -33,6 +33,7 @@ set SVNDRV=Z
 set SVNDIR=
 set BRADIR=
 set MAKDIR="buildscript"
+set MAKVMD=REMOTE
 set MAKVER=Makefile.version
 set MAKCMD="make MAKVER=!MAKVER! SVNREV=!SVNREV! SDKSUF=!SDKSUF! PRDCOD=!PRDCOD!; if [ $? -eq 0 ]; then make install; fi"
 set CLNCMD="make clean"
@@ -46,7 +47,7 @@ set IMGBIN=FIRMWARE_660R
 set IMGFEX=_F
 set IMGPHY=PHY-SF
 set IMGEXT=bin
-set IMGLST="%IMGBIN%.%IMGEXT% %IMGBIN%%IMGFEX%.%IMGEXT% %IMGPHY%.%IMGEXT% "
+set IMGLST="%IMGBIN%.%IMGEXT% %IMGBIN%%IMGFEX%.%IMGEXT% %IMGPHY%.%IMGEXT%"
 set FMWPRF=FW_
 set SNXPRF=SX_
 set SNXSUF=_PD_

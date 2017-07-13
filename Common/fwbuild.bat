@@ -29,7 +29,7 @@ if not "%STRCFG%"=="" call %ENVCHK% JUSTDOIT %SETPRD% %1 %CFGPTH% %STRCFG% %STRS
 echo ###########################################################
 echo ### Product Code: %PRDCOD%
 echo ###########################################################
-if "%MAKVER%"=="" call %ENVCHK% JUSTDOIT %VERDET% %1
+if "%MAKVMD%"=="LOCAL" call %ENVCHK% JUSTDOIT %VERDET% %1
 set SRCPTH=%PRJDIR:\=/%
 set SRCPTH="%PRJDIR:"=%/%SUBDIR:"=%"
 if not "%DEVBRA%"=="%DEVTRK%" set SRCPTH="%SRCPTH:"=%/%DEVBRA%"
@@ -41,8 +41,6 @@ echo ###########################################################
 SETLOCAL EnableDelayedExpansion
 if "%INTMOD%"=="y" pause
 %PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd "~/%SRCPTH:"=%"; %MAKCMD:~1,-1%
-if "%MAKVER%"=="" goto :END
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"
-:END
 type %CFGPTH%

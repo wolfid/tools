@@ -5,7 +5,9 @@ echo ###########################################################
 if "%DEVBRA%"=="%DEVTRK%" (set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%MAKVER:"=%"
 ) else set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%MAKVER:"=%"
 for /f "tokens=1,2,3" %%i in (%VERPTH:"=%) do call :SDKVER %%i %%k
+set SDKSUF=%SDKSUF:\"=%
 if not "%SDKSUF%"=="" set SDKVER=%SDKVER%%SDKSUF%
+:NOSDKSUF
 echo ###########################################################
 echo ### SDK Version: %SDKVER%
 echo ###########################################################
@@ -28,16 +30,16 @@ if "%DETHTM%"=="" goto :END
 if "%DEVBRA%"=="%DEVTRK%" (set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"
 ) else set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"
 echo ###########################################################
-echo ### Write Version Details to: "%VERPTH%"
+echo ### Write Version Details to: %DETHTM%
 echo ###########################################################
-echo ^<^!DOCTYPE HTML^> > "%VERPTH%"
-echo ^<html^> >> "%VERPTH%"
-echo ^<body^> >> "%VERPTH%"
-echo ^<b^>SDK:^<^/b^> %SDKVER:"=% >> "%VERPTH%"
-echo ^<p^> >> "%VERPTH%"
-echo ^<b^>BLD:^<^/b^> %BLDVER:"=% >> "%VERPTH%"
-echo ^<^/body^> >> "%VERPTH%"
-echo ^<^/html^> >> "%VERPTH%"
+echo ^<^!DOCTYPE HTML^> > %VERPTH%
+echo ^<html^> >> %VERPTH%
+echo ^<body^> >> %VERPTH%
+echo ^<b^>SDK:^<^/b^> %SDKVER:"=% >> %VERPTH%
+echo ^<p^> >> %VERPTH%
+echo ^<b^>BLD:^<^/b^> %BLDVER:"=% >> %VERPTH%
+echo ^<^/body^> >> %VERPTH%
+echo ^<^/html^> >> %VERPTH%
 :SDKVER
 if "%1"=="alias" set SDKVER=%2
 if "%1"=="prefix" set SDKVER=%2%SDKVER%
