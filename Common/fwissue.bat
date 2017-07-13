@@ -1,8 +1,6 @@
 @echo off
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
 set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
-set GETDAT="%~dp0..\%DEVCOM%\getdate%~x0"
-set GETREV="%~dp0..\%DEVCOM%\getrev%~x0"
 set SETPRD="%~dp0..\%DEVCOM%\setprd%~x0"
 echo ###########################################################
 echo ###                                ~\%DEVCOM%\%~nx0 ###
@@ -32,7 +30,7 @@ goto :END
 :DOCOPY
 echo ###########################################################
 if "%3"=="" goto :DOCOPY_ERR
-echo ### Copying/Zipping files to %~1(.zip):
+echo ### Copying(Zipping) files to %~1(.zip):
 if "%INTMOD%"=="y" pause
 if not exist %1 md %1
 set CPYDST=%1

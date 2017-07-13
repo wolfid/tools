@@ -29,23 +29,7 @@ if not "%STRCFG%"=="" call %ENVCHK% JUSTDOIT %SETPRD% %1 %CFGPTH% %STRCFG% %STRS
 echo ###########################################################
 echo ### Product Code: %PRDCOD%
 echo ###########################################################
-if not "%MAKVER%"=="" goto :BUILD
-call %ENVCHK% JUSTDOIT %GETDAT% %1
-echo ###########################################################
-echo ### Current Date: %dd%%mmm%%yyyy% %hour%:%min%:%sec%
-echo ###########################################################
-if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
-) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
-if %hour% lss 10 set hour=0%hour%
-echo const char *%BDVNAM%="%FMWPRF%%SNXPRF%%PRDCOD%%SNXSUF%%SVNREV%_%dd%%mmm%%yyyy%_%hour%%min%"; > %CFGPTH%
-if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%SDVNAM%.%VEREXT%"
-) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%SDVNAM%.%VEREXT%"
-if "%DETHTM%"=="" goto :BUILD
-for /f "tokens=*" %%i in (%CFGPTH:"=%) do set ISSPTH=%%i
-if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"
-) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"
-call %ENVCHK% JUSTDOIT %VERDET% %1 "%CFGPTH%" "%ISSPTH:~25,-3%" "%FMWPRF%%SNXPRF%%PRDCOD%%SNXSUF%%SVNREV%_%dd%%mmm%%yyyy%_%hour%%min%"
-:BUILD
+if "%MAKVER%"=="" call %ENVCHK% JUSTDOIT %VERDET% %1
 set SRCPTH=%PRJDIR:\=/%
 set SRCPTH="%PRJDIR:"=%/%SUBDIR:"=%"
 if not "%DEVBRA%"=="%DEVTRK%" set SRCPTH="%SRCPTH:"=%/%DEVBRA%"
@@ -54,8 +38,9 @@ if not "%MAKDIR%"=="" set SRCPTH="%SRCPTH:"=%/%MAKDIR:"=%"
 echo ###########################################################
 echo ### Building %DEVPRJ% Firmware in ~/%SRCPTH:"=% on %BLDTGT%
 echo ###########################################################
+SETLOCAL EnableDelayedExpansion
 if "%INTMOD%"=="y" pause
-%PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd "~/%SRCPTH:"=%"; %MAKCMD:"=%
+%PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd "~/%SRCPTH:"=%"; %MAKCMD:~1,-1%
 if "%MAKVER%"=="" goto :END
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"

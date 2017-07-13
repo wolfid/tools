@@ -6,7 +6,7 @@ echo ###########################################################
 set DEVTRK=trunk
 set DEVBRA=Mebo2.151a
 set SDKVER=SN986_1.20_151a_20170512_1950
-set SDKSUF=_Mebo2_20170703(a-law patch)
+set SDKSUF=\"_Mebo2_20170703(a-law patch)\"
 set DETHTM="main_flow\Mebo2\web_server\files\version_details.html"
 set BLDTGT=192.168.56.101
 set BLDUSR=sonix_user
@@ -34,7 +34,7 @@ set SVNDIR=
 set BRADIR=
 set MAKDIR="buildscript"
 set MAKVER=Makefile.version
-set MAKCMD="make MAKVER=%%MAKVER%% SVNREV=%%SVNREV%% SDKSUF="%%SDKSUF%% "PRDCOD="%%PRDCOD%%"; if [ $? -eq 0 ]; then make install; fi"
+set MAKCMD="make MAKVER=!MAKVER! SVNREV=!SVNREV! SDKSUF=!SDKSUF! PRDCOD=!PRDCOD!; if [ $? -eq 0 ]; then make install; fi"
 set CLNCMD="make clean"
 set CFGDIR="include\config"
 set CFGEXT=conf
