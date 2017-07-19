@@ -1,7 +1,7 @@
 @echo off
 set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
 set LSTCHK="%~dp0..\%DEVCOM%\lstchk%~x0"
-set JSNCMD="%~dp0..\%DEVCOM%\sendjsoncmd%~x0"
+set JSNCMD="%~dp0..\%DEVCOM%\jsncmd%~x0"
 set DRNLST="%~dp0..\%DEVPRJ%\drnlst"
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
 echo ###########################################################

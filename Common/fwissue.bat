@@ -20,7 +20,7 @@ if "%ISSPTH:~31,-26%"=="%ALTCOD%" (set PRDDIR=%ALTDIR%
 echo ###########################################################
 echo ### Product Directory: %PRDDIR:"=%
 echo ###########################################################
-set ISSPTH="%ISSDRV%:\%ISSDIR:"=%\%PRDDIR:"=%\%ISSPTH:~25,-8%"
+set ISSPTH="%ISSDRV%:\%ISSDIR:"=%\%PRDDIR:"=%\%ISSPTH:~25,-7%"
 if "%DEVBRA%"=="%DEVTRK%" (set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
 ) else set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
 call :DOCOPY "%ISSPTH:"=%" %BINPTH% %IMGLST:"=%
