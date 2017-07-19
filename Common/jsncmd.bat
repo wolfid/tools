@@ -16,12 +16,12 @@ if "%1"=="" goto :JSNERR
 set CMDSTR="type":"%1"
 shift
 :CMDLOOP
-if "%2"=="" goto :SENDJSONCMD
+if "%2"=="" goto :JSNCMD
 set CMDSTR=%CMDSTR%,"%1":"%2"
 shift
 shift
 goto :CMDLOOP
-:SENDJSONCMD
+:JSNCMD
 echo ###########################################################
 echo ### Sending "{%CMDSTR%}" to %TGTADR%:%TGTPRT%
 echo ###########################################################

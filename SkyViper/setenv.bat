@@ -1,6 +1,6 @@
 @echo off
 echo ###########################################################
-echo ###                                  ~\%DEVPRJ%\%~nx0 ###
+echo ###                               ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
 set DEVTRK=trunk
@@ -36,6 +36,7 @@ set SVNDRV=Z
 set SVNDIR=
 set BRADIR=
 set MAKDIR="buildscript"
+set MAKVMD=LOCAL
 set MAKVER="Makefile.version"
 set MAKCMD="make; if [ $? -eq 0 ]; then make install; fi"
 set CLNCMD="make clean"
@@ -65,8 +66,8 @@ set SNXDAT=05jun2017
 set FLBREV=595
 set FLBDAT=01jun2017
 set CPYFLG="/Y"
-set BDVNAM=bld_version
-set SDVNAM=sdk_version
+rem set BDVNAM=bld_version
+rem set SDVNAM=sdk_version
 set VEREXT=c
 set SVNUNV=Unversioned
 set SVNDEF=00000

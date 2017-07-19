@@ -2,6 +2,7 @@
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
 set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
 set SETPRD="%~dp0..\%DEVCOM%\setprd%~x0"
+set VERDET="%~dp0..\%DEVCOM%\verdet%~x0"
 echo ###########################################################
 echo ###                                ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
@@ -11,16 +12,22 @@ call %ENVCHK% DEVBRA %SETENV% %1
 echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
+if "%BDVNAM%"=="" goto :VERDET
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%\%BDVNAM%.%VEREXT%"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%\%BDVNAM%.%VEREXT%"
-for /f "tokens=*" %%i in (%CFGPTH:"=%) do set ISSPTH=%%i
-if "%ISSPTH:~31,-26%"=="%ALTCOD%" (set PRDDIR=%ALTDIR%
-) else (set PRDDIR=%DEFDIR%)
+for /f "tokens=*" %%i in (%CFGPTH:"=%) do set BLDVER=%%i
+set BLDVER=%BLDVER:~25,-8%
+goto :PRDDIR
+:VERDET
+call %ENVCHK% JUSTDOIT %VERDET% %1
+set BLDVER=%BLDVER:~0,-5%
 :PRDDIR
+if "%BLDVER:~6,-19%"=="%ALTCOD%" (set PRDDIR=%ALTDIR%
+) else (set PRDDIR=%DEFDIR%)
 echo ###########################################################
 echo ### Product Directory: %PRDDIR:"=%
 echo ###########################################################
-set ISSPTH="%ISSDRV%:\%ISSDIR:"=%\%PRDDIR:"=%\%ISSPTH:~25,-7%"
+set ISSPTH="%ISSDRV%:\%ISSDIR:"=%\%PRDDIR:"=%\%BLDVER%"
 if "%DEVBRA%"=="%DEVTRK%" (set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
 ) else set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
 call :DOCOPY "%ISSPTH:"=%" %BINPTH% %IMGLST:"=%

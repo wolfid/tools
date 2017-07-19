@@ -1,12 +1,16 @@
 @echo off
+set GETDAT="%~dp0..\%DEVCOM%\getdat%~x0"
+set GETREV="%~dp0..\%DEVCOM%\getrev%~x0"
+set SETPRD="%~dp0..\%DEVCOM%\setprd%~x0"
 echo ###########################################################
 echo ### Get SDK version details from: %MAKVER:"=%"
 echo ###########################################################
 if "%DEVBRA%"=="%DEVTRK%" (set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%MAKVER:"=%"
 ) else set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%MAKVER:"=%"
 for /f "tokens=1,2,3" %%i in (%VERPTH:"=%) do call :SDKVER %%i %%k
+if "%SDKSUF%"=="" goto :NOSDKSUF
 set SDKSUF=%SDKSUF:\"=%
-if not "%SDKSUF%"=="" set SDKVER=%SDKVER%%SDKSUF%
+set SDKVER=%SDKVER%%SDKSUF%
 :NOSDKSUF
 echo ###########################################################
 echo ### SDK Version: %SDKVER%
@@ -16,7 +20,22 @@ if "%DEVBRA%"=="%DEVTRK%" (set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP%\%
 ) else set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%\%SDVNAM%.%VEREXT%"
 echo const char *%SDVNAM%="%SDKVER%"; > %VERPTH%
 :BLDVER
+if not "%SVNDRV%"=="" set SVNPTH=%SVNDRV:"=%:
+if not "%SVNDIR%"=="" set SVNPTH="%SVNPTH:"=%%SVNDIR:"=%"
+if not "%SUBDIR%"=="" set SVNPTH="%SVNPTH:"=%\%SUBDIR:"=%"
+if not "%DEVBRA%"=="%DEVTRK%" set SVNPTH="%SVNPTH:"=%\%DEVBRA:"=%"
+call %ENVCHK% JUSTDOIT %GETREV% %1 %SVNPTH%
+if "%SVNREV%"=="%SVNUNV%" set SVNREV=%SVNDEF%
+set PRDCOD=%DEFCOD%
+if "%STRCFG%"=="" goto :PRDCOD
+if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
+) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
+call %ENVCHK% JUSTDOIT %SETPRD% %1 %CFGPTH% %STRCFG% %STRSET% %ALTCOD% %ALTDIR%
+:PRDCOD
 call %ENVCHK% JUSTDOIT %GETDAT% %1
+echo ###########################################################
+echo ### Current Date: %dd%%mmm%%yyyy%_%hour%%min%
+echo ###########################################################
 set BLDVER=%FMWPRF%%SNXPRF%%PRDCOD%%SNXSUF%%SVNREV%_%dd%%mmm%%yyyy%_%hour%%min%
 echo ###########################################################
 echo ### BLD Version: %BLDVER%
