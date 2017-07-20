@@ -14,9 +14,8 @@ call %ENVCHK% DEVPRJ %SETPRJ% %DSPMOD%
 echo ###########################################################
 echo ### Development Project: %DEVPRJ%
 echo ###########################################################
-for /f %%i in (%CMDLST:"=%) do call :CMDCHK %%i %DEVCOM%
-set CMDLST="%~dp0%DEVPRJ%\cmdlst"
-if exist %CMDLST% for /f %%i in (%CMDLST:"=%) do call :CMDCHK %%i %DEVPRJ%
+if exist "%~dp0%DEVPRJ%\cmdlst" set CMDLST="%~dp0%DEVPRJ%\cmdlst"
+for /f %%i in (%CMDLST:"=%) do call :CMDCHK %%i
 goto :END
 :CMDCHK
 if not "%INTMOD%"=="y" goto :DOCMDEXE
@@ -27,10 +26,17 @@ echo ###########################################################
 if "%USRINP%"=="y" goto :DOCMDEXE
 exit /b 0
 :DOCMDEXE
+if not exist "%~dp0%DEVPRJ%\%CMDPRF%%~1%~x0" goto :CMDCOM
 echo ###########################################################
-echo ### Executing "%~dp0%2\%CMDPRF%%~1%~x0"
+echo ### Executing "%~dp0%DEVPRJ%\%CMDPRF%%~1%~x0"
 echo ###########################################################
-call %ENVCHK% JUSTDOIT "%~dp0%2\%CMDPRF%%~1%~x0" %DSPMOD%
+call %ENVCHK% JUSTDOIT "%~dp0%DEVPRJ%\%CMDPRF%%~1%~x0" %DSPMOD%
+exit /b 0
+:CMDCOM
+echo ###########################################################
+echo ### Executing "%~dp0%DEVCOM%\%CMDPRF%%~1%~x0"
+echo ###########################################################
+call %ENVCHK% JUSTDOIT "%~dp0%DEVCOM%\%CMDPRF%%~1%~x0" %DSPMOD%
 exit /b 0
 :END
 if "%INTMOD%"=="y" pause

@@ -14,6 +14,7 @@ call %ENVCHK% DEVBRA %SETENV% %1
 echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
+if not "%SVNREV%"=="" goto :SVNREV
 if not "%SVNDRV%"=="" set SVNPTH=%SVNDRV:"=%:
 if not "%SVNDIR%"=="" set SVNPTH="%SVNPTH:"=%%SVNDIR:"=%"
 if not "%SUBDIR%"=="" set SVNPTH="%SVNPTH:"=%\%SUBDIR:"=%"

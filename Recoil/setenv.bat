@@ -6,6 +6,8 @@ echo ###########################################################
 set DEVTRK=trunk
 set DEVBRA=%DEVTRK%
 set BLDTGT=192.168.56.102
+set SDKVER=RECOIL_SDK
+set SVNREV=00000
 set BLDUSR=recoil
 set BLDPWD=recoil
 set SDCDRV=E
@@ -25,3 +27,7 @@ set IMGDIR=
 set IMGBIN=
 set IMGPHY=
 set IMGEXT=
+set DEFCOD=RECOIL_
+set DEFDIR=recoil
+set FMWPRF=FW_
+set SNXPRF=BS_

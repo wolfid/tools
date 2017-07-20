@@ -28,6 +28,7 @@ echo ###########################################################
 echo ### Product Directory: %PRDDIR:"=%
 echo ###########################################################
 set ISSPTH="%ISSDRV%:\%ISSDIR:"=%\%PRDDIR:"=%\%BLDVER%"
+if "%IMGLST%"=="" goto :END
 if "%DEVBRA%"=="%DEVTRK%" (set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
 ) else set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
 call :DOCOPY "%ISSPTH:"=%" %BINPTH% %IMGLST:"=%
@@ -53,6 +54,7 @@ if "%INTMOD%"=="y" pause
 goto :DOCOPY_CHK
 :DOCOPY_ERR
 echo ### Not Enough Copy Parameters
+if "%INTMOD%"=="y" pause
 :DOCOPY_END
 echo ###########################################################
 exit /b 0
