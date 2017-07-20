@@ -13,6 +13,9 @@ echo ###########################################################
 if "%1"=="" goto :JSNERR
 if "%1"=="q" shift
 if "%1"=="" goto :JSNERR
+if "%TGTTIM%"=="" goto :TGTERR
+if "%TGTADR%"=="" goto :TGTERR
+if "%TGTPRT%"=="" goto :TGTERR
 set CMDSTR="type":"%1"
 shift
 :CMDLOOP
@@ -46,5 +49,10 @@ goto :END
 :JSNERR
 echo ###########################################################
 echo ### Need at least one argument...
+echo ###########################################################
+goto :END
+:TGTERR
+echo ###########################################################
+echo ### Netcat parameter (TGTTIM/TGTADR/TGTPRT) not set...
 echo ###########################################################
 :END
