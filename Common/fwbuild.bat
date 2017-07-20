@@ -23,7 +23,7 @@ call %ENVCHK% JUSTDOIT %GETREV% %1 %SVNPTH%
 if "%SVNREV%"=="%SVNUNV%" set SVNREV=%SVNDEF%
 :SVNREV
 echo ###########################################################
-echo ### SVN Revision: %SVNREV% (Needed by MAKCMD)
+echo ### SVN Revision: %SVNREV% (Sometimes needed by MAKCMD)
 echo ###########################################################
 set PRDCOD=%DEFCOD%
 if "%STRCFG%"=="" goto :PRDCOD
@@ -32,7 +32,7 @@ if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=
 call %ENVCHK% JUSTDOIT %SETPRD% %1 %CFGPTH% %STRCFG% %STRSET% %ALTCOD% %ALTDIR%
 :PRDCOD
 echo ###########################################################
-echo ### Product Code: %PRDCOD% (Needed by MAKCMD)
+echo ### Product Code: %PRDCOD% (Sometimes needed by MAKCMD)
 echo ###########################################################
 if "%MAKVMD%"=="LOCAL" call %ENVCHK% JUSTDOIT %VERDET% %1
 set SRCPTH=%PRJDIR:\=/%
@@ -40,7 +40,7 @@ set SRCPTH="%PRJDIR:"=%/%SUBDIR:"=%"
 if not "%DEVBRA%"=="%DEVTRK%" set SRCPTH="%SRCPTH:"=%/%DEVBRA%"
 if not "%SDKDIR%"=="" set SRCPTH="%SRCPTH:"=%/%SDKDIR:"=%"
 if not "%MAKDIR%"=="" set SRCPTH="%SRCPTH:"=%/%MAKDIR:"=%"
-:PLKEXE
+:MAKCMD
 echo ###########################################################
 echo ### Building %DEVPRJ% Firmware in ~/%SRCPTH:"=% on %BLDTGT%
 echo ###########################################################

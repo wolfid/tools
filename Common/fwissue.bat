@@ -7,6 +7,7 @@ echo ###########################################################
 echo ###                                ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
+if "%ISSLST%"=="" goto :EMPTY
 call %ENVCHK% DEVBRA %SETENV% %1
 :DEVBRA
 echo ###########################################################
@@ -28,10 +29,9 @@ echo ###########################################################
 echo ### Product Directory: %PRDDIR:"=%
 echo ###########################################################
 set ISSPTH="%ISSDRV%:\%ISSDIR:"=%\%PRDDIR:"=%\%BLDVER%"
-if "%IMGLST%"=="" goto :END
 if "%DEVBRA%"=="%DEVTRK%" (set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
 ) else set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
-call :DOCOPY "%ISSPTH:"=%" %BINPTH% %IMGLST:"=%
+call :DOCOPY "%ISSPTH:"=%" %BINPTH% %ISSLST:"=%
 goto :END
 :DOCOPY
 echo ###########################################################
@@ -58,4 +58,8 @@ if "%INTMOD%"=="y" pause
 :DOCOPY_END
 echo ###########################################################
 exit /b 0
+:EMPTY
+echo ###########################################################
+echo ### Empty Issue File List: ISSLST
+echo ###########################################################
 :END
