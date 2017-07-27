@@ -34,8 +34,8 @@ set SVNDIR=
 set BRADIR=
 set MAKDIR="buildscript"
 set MAKVMD=REMOTE
-set MAKVER=Makefile.version
-set MAKCMD="make MAKVER=!MAKVER! SVNREV=!SVNREV! SDKSUF=!SDKSUF! PRDCOD=!PRDCOD!; if [ $? -eq 0 ]; then make install; fi"
+set MAKVER=1
+set MAKCMD="make MAKVER=!MAKVER! SVNREV=!SVNREV!; if [ $? -eq 0 ]; then make install; fi"
 set CLNCMD="make clean"
 set CFGDIR="include\config"
 set CFGEXT=conf
@@ -67,3 +67,4 @@ set SDVNAM=sdk_version
 set VEREXT=c
 set SVNUNV=Unversioned
 set SVNDEF=00000
+set TMPDIR="C:\Source\Temp"

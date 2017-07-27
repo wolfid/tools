@@ -25,16 +25,14 @@ if "%SVNREV%"=="%SVNUNV%" set SVNREV=%SVNDEF%
 echo ###########################################################
 echo ### SVN Revision: %SVNREV% (Sometimes needed by MAKCMD)
 echo ###########################################################
+if "%MAKVMD%"=="LOCAL" call %ENVCHK% JUSTDOIT %VERDET% %1
+if not "%PRDCOD%"=="" goto :SRCPTH
 set PRDCOD=%DEFCOD%
-if "%STRCFG%"=="" goto :PRDCOD
+if "%STRCFG%"=="" goto :SRCPTH
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
 call %ENVCHK% JUSTDOIT %SETPRD% %1 %CFGPTH% %STRCFG% %STRSET% %ALTCOD% %ALTDIR%
-:PRDCOD
-echo ###########################################################
-echo ### Product Code: %PRDCOD% (Sometimes needed by MAKCMD)
-echo ###########################################################
-if "%MAKVMD%"=="LOCAL" call %ENVCHK% JUSTDOIT %VERDET% %1
+:SRCPTH
 set SRCPTH=%PRJDIR:\=/%
 set SRCPTH="%PRJDIR:"=%/%SUBDIR:"=%"
 if not "%DEVBRA%"=="%DEVTRK%" set SRCPTH="%SRCPTH:"=%/%DEVBRA%"

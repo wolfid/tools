@@ -25,3 +25,15 @@ echo ### Copying %BINPTH% to %DSTPTH%
 echo ###########################################################
 if "%INTMOD%"=="y" pause
 %CPYCMD% %CPYFLG:"=% "%BINPTH:"=%" "%DSTPTH:"=%"
+if "%TMPDIR%"=="" goto :END
+if not exist %TMPDIR% goto :END
+if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
+) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
+for /f "tokens=*" %%i in (%CFGPTH:"=%) do set BLDVER=%%i
+set BLDVER=%BLDVER:~25,-2%
+echo ###########################################################
+echo ### Copying %BINPTH% to %TMPDIR:"=%\%BLDVER%.bin
+echo ###########################################################
+if "%INTMOD%"=="y" pause
+%CPYCMD% %CPYFLG:"=% "%BINPTH:"=%" "%TMPDIR:"=%\%BLDVER%.bin"
+:END

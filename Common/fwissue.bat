@@ -7,17 +7,20 @@ echo ###########################################################
 echo ###                                ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-if "%ISSLST%"=="" goto :EMPTY
 call %ENVCHK% DEVBRA %SETENV% %1
 :DEVBRA
 echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
+if "%ISSLST:"=%"=="" goto :EMPTY
 if "%BDVNAM%"=="" goto :VERDET
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%\%BDVNAM%.%VEREXT%"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%\%BDVNAM%.%VEREXT%"
 for /f "tokens=*" %%i in (%CFGPTH:"=%) do set BLDVER=%%i
-set BLDVER=%BLDVER:~25,-8%
+echo ###########################################################
+echo ### Build Version: %BLDVER%
+echo ###########################################################
+set BLDVER=%BLDVER:~25,-7%
 goto :PRDDIR
 :VERDET
 call %ENVCHK% JUSTDOIT %VERDET% %1
