@@ -1,6 +1,7 @@
 @echo off
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
 set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
+set GETREV="%~dp0..\%DEVCOM%\getrev%~x0"
 set SETPRD="%~dp0..\%DEVCOM%\setprd%~x0"
 set VERDET="%~dp0..\%DEVCOM%\verdet%~x0"
 echo ###########################################################
@@ -34,6 +35,19 @@ echo ###########################################################
 set ISSPTH="%ISSDRV%:\%ISSDIR:"=%\%PRDDIR:"=%\%BLDVER%"
 if "%DEVBRA%"=="%DEVTRK%" (set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
 ) else set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
+if "%RMEFIL%"=="" goto :NOREADME
+if not "%SVNDRV%"=="" set SVNPTH=%SVNDRV:"=%:
+if not "%SVNDIR%"=="" set SVNPTH="%SVNPTH:"=%%SVNDIR:"=%"
+if not "%SUBDIR%"=="" set SVNPTH="%SVNPTH:"=%\%SUBDIR:"=%"
+if not "%DEVBRA%"=="%DEVTRK%" set SVNPTH="%SVNPTH:"=%\%DEVBRA:"=%"
+call %ENVCHK% JUSTDOIT %GETREV% %1 %SVNPTH% %BINPTH%\%RMEFIL%
+echo ###########################################################
+echo ### SVN Revision: %SVNREV%
+echo ###########################################################
+if "%SVNREV%"=="%SVNUNV%" goto :NOREADME
+call :DOCOPY "%ISSPTH:"=%" %BINPTH% %ISSLST:"=% %RMEFIL%
+goto :END
+:NOREADME
 call :DOCOPY "%ISSPTH:"=%" %BINPTH% %ISSLST:"=%
 goto :END
 :DOCOPY

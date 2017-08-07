@@ -68,3 +68,4 @@ set VEREXT=c
 set SVNUNV=Unversioned
 set SVNDEF=00000
 set TMPDIR="C:\Source\Temp"
+set RMEFIL=readme.txt

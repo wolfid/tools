@@ -13,3 +13,4 @@ set VBMEXE="C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
 set CPYCMD=copy
 set CMDPRF=fw
 set DEVCOM=Common
+set SVNLOG="svn log -r"
