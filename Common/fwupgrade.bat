@@ -54,7 +54,7 @@ call :DRONETYPE
 set SRCPTH="%ISSDIR:"=%\%DEFDIR:"=%"
 if not "%ISSDRV%"=="" set SRCPTH="%ISSDRV:"=%:\%SRCPTH:"=%"
 set SRCPTH=%SRCPTH:/=\%
-call :FWUPGRADE "%SRCPTH:"=%\%FMWPRF%%FLBPRF%%SDRCOD%%FLBSUF%%FLBREV%_%FLBDAT%.%FLBEXT%"
+call :FWUPGRADE "%SRCPTH:"=%\%FMWPRF%%FLBPRF%%ALTCOD%%FLBSUF%%FLBREV%_%FLBDAT%.%FLBEXT%"
 goto :END
 :FWUPGRADE
 echo ###########################################################
