@@ -5,6 +5,11 @@ set SETPRJ="%~dp0setprj%~x0"
 set SETENV="%~dp0setenv%~x0"
 if "%1"=="q" (set DSPMOD=q
 ) else if "%2"=="q" set DSPMOD=q
+if "%1"=="qq" (set DSPMOD=q
+set INTMOD=n
+) else if "%2"=="qq" (set DSPMOD=q
+set INTMOD=n
+)
 call %ENVCHK% DEVTTL %DSPTTL% %DSPMOD%
 echo ###########################################################
 echo ###                                        ~\%~nx0 ###
@@ -14,12 +19,13 @@ call %ENVCHK% DEVPRJ %SETPRJ% %DSPMOD%
 echo ###########################################################
 echo ### Development Project: %DEVPRJ%
 echo ###########################################################
-call %ENVCHK% INTMOD %SETENV% %DSPMOD%
+call %ENVCHK% DEVCOM %SETENV% %DSPMOD%
 echo ###########################################################
-echo ### Interactive Mode: %INTMOD%
+echo ### Common Directory: %DEVCOM%
 echo ###########################################################
 if "%1"=="" goto :DOCOMEXE
 if "%1"=="q" goto :DOCOMEXE
+if "%1"=="qq" goto :DOCOMEXE
 set COMEXE="%~dp0%DEVCOM%\%~1%~x0"
 set PRJEXE="%~dp0%DEVPRJ%\%~1%~x0"
 shift

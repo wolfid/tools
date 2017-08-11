@@ -3,8 +3,8 @@ echo ###########################################################
 echo ###                                        ~\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-set INTMOD=y
-set DSPMOD=q
+if "%INTMOD%"=="" set INTMOD=y
+if "%DSPMOD%"=="" set DSPMOD=q
 set NCTEXE="C:\Program Files (x86)\NetCat\nc.exe"
 set PLKEXE="C:\Program Files (x86)\PuTTY\plink.exe"
 set ZIPEXE="C:\Program Files\7-Zip\7z.exe"

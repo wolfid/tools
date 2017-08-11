@@ -54,7 +54,7 @@ call :DRONETYPE
 set SRCPTH="%ISSDIR:"=%\%DEFDIR:"=%"
 if not "%ISSDRV%"=="" set SRCPTH="%ISSDRV:"=%:\%SRCPTH:"=%"
 set SRCPTH=%SRCPTH:/=\%
-call :FWUPGRADE "%SRCPTH:"=%\%FMWPRF%%FLBPRF%%ALTCOD%%FLBSUF%%FLBREV%_%FLBDAT%.%FLBEXT%"
+call :FWUPGRADE "%SRCPTH:"=%\%FMWPRF%%FLBPRF%%DEFCOD%%FLBSUF%%DEFREV%_%DEFDAT%.%FLBEXT%"
 goto :END
 :FWUPGRADE
 echo ###########################################################
@@ -76,7 +76,11 @@ echo ###########################################################
 echo ### Current Drone Type: %DEFDIR:"=%
 echo ###########################################################
 call %LSTCHK% %DRNLST% %DEFDIR%
-if not "%SELENT%"=="" set DEFDIR=%SELENT%
+if "%SELENT%"=="" exit /b 0
+set DEFDIR=%ALTDIR%
+set DEFCOD=%ALTCOD%
+set DEFREV=%ALTREV%
+set DEFDAT=%ALTDAT%
 echo ###########################################################
 echo ### Upgrading %DEFDIR:"=% Drone
 echo ###########################################################

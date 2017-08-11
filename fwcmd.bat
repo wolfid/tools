@@ -14,6 +14,7 @@ call %ENVCHK% DEVPRJ %SETPRJ% %DSPMOD%
 echo ###########################################################
 echo ### Development Project: %DEVPRJ%
 echo ###########################################################
+if "%1"=="" goto :END
 set INTMOD=n
 call :CMDCHK %1
 goto :END
