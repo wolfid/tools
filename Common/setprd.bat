@@ -1,5 +1,10 @@
 @echo off
-if "%1"=="q" shift
+if "%1"=="q" (shift
+) else if "%1"=="n" (shift
+) else if "%1"=="qn" (shift
+) else if "%1"=="nn" (shift
+) else if "%1"=="ny" (shift
+) else if "%1"=="qy" shift
 echo ###########################################################
 echo ### Search for %2 in %1
 echo ###########################################################

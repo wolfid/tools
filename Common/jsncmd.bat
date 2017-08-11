@@ -11,7 +11,12 @@ echo ###########################################################
 echo ### Target Address: %TGTADR%
 echo ###########################################################
 if "%1"=="" goto :JSNERR
-if "%1"=="q" shift
+if "%1"=="q" (shift
+) else if "%1"=="n" (shift
+) else if "%1"=="qn" (shift
+) else if "%1"=="nn" (shift
+) else if "%1"=="ny" (shift
+) else if "%1"=="qy" shift
 if "%1"=="" goto :JSNERR
 if "%TGTTIM%"=="" goto :TGTERR
 if "%TGTADR%"=="" goto :TGTERR

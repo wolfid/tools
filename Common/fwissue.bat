@@ -24,7 +24,7 @@ echo ###########################################################
 set BLDVER=%BLDVER:~25,-7%
 goto :PRDDIR
 :VERDET
-call %ENVCHK% JUSTDOIT %VERDET% %1
+call %ENVCHK% JSTDIT %VERDET% %1
 set BLDVER=%BLDVER:~0,-5%
 :PRDDIR
 if "%BLDVER:~6,-19%"=="%ALTCOD%" (set PRDDIR=%ALTDIR%
@@ -40,7 +40,7 @@ if not "%SVNDRV%"=="" set SVNPTH=%SVNDRV:"=%:
 if not "%SVNDIR%"=="" set SVNPTH="%SVNPTH:"=%%SVNDIR:"=%"
 if not "%SUBDIR%"=="" set SVNPTH="%SVNPTH:"=%\%SUBDIR:"=%"
 if not "%DEVBRA%"=="%DEVTRK%" set SVNPTH="%SVNPTH:"=%\%DEVBRA:"=%"
-call %ENVCHK% JUSTDOIT %GETREV% %1 %SVNPTH% %BINPTH%\%RMEFIL%
+call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH% %BINPTH%\%RMEFIL%
 echo ###########################################################
 echo ### SVN Revision: %SVNREV%
 echo ###########################################################

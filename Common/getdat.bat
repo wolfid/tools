@@ -1,6 +1,14 @@
 @echo off
-if "%1"=="q" shift
+if "%1"=="q" (shift
+) else if "%1"=="n" (shift
+) else if "%1"=="qn" (shift
+) else if "%1"=="nn" (shift
+) else if "%1"=="ny" (shift
+) else if "%1"=="qy" shift
 if "%1"=="" (set DATSRC=%date%) else set DATSRC=%~t1
+echo ###########################################################
+echo ### Get Date From: %DATSRC%
+echo ###########################################################
 for /f "tokens=1,2,3 delims=/" %%i in ("%DATSRC%") do set dd=%%i && set mm=%%j && set yyyy=%%k
 set dd=%dd: =%
 set mm=%mm: =%

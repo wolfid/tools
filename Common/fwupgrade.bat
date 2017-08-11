@@ -61,7 +61,7 @@ echo ###########################################################
 echo ### Firmware to be sent: %1
 echo ###########################################################
 :FWUPGRADE_Q
-rem if "%INTMOD%"=="y" pause
+if "%INTMOD%"=="y" pause
 call %JSNCMD% sendfwbin fileSize %~z1 mode %UPGMOD%
 for /f "tokens=7" %%i in ('type %RETOUT%') do set RSPPRT=%%i
 if "%RSPPRT%"=="" goto :RETERR

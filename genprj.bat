@@ -1,16 +1,18 @@
 @echo off
 set ENVCHK="%~dp0Common\envchk%~x0"
+set LSTCHK="%~dp0Common\lstchk%~x0"
+set SETMOD="%~dp0setmod%~x0"
 set DSPTTL="%~dp0title%~x0"
 set SETPRJ="%~dp0setprj%~x0"
 set SETENV="%~dp0setenv%~x0"
-set LSTCHK="%~dp0Common\lstchk%~x0"
 set PRJLST="%~dp0prjlst"
+call %ENVCHK% JSTDIT %SETMOD% %1
 call %ENVCHK% DEVTTL %DSPTTL% q
 echo ###########################################################
 echo ###                                        ~\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %ENVCHK% DEVPRJ %SETPRJ% q
+call %ENVCHK% DEVPRJ %SETPRJ%
 echo ###########################################################
 echo ### Current Development Project: %DEVPRJ%
 echo ###########################################################
