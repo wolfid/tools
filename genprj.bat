@@ -6,7 +6,6 @@ set DSPTTL="%~dp0title%~x0"
 set SETPRJ="%~dp0setprj%~x0"
 set SETENV="%~dp0setenv%~x0"
 set PRJLST="%~dp0prjlst"
-call %ENVCHK% JSTDIT %SETMOD% %1
 call %ENVCHK% DEVTTL %DSPTTL% q
 echo ###########################################################
 echo ###                                        ~\%~nx0 ###
@@ -16,10 +15,8 @@ call %ENVCHK% DEVPRJ %SETPRJ%
 echo ###########################################################
 echo ### Current Development Project: %DEVPRJ%
 echo ###########################################################
-call %ENVCHK% INTMOD %SETENV% q
-echo ###########################################################
-echo ### Interactive Mode: %INTMOD%
-echo ###########################################################
+call %ENVCHK% JSTDIT %SETENV% q
+call %ENVCHK% JSTDIT %SETMOD% %1
 call %LSTCHK% %PRJLST% %DEVPRJ%
 if not "%SELENT%"=="" echo set DEVPRJ=%SELENT%>%SETPRJ%
 :END
