@@ -4,28 +4,23 @@ set SETMOD="%~dp0setmod%~x0"
 set DSPTTL="%~dp0title%~x0"
 set SETPRJ="%~dp0setprj%~x0"
 set SETENV="%~dp0setenv%~x0"
-call %ENVCHK% JSTDIT %SETMOD% %1
-if "%DSPMOD%"=="" call %ENVCHK% JSTDIT %SETMOD% %2
-call %ENVCHK% DEVTTL %DSPTTL% %DSPMOD%
+call %ENVCHK% DEVTTL %DSPTTL% q
 echo ###########################################################
 echo ###                                        ~\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %ENVCHK% DEVPRJ %SETPRJ% %DSPMOD%
+call %ENVCHK% DEVPRJ %SETPRJ% q
 echo ###########################################################
 echo ### Development Project: %DEVPRJ%
 echo ###########################################################
-call %ENVCHK% DEVCOM %SETENV% %DSPMOD%
+call %ENVCHK% DEVCOM %SETENV% q
 echo ###########################################################
 echo ### Common Directory: %DEVCOM%
 echo ###########################################################
 if "%1"=="" goto :COMEXE
-if "%1"=="q" goto :COMEXE
-if "%1"=="n" goto :COMEXE
-if "%1"=="nn" goto :COMEXE
-if "%1"=="qn" goto :COMEXE
-if "%1"=="qy" goto :COMEXE
-if "%1"=="ny" goto :COMEXE
+call %ENVCHK% JSTDIT %SETMOD% %2
+if "%DSPMOD%"=="" call %ENVCHK% JSTDIT %SETMOD% %1
+if "%DSPMOD%"=="" goto :COMEXE
 set COMEXE="%~dp0%DEVCOM%\%~1%~x0"
 set PRJEXE="%~dp0%DEVPRJ%\%~1%~x0"
 shift
