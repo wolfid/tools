@@ -1,18 +1,14 @@
 @echo off
+set MODRET=
 if "%2"=="" goto :END
 set CHKLST=%2
 set CHKLST=%CHKLST:_= %
-call :MODCHK %1 %CHKLST:"=%
-goto :END
+set MODVAR=%1
+call :MODCHK %CHKLST:"=%
 :MODCHK
-if "%1"=="" exit /b 0
-set MODRET=%1
-:MODCHK_LOOP
-shift
-if "%1"=="" (set MODRET=
-exit /b 0
+if "%1"=="%MODVAR%" (set MODRET=y
+goto :END
 )
-if not "%1"=="%MODRET%" goto :MODCHK_LOOP
-set MODRET=q
-exit /b 0
+shift
+if not "%1"=="" goto :MODCHK
 :END
