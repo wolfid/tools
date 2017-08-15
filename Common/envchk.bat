@@ -1,7 +1,9 @@
 @echo off
 set CMDEXE="%~dp0..\Common\cmdexe%~x0"
+set MODCHK="%~dp0..\Common\modchk%~x0"
 if "%1"=="JSTDIT" goto :JSTDIT
-if "%3"=="q" goto :QUIET
+call %MODCHK% %1 %QMDLST%
+if not "%MODRET%"=="" goto :QUIET
 echo ###########################################################
 echo ### If %1 not set then execute %2
 echo ###########################################################
@@ -10,7 +12,7 @@ for /f %%i in ('echo %%%1%%') do if not "%%i"=="%%%1%%" (goto :END) else call %C
 for /f %%i in ('echo %%%1%%') do if not "%%i"=="%%%1%%" (goto :END) else echo ### %1 not defined in %2
 goto :END
 :JSTDIT
-if "%3"=="q" goto :JSTDIT_QUIET
+if not "%MODRET%"=="" goto :JSTDIT_QUIET
 echo ###########################################################
 echo ### Execute %2
 echo ###########################################################

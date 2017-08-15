@@ -1,5 +1,7 @@
 @echo off
-if "%2"=="q" goto :QUIET
+set MODCHK="%~dp0..\Common\modchk%~x0"
+call %MODCHK% %1 %QMDLST%
+if not "%MODRET%"=="" goto :QUIET
 echo ###########################################################
 echo ### If %1 exists then execute it
 echo ###########################################################
