@@ -1,9 +1,11 @@
 @echo off
-set DSPTTL="%~dp0title%~x0"
+set DSPTTL="%~dp0dspttl%~x0"
 set SETPRJ="%~dp0setprj%~x0"
 set SETENV="%~dp0setenv%~x0"
 set CMDLST="%~dp0Common\cmdlst"
 set ENVCHK="%~dp0Common\envchk%~x0"
+set VARLST=DSPMOD_DEVTTL_DEVPRJ
+set EXELST=dspttl_setprj_setenv
 call %ENVCHK% DSPMOD %SETENV% q
 call %ENVCHK% DEVTTL %DSPTTL% %DSPMOD%
 echo ###########################################################

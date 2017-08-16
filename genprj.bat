@@ -2,10 +2,12 @@
 set ENVCHK="%~dp0Common\envchk%~x0"
 set LSTCHK="%~dp0Common\lstchk%~x0"
 set SETMOD="%~dp0setmod%~x0"
-set DSPTTL="%~dp0title%~x0"
+set DSPTTL="%~dp0dspttl%~x0"
 set SETPRJ="%~dp0setprj%~x0"
 set SETENV="%~dp0setenv%~x0"
 set PRJLST="%~dp0prjlst"
+set VARLST=DEVTTL_DEVPRJ_QMDLST
+set EXELST=dspttl_setprj_setenv
 call %ENVCHK% DEVTTL %DSPTTL% q
 echo ###########################################################
 echo ###                                        ~\%~nx0 ###
