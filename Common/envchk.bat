@@ -1,8 +1,10 @@
 @echo off
 set CMDEXE="%~dp0..\Common\cmdexe%~x0"
 set MODCHK="%~dp0..\Common\modchk%~x0"
+call %MODCHK% %3 %QMDLST%
 if "%1"=="JSTDIT" goto :JSTDIT
-call %MODCHK% %1 %QMDLST%
+if not "%MODRET%"=="" goto :QUIET
+call %MODCHK% %1 %VARLST%
 if not "%MODRET%"=="" goto :QUIET
 echo ###########################################################
 echo ### If %1 not set then execute %2

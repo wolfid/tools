@@ -1,10 +1,12 @@
 @echo off
 set ENVCHK="%~dp0Common\envchk%~x0"
 set MODCHK="%~dp0Common\modchk%~x0"
+set DSPTTL="%~dp0dspttl%~x0"
 set SETMOD="%~dp0setmod%~x0"
-set DSPTTL="%~dp0title%~x0"
 set SETPRJ="%~dp0setprj%~x0"
 set SETENV="%~dp0setenv%~x0"
+set VARLST=DEVTTL_DEVPRJ_QMDLST
+set EXELST=dspttl_setprj_setenv
 call %ENVCHK% DEVTTL %DSPTTL% q
 echo ###########################################################
 echo ###                                        ~\%~nx0 ###
@@ -14,13 +16,10 @@ call %ENVCHK% DEVPRJ %SETPRJ% q
 echo ###########################################################
 echo ### Development Project: %DEVPRJ%
 echo ###########################################################
-call %ENVCHK% DEVCOM %SETENV% q
-echo ###########################################################
-echo ### Common Directory: %DEVCOM%
-echo ###########################################################
+call %ENVCHK% QMDLST %SETENV% q
 if "%1"=="" goto :COMEXE
 if not "%2"=="" goto :PRJEXE
-call %MODCHK% %1 "%QMDLST:"=%_"%NMDLST:"=%
+call %MODCHK% %1 "%QMDLST:"=%_%NMDLST:"=%"
 if "%MODRET%"=="" goto :PRJEXE
 call %ENVCHK% JSTDIT %SETMOD% %1
 goto :COMEXE

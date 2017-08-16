@@ -1,5 +1,7 @@
 @echo off
-set MODCHK="%~dp0..\Common\modchk%~x0"
+set MODCHK="%~dp0modchk%~x0"
+call %MODCHK% %~n1 %EXELST%
+if not "%MODRET%"=="" goto :QUIET
 call %MODCHK% %1 %QMDLST%
 if not "%MODRET%"=="" goto :QUIET
 echo ###########################################################
