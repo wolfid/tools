@@ -12,7 +12,7 @@ echo ###########################################################
 echo ### WiFi Firmware Upgrade
 echo ###########################################################
 set CMDSTR="%CMDSTR:"=%sonix"
-if "%UPGLTT%"=="USE_LATEST" (set FILSTR="file=@%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%\%IMGBIN%.%IMGEXT%"
+if "%SNXREV%"=="%UPGLTT%" (set FILSTR="file=@%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%\%IMGBIN%.%IMGEXT%"
 ) else set FILSTR="file=@%ISSDRV%:\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%SNXPRF%%PRDCOD%%SNXSUF%%SNXREV%_%SNXDAT%\%IMGBIN%.%IMGEXT%"
 goto :RUNDLL
 :MBUPGD
@@ -20,7 +20,8 @@ echo ###########################################################
 echo ### MotorBoard Firmware Upgrade
 echo ###########################################################
 set CMDSTR="%CMDSTR:"=%MotorBoard"
-set FILSTR="file=@%ISSDRV%:\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%MOBPRF%%PRDCOD%%MOBSUF%%MOBREV%_%MOBDAT%\%MOBBIN%.%MOBEXT%"
+if "%MOBREV%"=="%UPGLTT%" (set FILSTR="file=@%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MOBBIN%.%MOBEXT%"
+) else set FILSTR="file=@%ISSDRV%:\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%MOBPRF%%PRDCOD%%MOBSUF%%MOBREV%_%MOBDAT%\%MOBBIN%.%MOBEXT%"
 :RUNDLL
 echo ###########################################################
 echo ### Clearing Internet Form Data
