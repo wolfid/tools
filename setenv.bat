@@ -10,6 +10,7 @@ set PLKEXE="C:\Program Files (x86)\PuTTY\plink.exe"
 set ZIPEXE="C:\Program Files\7-Zip\7z.exe"
 set REVEXE="C:\Program Files\CollabNet\Subversion Client\svnversion.exe"
 set VBMEXE="C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
+set CRLEXE="C:\Program Files (x86)\Curl\curl.exe"
 set CPYCMD=copy
 set CMDPRF=fw
 set DEVCOM=Common

@@ -5,7 +5,7 @@ set JSNCMD="%~dp0..\%DEVCOM%\jsncmd%~x0"
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
 set DRNLST="%~dp0..\%DEVPRJ%\drnlst"
 echo ###########################################################
-echo ###                               ~\%DEVPRJ%\%~nx0 ###
+echo ###                               ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
 call %ENVCHK% UPGMOD %SETENV%
