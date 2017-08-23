@@ -5,10 +5,10 @@ echo ###                                        ~\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
 call %MODCHK% %1 %QMDLST%
-if not "%MODRET%"=="" set DSPMOD=q
+if "%MODRET%"=="y" set DSPMOD=q
 call %MODCHK% %1 %NMDLST%
-if not "%MODRET%"=="" set DSPMOD=n
+if "%MODRET%"=="y" set DSPMOD=n
 call %MODCHK% %1 %IMDLST%
-if not "%MODRET%"=="" set INTMOD=y
+if "%MODRET%"=="y" set INTMOD=y
 call %MODCHK% %1 %AMDLST%
-if not "%MODRET%"=="" set INTMOD=n
+if "%MODRET%"=="y" set INTMOD=n

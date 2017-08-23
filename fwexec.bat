@@ -18,7 +18,8 @@ echo ### Development Project: %DEVPRJ%
 echo ###########################################################
 call %ENVCHK% QMDLST %SETENV% q
 if "%1"=="" goto :COMEXE
-call %ENVCHK% JSTDIT %SETMOD% %1
+if "%2"=="" (call %ENVCHK% JSTDIT %SETMOD% %1
+) else call %ENVCHK% JSTDIT %SETMOD% %2
 if not "%2"=="" goto :PRJEXE
 call %MODCHK% %1 "%QMDLST:"=%_%NMDLST:"=%"
 if not "%MODRET%"=="" goto :COMEXE

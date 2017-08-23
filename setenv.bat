@@ -19,3 +19,4 @@ set QMDLST="q_qn_qy"
 set NMDLST="n_nn_ny"
 set IMDLST="qy_ny"
 set AMDLST="qn_nn"
+set NPPEXE=y
