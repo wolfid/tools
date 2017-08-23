@@ -17,7 +17,7 @@ if not "%IMGDIR:"=%"=="" set SRCPTH=%SRCPTH%\%IMGDIR:"=%
 if not "%IMGTYP:"=%"=="" set SRCPTH=%SRCPTH%\%IMGTYP:"=%
 set SRCPTH=%SRCPTH:"=%
 set SRCPTH=%SRCPTH:/=\%
-set BINPTH="%PRJDRV%:\%SRCPTH%\%IMGBIN%%IMGFEX%.%IMGEXT%"
+set BINPTH="%PRJDRV%:\%SRCPTH%\%SNXBIN%%SNXFEX%.%SNXEXT%"
 if "%SDCDRV%"=="" (set DSTPTH="%SDCDIR:"=%") else set DSTPTH="%SDCDRV%:%SDCDIR:"=%"
 :CPYCMD
 echo ###########################################################

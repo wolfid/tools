@@ -44,7 +44,7 @@ if not "%IMGDIR%"=="" set SRCPTH="%SRCPTH:"=%\%IMGDIR:"=%"
 if not "%IMGTYP%"=="" set SRCPTH="%SRCPTH:"=%\%IMGTYP:"=%"
 :DOFWUPGRADE
 set SRCPTH=%SRCPTH:/=\%
-call :FWUPGRADE "%SRCPTH:"=%\%IMGBIN%.%IMGEXT%"
+call :FWUPGRADE "%SRCPTH:"=%\%SNXBIN%.%SNXEXT%"
 goto :END
 :FLIGHTBOARD
 echo ###########################################################
