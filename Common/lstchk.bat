@@ -33,7 +33,7 @@ exit /b 0
 if %LSTCNT% gtr %LSTNUM% exit /b 0
 if not "%LSTCNT%"=="%2" goto :LSTCNT
 echo ###########################################################
-echo ### List Entry Chosen: %~1 
+echo ### List Entry Chosen: %~1
 echo ###########################################################
 set SELENT=%1
 set /a LSTCNT=%LSTNUM%+1

@@ -5,7 +5,7 @@ set JSNCMD="%~dp0..\%DEVCOM%\jsncmd%~x0"
 set DRNLST="%~dp0..\%DEVPRJ%\drnlst"
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
 echo ###########################################################
-echo ###                               ~\%DEVPRJ%\%~nx0 ###
+echo ###                            ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
 call %ENVCHK% UPGMOD %SETENV%
@@ -30,7 +30,17 @@ echo ###########################################################
 echo ### Upgrading Wi-Fi Board Firmware...
 echo ###########################################################
 if "%SNXREV%"=="%UPGLTT%" goto :USE_LATEST
-call :DRONETYPE
+if "%SNXREV%"=="" (call :DRONETYPE
+) else set SELENT=%SNXREV%
+set SELENT=%SELENT:"=%
+setlocal enabledelayedexpansion
+set SNXDIR=!DEFDIR[%SELENT%]!
+set SNXCOD=!DEFCOD[%SELENT%]!
+set SNXREV=!SNXREV[%SELENT%]!
+set SNXDAT=!SNXDAT[%SELENT%]!
+set SRCPTH="%ISSDIR:"=%\%SNXDIR:"=%"
+endlocal & set SRCPTH="%SRCPTH:"=%\%FMWPRF%%SNXPRF%%SNXCOD%%SNXSUF%%SNXREV%_%SNXDAT%\%SNXBIN%.%SNXEXT%"
+if not "%ISSDRV%"=="" set SRCPTH="%ISSDRV:"=%:\%SRCPTH:"=%"
 goto :DOFWUPGRADE
 :USE_LATEST
 echo ###########################################################
@@ -42,19 +52,26 @@ if not "%PRJDRV%"=="" set SRCPTH="%PRJDRV%:\%SRCPTH:"=%"
 if not "%SDKDIR%"=="" set SRCPTH="%SRCPTH:"=%\%SDKDIR:"=%"
 if not "%IMGDIR%"=="" set SRCPTH="%SRCPTH:"=%\%IMGDIR:"=%"
 if not "%IMGTYP%"=="" set SRCPTH="%SRCPTH:"=%\%IMGTYP:"=%"
-:DOFWUPGRADE
-set SRCPTH=%SRCPTH:/=\%
-call :FWUPGRADE "%SRCPTH:"=%\%SNXBIN%.%SNXEXT%"
-goto :END
+set SRCPTH="%SRCPTH:"=%\%SNXBIN%.%SNXEXT%"
+goto :DOFWUPGRADE
 :FLIGHTBOARD
 echo ###########################################################
 echo ### Upgrading Flight Board Firmware
 echo ###########################################################
-call :DRONETYPE
-set SRCPTH="%ISSDIR:"=%\%DEFDIR:"=%"
+if "%FLBREV%"=="" (call :DRONETYPE
+) else set SELENT=%FLBREV%
+set SELENT=%SELENT:"=%
+setlocal enabledelayedexpansion
+set FLBDIR=!DEFDIR[%SELENT%]!
+set FLBCOD=!DEFCOD[%SELENT%]!
+set FLBREV=!FLBREV[%SELENT%]!
+set FLBDAT=!FLBDAT[%SELENT%]!
+set SRCPTH="%ISSDIR:"=%\%FLBDIR:"=%"
 if not "%ISSDRV%"=="" set SRCPTH="%ISSDRV:"=%:\%SRCPTH:"=%"
+endlocal & set SRCPTH="%SRCPTH:"=%\%FMWPRF%%FLBPRF%%FLBCOD%%FLBSUF%%FLBREV%_%FLBDAT%.%FLBEXT%"
+:DOFWUPGRADE
 set SRCPTH=%SRCPTH:/=\%
-call :FWUPGRADE "%SRCPTH:"=%\%FMWPRF%%FLBPRF%%DEFCOD%%FLBSUF%%DEFREV%_%DEFDAT%.%FLBEXT%"
+call :FWUPGRADE %SRCPTH%
 goto :END
 :FWUPGRADE
 echo ###########################################################
@@ -77,15 +94,9 @@ echo ### Current Drone Type: %DEFDIR:"=%
 echo ###########################################################
 call %LSTCHK% %DRNLST% %DEFDIR%
 if "%SELENT%"=="" exit /b 0
-set DEFDIR=%ALTDIR%
-set DEFCOD=%ALTCOD%
-set DEFREV=%ALTREV%
-set DEFDAT=%ALTDAT%
 echo ###########################################################
-echo ### Upgrading %DEFDIR:"=% Drone
+echo ### Upgrading %SELENT:"=% Drone Firmware
 echo ###########################################################
-set SRCPTH=%ISSDIR:"=%\%DEFDIR:"=%\%FMWPRF%%SNXPRF%%SDRCOD%%SNXSUF%%SNXREV%_%SNXDAT%
-if not "%ISSDRV%"=="" set SRCPTH=%ISSDRV%:\%SRCPTH%
 exit /b 0
 :RETERR
 echo ###########################################################

@@ -3,7 +3,7 @@ echo ###########################################################
 echo ###                                        ~\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-if "%INTMOD%"=="" set INTMOD=y
+if "%INTMOD%"=="" set INTMOD=n
 if "%DSPMOD%"=="" set DSPMOD=q
 set NCTEXE="C:\Program Files (x86)\NetCat\nc.exe"
 set PLKEXE="C:\Program Files (x86)\PuTTY\plink.exe"
