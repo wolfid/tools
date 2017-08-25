@@ -16,8 +16,8 @@ if "%UPGIMG%"=="" goto :INTMOD
 echo ###########################################################
 echo ### Using Upgrade Image: %UPGIMG%
 echo ###########################################################
-call :FWUPGRADE_Q "%UPGIMG:"=%"
-goto :END
+set SRCPTH="%UPGIMG:"=%"
+goto :DOFWUPGRADE
 :INTMOD
 if not "%INTMOD%"=="y" goto :UPGMOD
 echo ###########################################################
@@ -38,8 +38,7 @@ set SNXDIR=!DEFDIR[%SELENT%]!
 set SNXCOD=!DEFCOD[%SELENT%]!
 set SNXREV=!SNXREV[%SELENT%]!
 set SNXDAT=!SNXDAT[%SELENT%]!
-set SRCPTH="%ISSDIR:"=%\%SNXDIR:"=%"
-endlocal & set SRCPTH="%SRCPTH:"=%\%FMWPRF%%SNXPRF%%SNXCOD%%SNXSUF%%SNXREV%_%SNXDAT%\%SNXBIN%.%SNXEXT%"
+endlocal & set SRCPTH="%ISSDIR:"=%\%SNXDIR:"=%\%FMWPRF%%SNXPRF%%SNXCOD%%SNXSUF%%SNXREV%_%SNXDAT%\%SNXBIN%.%SNXEXT%"
 if not "%ISSDRV%"=="" set SRCPTH="%ISSDRV:"=%:\%SRCPTH:"=%"
 goto :DOFWUPGRADE
 :USE_LATEST
@@ -66,9 +65,8 @@ set FLBDIR=!DEFDIR[%SELENT%]!
 set FLBCOD=!DEFCOD[%SELENT%]!
 set FLBREV=!FLBREV[%SELENT%]!
 set FLBDAT=!FLBDAT[%SELENT%]!
-set SRCPTH="%ISSDIR:"=%\%FLBDIR:"=%"
+endlocal & set SRCPTH="%ISSDIR:"=%\%FLBDIR:"=%\%FMWPRF%%FLBPRF%%FLBCOD%%FLBSUF%%FLBREV%_%FLBDAT%.%FLBEXT%"
 if not "%ISSDRV%"=="" set SRCPTH="%ISSDRV:"=%:\%SRCPTH:"=%"
-endlocal & set SRCPTH="%SRCPTH:"=%\%FMWPRF%%FLBPRF%%FLBCOD%%FLBSUF%%FLBREV%_%FLBDAT%.%FLBEXT%"
 :DOFWUPGRADE
 set SRCPTH=%SRCPTH:/=\%
 call :FWUPGRADE %SRCPTH%
@@ -77,7 +75,6 @@ goto :END
 echo ###########################################################
 echo ### Firmware to be sent: %1
 echo ###########################################################
-:FWUPGRADE_Q
 if "%INTMOD%"=="y" pause
 call %JSNCMD% sendfwbin fileSize %~z1 mode %UPGMOD%
 for /f "tokens=7" %%i in ('type %RETOUT%') do set RSPPRT=%%i
