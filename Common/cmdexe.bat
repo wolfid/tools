@@ -2,7 +2,7 @@
 set MODCHK="%~dp0modchk%~x0"
 call %MODCHK% %~n1 %EXELST%
 if not "%MODRET%"=="" goto :QUIET
-call %MODCHK% %1 %QMDLST%
+call %MODCHK% %2 %QMDLST%
 if not "%MODRET%"=="" goto :QUIET
 echo ###########################################################
 echo ### If %1 exists then execute it
