@@ -30,11 +30,14 @@ if not "%DEVBRA%"=="%DEVTRK%" set SVNPTH="%SVNPTH:"=%\%DEVBRA:"=%"
 call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH%
 if "%SVNREV%"=="%SVNUNV%" set SVNREV=%SVNDEF%
 :PRDCOD
-set PRDCOD=%DEFCOD%
+if not "%PRDCOD%"=="" goto :GETDAT
+setlocal enabledelayedexpansion
+set PRDCOD=!CODLST[%DEFCOD%]!
+endlocal & set PRDCOD=%PRDCOD%
 if "%STRCFG%"=="" goto :GETDAT
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
-call %ENVCHK% JSTDIT %SETPRD% %1 %CFGPTH% %STRCFG% %STRSET% %ALTCOD% %ALTDIR%
+call %ENVCHK% JSTDIT %SETPRD% %1 %CFGPTH% %STRCFG% %STRSET% %ALTCOD% %ALTTYP%
 :GETDAT
 call %ENVCHK% JSTDIT %GETDAT% %1
 echo ###########################################################

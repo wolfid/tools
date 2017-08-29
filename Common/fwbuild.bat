@@ -27,11 +27,13 @@ echo ### SVN Revision: %SVNREV% (Sometimes needed by MAKCMD)
 echo ###########################################################
 if "%MAKVMD%"=="LOCAL" call %ENVCHK% JSTDIT %VERDET% %1
 if not "%PRDCOD%"=="" goto :SRCPTH
-set PRDCOD=%DEFCOD%
+setlocal enabledelayedexpansion
+set PRDCOD=!CODLST[%DEFCOD%]!
+endlocal & set PRDCOD=%PRDCOD%
 if "%STRCFG%"=="" goto :SRCPTH
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
-call %ENVCHK% JSTDIT %SETPRD% %1 %CFGPTH% %STRCFG% %STRSET% %ALTCOD% %ALTDIR%
+call %ENVCHK% JSTDIT %SETPRD% %1 %CFGPTH% %STRCFG% %STRSET% %ALTCOD% %ALTTYP%
 :SRCPTH
 set SRCPTH=%PRJDIR:\=/%
 set SRCPTH="%PRJDIR:"=%/%SUBDIR:"=%"

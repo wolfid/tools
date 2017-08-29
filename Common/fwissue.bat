@@ -27,8 +27,15 @@ goto :PRDDIR
 call %ENVCHK% JSTDIT %VERDET% %1
 set BLDVER=%BLDVER:~0,-5%
 :PRDDIR
-if "%BLDVER:~6,-19%"=="%ALTCOD%" (set PRDDIR=%ALTDIR%
-) else (set PRDDIR=%DEFDIR%)
+if not "%PRDDIR%"=="" goto :ISSPTH
+if not "%ALTCOD%"=="" if "%BLDVER:~6,-19%"=="%ALTCOD%" goto :ALTDIR
+set PRDDIR=%DEFDIR%
+goto :ISSPTH
+:ALTDIR
+setlocal enabledelayedexpansion
+set PRDDIR=!DIRLST[%ALTTYP%]!
+endlocal & set PRDDIR=%PRDDIR%
+:ISSPTH
 echo ###########################################################
 echo ### Product Directory: %PRDDIR:"=%
 echo ###########################################################

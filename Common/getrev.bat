@@ -1,10 +1,7 @@
 @echo off
-if "%1"=="q" (shift
-) else if "%1"=="n" (shift
-) else if "%1"=="qn" (shift
-) else if "%1"=="nn" (shift
-) else if "%1"=="ny" (shift
-) else if "%1"=="qy" shift
+set MODCHK="%~dp0..\Common\modchk%~x0"
+call %MODCHK% %1 %QMDLST%
+if not "%MODRET%"=="" shift
 echo ###########################################################
 echo ### Get Source Control Revison from: %1
 echo ###########################################################
@@ -18,4 +15,4 @@ if "%SVNREV:~5,1%"==":" (set SVNREV=%SVNREV:~6%
 if "%SVNREV:~5,1%"=="M" set SVNREV=%SVNREV:~0,5%
 if "%SVNREV%"=="%SVNUNV%" goto :EOF
 if "%2"=="" goto :EOF
-"%SVNLOG:"=% %SVNREV%" > %2
+%SVNLOG:"=% %SVNREV% > %2

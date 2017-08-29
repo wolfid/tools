@@ -34,8 +34,8 @@ if "%SNXREV%"=="" (call :DRONETYPE
 ) else set SELENT=%SNXREV%
 set SELENT=%SELENT:"=%
 setlocal enabledelayedexpansion
-set SNXDIR=!DEFDIR[%SELENT%]!
-set SNXCOD=!DEFCOD[%SELENT%]!
+set SNXDIR=!DIRLST[%SELENT%]!
+set SNXCOD=!CODLST[%SELENT%]!
 set SNXREV=!SNXREV[%SELENT%]!
 set SNXDAT=!SNXDAT[%SELENT%]!
 endlocal & set SRCPTH="%ISSDIR:"=%\%SNXDIR:"=%\%FMWPRF%%SNXPRF%%SNXCOD%%SNXSUF%%SNXREV%_%SNXDAT%\%SNXBIN%.%SNXEXT%"
@@ -61,8 +61,8 @@ if "%FLBREV%"=="" (call :DRONETYPE
 ) else set SELENT=%FLBREV%
 set SELENT=%SELENT:"=%
 setlocal enabledelayedexpansion
-set FLBDIR=!DEFDIR[%SELENT%]!
-set FLBCOD=!DEFCOD[%SELENT%]!
+set FLBDIR=!DIRLST[%SELENT%]!
+set FLBCOD=!CODLST[%SELENT%]!
 set FLBREV=!FLBREV[%SELENT%]!
 set FLBDAT=!FLBDAT[%SELENT%]!
 endlocal & set SRCPTH="%ISSDIR:"=%\%FLBDIR:"=%\%FMWPRF%%FLBPRF%%FLBCOD%%FLBSUF%%FLBREV%_%FLBDAT%.%FLBEXT%"
@@ -87,9 +87,9 @@ if "%INTMOD%"=="y" pause
 exit /b 0
 :DRONETYPE
 echo ###########################################################
-echo ### Current Drone Type: %DEFDIR:"=%
+echo ### Current Drone Type: %DEFTYP:"=%
 echo ###########################################################
-call %LSTCHK% %DRNLST% %DEFDIR%
+call %LSTCHK% %DRNLST% %DEFTYP%
 if "%SELENT%"=="" exit /b 0
 echo ###########################################################
 echo ### Upgrading %SELENT:"=% Drone Firmware
