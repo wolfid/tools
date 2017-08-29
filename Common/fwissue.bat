@@ -28,7 +28,10 @@ call %ENVCHK% JSTDIT %VERDET% %1
 set BLDVER=%BLDVER:~0,-5%
 :PRDDIR
 if not "%PRDDIR%"=="" goto :ISSPTH
-if not "%ALTCOD%"=="" if "%BLDVER:~6,-19%"=="%ALTCOD%" goto :ALTDIR
+setlocal enabledelayedexpansion
+set ALTCOD=!CODLST[%ALTTYP%]!
+endlocal & set ALTCOD=%ALTCOD%
+if "%BLDVER:~6,-19%"=="%ALTCOD%" goto :ALTDIR
 set PRDDIR=%DEFDIR%
 goto :ISSPTH
 :ALTDIR

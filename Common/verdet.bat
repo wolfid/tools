@@ -37,7 +37,7 @@ endlocal & set PRDCOD=%PRDCOD%
 if "%STRCFG%"=="" goto :GETDAT
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
-call %ENVCHK% JSTDIT %SETPRD% %1 %CFGPTH% %STRCFG% %STRSET% %ALTCOD% %ALTTYP%
+call %ENVCHK% JSTDIT %SETPRD% %1 %CFGPTH% %STRCFG% %STRSET% %ALTTYP%
 :GETDAT
 call %ENVCHK% JSTDIT %GETDAT% %1
 echo ###########################################################

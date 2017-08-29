@@ -1,6 +1,6 @@
 @echo off
 set MODCHK="%~dp0..\Common\modchk%~x0"
-call %MODCHK% %1 %QMDLST%
+call %MODCHK% %1 %QMDLST%_%NMDLST%
 if not "%MODRET%"=="" shift
 echo ###########################################################
 echo ### Get Source Control Revison from: %1

@@ -1,6 +1,6 @@
 @echo off
 set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
-set REVCHK="%~dp0..\%DEVCOM%\revchk%~x0"
+set REVCHK="%~dp0..\%DEVPRJ%\revchk%~x0"
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
 echo ###########################################################
 echo ###                                ~\%DEVPRJ%\%~nx0 ###

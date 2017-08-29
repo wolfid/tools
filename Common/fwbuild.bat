@@ -28,7 +28,7 @@ echo ###########################################################
 if "%MAKVMD%"=="LOCAL" call %ENVCHK% JSTDIT %VERDET% %1
 if not "%PRDCOD%"=="" goto :SRCPTH
 setlocal enabledelayedexpansion
-set PRDCOD=!CODLST[%DEFCOD%]!
+set PRDCOD=!CODLST[%DEFTYP%]!
 endlocal & set PRDCOD=%PRDCOD%
 if "%STRCFG%"=="" goto :SRCPTH
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
