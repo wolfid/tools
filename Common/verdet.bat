@@ -1,4 +1,5 @@
 @echo off
+set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
 set GETDAT="%~dp0..\%DEVCOM%\getdat%~x0"
 set GETREV="%~dp0..\%DEVCOM%\getrev%~x0"
 set SETPRD="%~dp0..\%DEVCOM%\setprd%~x0"

@@ -5,14 +5,16 @@ if not "%MODRET%"=="" shift
 echo ###########################################################
 echo ### Get Source Control Revison from: %1
 echo ###########################################################
-if not "%1"=="" set SVNPTH=%~1
+if "%1"=="" goto :EOF
+set SVNPTH=%~1
 if "%SVNPTH:~1,1%"==":" %SVNPTH:~0,2%
 if "%SVNPTH:~1,1%"==":" set SVNPTH=%SVNPTH:~2%
 if not "%SVNPTH%"=="" cd "%SVNPTH%"
-for /f %%i in ('%REVEXE%') do set SVNREV=%%i
-if "%SVNREV:~5,1%"==":" (set SVNREV=%SVNREV:~6%
-) else if "%SVNREV:~5,1%"=="M" set SVNREV=%SVNREV:~0,5%
-if "%SVNREV:~5,1%"=="M" set SVNREV=%SVNREV:~0,5%
-if "%SVNREV%"=="%SVNUNV%" goto :EOF
+set SVNREV=
+setlocal enabledelayedexpansion
+for /f "eol=-" %%i in ('!SVNLOG!') do if "!SVNREV!"=="" set SVNREV=%%i
+endlocal & set SVNREV=%SVNREV%
+if "%SVNREV%"=="" goto :EOF
+set SVNREV=%SVNREV:~1%
 if "%2"=="" goto :EOF
-%SVNLOG:"=% %SVNREV% > %2
+%SVNLOG:"=% %SVNLPR:"=% %SVNREV% > %2

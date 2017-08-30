@@ -2,8 +2,8 @@
 set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
 set LSTCHK="%~dp0..\%DEVCOM%\lstchk%~x0"
 set JSNCMD="%~dp0..\%DEVCOM%\jsncmd%~x0"
-set DRNLST="%~dp0..\%DEVPRJ%\drnlst"
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
+set DRNLST="%~dp0..\%DEVPRJ%\drnlst"
 echo ###########################################################
 echo ###                            ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
@@ -36,9 +36,9 @@ set SELENT=%SELENT:"=%
 setlocal enabledelayedexpansion
 set SNXDIR=!DIRLST[%SELENT%]!
 set SNXCOD=!CODLST[%SELENT%]!
-set SNXTYP=!SNXREV[%SELENT%]!
+set SNXREV=!SNXREV[%SELENT%]!
 set SNXDAT=!SNXDAT[%SELENT%]!
-endlocal & set SRCPTH="%ISSDIR:"=%\%SNXDIR:"=%\%FMWPRF%%SNXPRF%%SNXCOD%%SNXSUF%%SNXTYP%_%SNXDAT%\%SNXBIN%.%SNXEXT%"
+endlocal & set SRCPTH="%ISSDIR:"=%\%SNXDIR:"=%\%FMWPRF%%SNXPRF%%SNXCOD%%SNXSUF%%SNXREV%_%SNXDAT%\%SNXBIN%.%SNXEXT%"
 if not "%ISSDRV%"=="" set SRCPTH="%ISSDRV:"=%:\%SRCPTH:"=%"
 goto :DOFWUPGRADE
 :USE_LATEST
@@ -63,9 +63,9 @@ set SELENT=%SELENT:"=%
 setlocal enabledelayedexpansion
 set FLBDIR=!DIRLST[%SELENT%]!
 set FLBCOD=!CODLST[%SELENT%]!
-set FLBTYP=!FLBREV[%SELENT%]!
+set FLBREV=!FLBREV[%SELENT%]!
 set FLBDAT=!FLBDAT[%SELENT%]!
-endlocal & set SRCPTH="%ISSDIR:"=%\%FLBDIR:"=%\%FMWPRF%%FLBPRF%%FLBCOD%%FLBSUF%%FLBTYP%_%FLBDAT%.%FLBEXT%"
+endlocal & set SRCPTH="%ISSDIR:"=%\%FLBDIR:"=%\%FMWPRF%%FLBPRF%%FLBCOD%%FLBSUF%%FLBREV%_%FLBDAT%.%FLBEXT%"
 if not "%ISSDRV%"=="" set SRCPTH="%ISSDRV:"=%:\%SRCPTH:"=%"
 :DOFWUPGRADE
 set SRCPTH=%SRCPTH:/=\%
