@@ -18,27 +18,28 @@ if "%BDVNAM%"=="" goto :VERDET
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%\%BDVNAM%.%VEREXT%"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%\%BDVNAM%.%VEREXT%"
 for /f "tokens=*" %%i in (%CFGPTH:"=%) do set BLDVER=%%i
+:BLDVER
 echo ###########################################################
 echo ### Build Version: %BLDVER%
 echo ###########################################################
 set BLDVER=%BLDVER:~25,-7%
-goto :PRDDIR
+goto :ALTCOD
 :VERDET
 call %ENVCHK% JSTDIT %VERDET% %1
 set BLDVER=%BLDVER:~0,-5%
-:PRDDIR
-if not "%PRDDIR%"=="" goto :ISSPTH
+:ALTCOD
+if not "%PRDDIR%"=="" goto :PRDDIR
 setlocal enabledelayedexpansion
 set ALTCOD=!CODLST[%ALTTYP%]!
 endlocal & set ALTCOD=%ALTCOD%
 if "%BLDVER:~6,-19%"=="%ALTCOD%" goto :ALTDIR
 set PRDDIR=%DEFDIR%
-goto :ISSPTH
+goto :PRDDIR
 :ALTDIR
 setlocal enabledelayedexpansion
 set PRDDIR=!DIRLST[%ALTTYP%]!
 endlocal & set PRDDIR=%PRDDIR%
-:ISSPTH
+:PRDDIR
 echo ###########################################################
 echo ### Product Directory: %PRDDIR:"=%
 echo ###########################################################
@@ -51,6 +52,7 @@ if not "%SVNDIR%"=="" set SVNPTH="%SVNPTH:"=%%SVNDIR:"=%"
 if not "%SUBDIR%"=="" set SVNPTH="%SVNPTH:"=%\%SUBDIR:"=%"
 if not "%DEVBRA%"=="%DEVTRK%" set SVNPTH="%SVNPTH:"=%\%DEVBRA:"=%"
 call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH% %BINPTH%\%RMEFIL%
+:SVNREV
 echo ###########################################################
 echo ### SVN Revision: %SVNREV%
 echo ###########################################################
