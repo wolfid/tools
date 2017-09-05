@@ -1,7 +1,6 @@
 @echo off
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
 set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
-set GETDAT="%~dp0..\%DEVCOM%\getdat%~x0"
 set GETREV="%~dp0..\%DEVCOM%\getrev%~x0"
 set SETPRD="%~dp0..\%DEVCOM%\setprd%~x0"
 set VERDET="%~dp0..\%DEVCOM%\verdet%~x0"
@@ -27,13 +26,18 @@ echo ### SVN Revision: %SVNREV% (Sometimes needed by MAKCMD)
 echo ###########################################################
 if "%MAKVMD%"=="LOCAL" call %ENVCHK% JSTDIT %VERDET% %1
 if not "%PRDCOD%"=="" goto :SRCPTH
-setlocal enabledelayedexpansion
-set PRDCOD=!CODLST[%DEFTYP%]!
-endlocal & set PRDCOD=%PRDCOD%
-if "%STRCFG%"=="" goto :SRCPTH
+set PRDTYP=%DEFTYP%
+if "%ALTCFG%"=="" goto :PRDCOD
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
-call %ENVCHK% JSTDIT %SETPRD% %1 %CFGPTH% %STRCFG% %STRSET% %ALTCOD% %ALTTYP%
+call %ENVCHK% JSTDIT %SETPRD% %1 %CFGPTH% %ALTCFG% %ALTSET% %ALTTYP%
+:PRDCOD
+echo ###########################################################
+echo ### Product Type: %PRDTYP%
+echo ###########################################################
+setlocal enabledelayedexpansion
+set PRDCOD=!CODLST[%PRDTYP%]!
+endlocal & set PRDCOD=%PRDCOD%
 :SRCPTH
 set SRCPTH=%PRJDIR:\=/%
 set SRCPTH="%PRJDIR:"=%/%SUBDIR:"=%"

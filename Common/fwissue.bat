@@ -23,17 +23,19 @@ echo ###########################################################
 echo ### Build Version: %BLDVER%
 echo ###########################################################
 set BLDVER=%BLDVER:~25,-7%
-goto :ALTCOD
+goto :PRDCOD
 :VERDET
 call %ENVCHK% JSTDIT %VERDET% %1
 set BLDVER=%BLDVER:~0,-5%
-:ALTCOD
+:PRDCOD
 if not "%PRDDIR%"=="" goto :PRDDIR
 setlocal enabledelayedexpansion
-set ALTCOD=!CODLST[%ALTTYP%]!
-endlocal & set ALTCOD=%ALTCOD%
-if "%BLDVER:~6,-19%"=="%ALTCOD%" goto :ALTDIR
-set PRDDIR=%DEFDIR%
+set PRDCOD=!CODLST[%ALTTYP%]!
+endlocal & set PRDCOD=%PRDCOD%
+if "%BLDVER:~6,-19%"=="%PRDCOD%" goto :ALTDIR
+setlocal enabledelayedexpansion
+set PRDDIR=!DIRLST[%DEFTYP%]!
+endlocal & set PRDDIR=%PRDDIR%
 goto :PRDDIR
 :ALTDIR
 setlocal enabledelayedexpansion
