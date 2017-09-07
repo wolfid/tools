@@ -29,15 +29,15 @@ if "%UPGMOD%"=="0" goto :FLIGHTBOARD
 echo ###########################################################
 echo ### Upgrading Wi-Fi Board Firmware...
 echo ###########################################################
-if "%SNXTYP%"=="%UPGLTT%" goto :USE_LATEST
-if "%SNXTYP%"=="" (call :DRONETYPE
-) else set SELENT=%SNXTYP%
+if "%SNXDEX%"=="%UPGLTT%" goto :USE_LATEST
+if "%UPGTYP%"=="" (call :DRONETYPE
+) else set SELENT=%UPGTYP%
 set SELENT=%SELENT:"=%
 setlocal enabledelayedexpansion
 set SNXDIR=!DIRLST[%SELENT%]!
 set SNXCOD=!CODLST[%SELENT%]!
-set SNXREV=!SNXREV[%SELENT%]!
-set SNXDAT=!SNXDAT[%SELENT%]!
+set SNXREV=!SNXREV[%SELENT%][%SNXDEX%]!
+set SNXDAT=!SNXDAT[%SELENT%][%SNXDEX%]!
 endlocal & set SRCPTH="%ISSDIR:"=%\%SNXDIR:"=%\%FMWPRF%%SNXPRF%%SNXCOD%%SNXSUF%%SNXREV%_%SNXDAT%\%SNXBIN%.%SNXEXT%"
 if not "%ISSDRV%"=="" set SRCPTH="%ISSDRV:"=%:\%SRCPTH:"=%"
 goto :DOFWUPGRADE
@@ -57,14 +57,14 @@ goto :DOFWUPGRADE
 echo ###########################################################
 echo ### Upgrading Flight Board Firmware...
 echo ###########################################################
-if "%FLBTYP%"=="" (call :DRONETYPE
-) else set SELENT=%FLBTYP%
+if "%UPGTYP%"=="" (call :DRONETYPE
+) else set SELENT=%UPGTYP%
 set SELENT=%SELENT:"=%
 setlocal enabledelayedexpansion
 set FLBDIR=!DIRLST[%SELENT%]!
 set FLBCOD=!CODLST[%SELENT%]!
-set FLBREV=!FLBREV[%SELENT%]!
-set FLBDAT=!FLBDAT[%SELENT%]!
+set FLBREV=!FLBREV[%SELENT%][%FLBDEX%]!
+set FLBDAT=!FLBDAT[%SELENT%][%FLBDEX%]!
 endlocal & set SRCPTH="%ISSDIR:"=%\%FLBDIR:"=%\%FMWPRF%%FLBPRF%%FLBCOD%%FLBSUF%%FLBREV%_%FLBDAT%.%FLBEXT%"
 if not "%ISSDRV%"=="" set SRCPTH="%ISSDRV:"=%:\%SRCPTH:"=%"
 :DOFWUPGRADE
