@@ -6,8 +6,8 @@ if not "%USRINP%"=="" (set UPGMOD=%USRINP%
 if not "%NPPEXE%"=="" call :NPPEXT
 )
 set USELTT=n
-if "%UPGMOD%"=="1" (if "%SNXREV%"=="%UPGLTT%" set USELTT=y
-) else (if "%MOBREV%"=="%UPGLTT%" set USELTT=y
+if "%UPGMOD%"=="1" (if "%SNXDEX%"=="%UPGLTT%" set USELTT=y
+) else (if "%MOBDEX%"=="%UPGLTT%" set USELTT=y
 )
 set USRINP=
 echo ###########################################################
@@ -17,15 +17,17 @@ if not "%USRINP%"=="" (set USELTT=%USRINP%
 if not "%NPPEXE%"=="" call :NPPEXT
 )
 if not "%USELTT%"=="y" goto :FMWDET
-if "%UPGMOD%"=="1" (set SNXREV=%UPGLTT%
-) else set MOBREV=%UPGLTT%
+if "%UPGMOD%"=="1" (set SNXDEX=%UPGLTT%
+) else set MOBDEX=%UPGLTT%
 goto :END
 :FMWDET
-if "%UPGMOD%"=="1" (set FMWREV=%SNXREV%
-set FMWDAT=%SNXDAT%
-) else (set FMWREV=%MOBREV%
-set FMWDAT=%MOBDAT%
+setlocal enabledelayedexpansion
+if "%UPGMOD%"=="1" (set FMWREV=!SNXREV[%SNXDEX%]!
+set FMWDAT=!SNXDAT[%SNXDEX%]!
+) else (set FMWREV=!MOBDAT[%MOBDEX%]!
+set FMWDAT=!MOBDAT[%MOBDEX%]!
 )
+endlocal & set FMWREV=%FMWREV% & set FMWDAT=%FMWDAT%
 set USRINP=
 echo ###########################################################
 set /p USRINP= ### Firmware Revision (%FMWREV%)?
