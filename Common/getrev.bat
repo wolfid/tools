@@ -9,15 +9,15 @@ if "%1"=="" goto :EOF
 set SVNREV=
 call :GETREV %1
 if "%SVNREV%"=="" goto :EOF
-for /f "delims=| tokens=1,2,3" %%a in ("%SVNREV%") do set svndate=%%c
-set svndate=%svndate: =%
-set hour=%svndate:~10,2%
-set min=%svndate:~13,2%
-set sec=%svndate:~16,2%
-set timezone=(UTC%svndate:~18,3%:%svndate:~21,2%)
-set dd=%svndate:~28,2%
-set mmm=%svndate:~30,3%
-set yyyy=%svndate:~33,4%
+for /f "delims=| tokens=1,2,3" %%a in ("%SVNREV%") do set SVNDAT=%%c
+set SVNDAT=%SVNDAT: =%
+set hour=%SVNDAT:~10,2%
+set min=%SVNDAT:~13,2%
+set sec=%SVNDAT:~16,2%
+set timezone=(UTC%SVNDAT:~18,3%:%SVNDAT:~21,2%)
+set dd=%SVNDAT:~28,2%
+set mmm=%SVNDAT:~30,3%
+set yyyy=%SVNDAT:~33,4%
 set SVNREV=%SVNREV:~1,5%
 if "%2"=="" goto :EOF
 %SVNLOG:"=% %SVNLPR:"=% %SVNREV% %1 > %2
