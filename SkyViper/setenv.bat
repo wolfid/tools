@@ -21,7 +21,12 @@ set PRJDRV=Z
 set PRJDIR="Projects"
 set SUBDIR="sonix_firmware"
 set ISSDRV=T
-set ISSDIR="SkyRocketToys\Firmware2017"
+set SVNDIR="SkyRocketToys"
+set ISSDIR="Firmware2017"
+set SNVBRA="branch"
+set SVNPRJ="SkyViperVideoProto"
+set SNXFMW="Sonix_Firmware"
+set ISSDIR="Firmware2017"
 set SDKDIR=snx_sdk
 set DEFTYP=SpiderDrone_WiFi
 set ALTTYP=Streaming
@@ -59,7 +64,7 @@ set FLBPRF=FB_
 set FLBSUF=_PD_
 set FLBEXT=hex
 set UPGMOD=0
-set UPGIMG=%ISSDRV%:\%ISSDIR:"=%\%DEFTYP%\%FMWPRF%%SNXPRF%%DEFCOD%%SNXSUF%%DEFREV%_%DEFDAT%\%SNXBIN%.%SNXEXT%
+set UPGIMG=%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%DEFTYP%\%FMWPRF%%SNXPRF%%DEFCOD%%SNXSUF%%DEFREV%_%DEFDAT%\%SNXBIN%.%SNXEXT%
 set UPGIMG=
 set UPGLTT=USE_LATEST
 set UPGTYP=SpiderDrone_WiFi

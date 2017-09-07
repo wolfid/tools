@@ -11,8 +11,8 @@ if "%DEVBRA%"=="%DEVTRK%" (set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=
 ) else set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%MAKVER:"=%"
 for /f "tokens=1,2,3" %%i in (%VERPTH:"=%) do call :SDKVER %%i %%k
 :SDKSUF
-if "%SDKSUF%"=="" goto :NOSDKSUF
 set SDKSUF=%SDKSUF:\"=%
+if "%SDKSUF%"=="" goto :NOSDKSUF
 set SDKVER=%SDKVER%%SDKSUF%
 :NOSDKSUF
 echo ###########################################################
@@ -24,14 +24,12 @@ if "%DEVBRA%"=="%DEVTRK%" (set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP%\%
 echo const char *%SDVNAM%="%SDKVER%"; > %VERPTH%
 :BLDVER
 if not "%SVNREV%"=="" goto :PRDTYP
-if not "%SVNDRV%"=="" set SVNPTH=%SVNDRV:"=%:
-if not "%SVNDIR%"=="" set SVNPTH="%SVNPTH:"=%%SVNDIR:"=%"
-if not "%SUBDIR%"=="" set SVNPTH="%SVNPTH:"=%\%SUBDIR:"=%"
-if not "%DEVBRA%"=="%DEVTRK%" set SVNPTH="%SVNPTH:"=%\%DEVBRA:"=%"
+if not "%SVNBRA%"=="" (set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNBRA:"=%%DEVBRA%"
+) else set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
 call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH%
 if "%SVNREV%"=="%SVNUNV%" set SVNREV=%SVNDEF%
 :PRDTYP
-if not "%PRDCOD%"=="" goto :GETDAT
+if not "%PRDCOD%"=="" if "%SVNREV%"=="%SVNDEF%" (goto :GETDAT) else goto :BLDVER
 set PRDTYP=%DEFTYP%
 if not "%ALTCFG%"=="" goto :PRDCOD
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
@@ -44,12 +42,14 @@ echo ###########################################################
 setlocal enabledelayedexpansion
 set PRDCOD=!CODLST[%PRDTYP%]!
 endlocal & set PRDCOD=%PRDCOD%
+if not "%SVNREV%"="%SVNDEF%" goto :BLDVER
 :GETDAT
 call %ENVCHK% JSTDIT %GETDAT% %1
 echo ###########################################################
 echo ### Current Date: %dd%%mmm%%yyyy%_%hour%%min%
 echo ###########################################################
-set BLDVER=%FMWPRF%%SNXPRF%%PRDCOD%%SNXSUF%%SVNREV%_%dd%%mmm%%yyyy%_%hour%%min%
+:BLDVER
+set BLDVER=%FMWPRF%%SNXPRF%%PRDCOD%_%SNXSUF%%SVNREV%_%dd%%mmm%%yyyy%_%hour%%min%
 echo ###########################################################
 echo ### BLD Version: %BLDVER%
 echo ###########################################################

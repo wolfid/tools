@@ -14,10 +14,8 @@ echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
 if not "%SVNREV%"=="" goto :SVNREV
-if not "%SVNDRV%"=="" set SVNPTH=%SVNDRV:"=%:
-if not "%SVNDIR%"=="" set SVNPTH="%SVNPTH:"=%%SVNDIR:"=%"
-if not "%SUBDIR%"=="" set SVNPTH="%SVNPTH:"=%\%SUBDIR:"=%"
-if not "%DEVBRA%"=="%DEVTRK%" set SVNPTH="%SVNPTH:"=%\%DEVBRA:"=%"
+if not "%SVNBRA%"=="" (set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNBRA:"=%%DEVBRA%"
+) else set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
 call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH%
 if "%SVNREV%"=="%SVNUNV%" set SVNREV=%SVNDEF%
 :SVNREV
@@ -55,6 +53,7 @@ if "%DETHTM%"=="" goto :SDKVER
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"
 if exist %CFGPTH% type %CFGPTH%
+endlocal
 goto :END
 :SDKVER
 if "%MAKVMD%"=="LOCAL" goto :LOCAL
