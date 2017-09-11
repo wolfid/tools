@@ -17,7 +17,7 @@ echo ###########################################################
 set CMDSTR="%CMDSTR:"=%%SNXTYP%"
 if "%SNXDEX%"=="%UPGLTT%" goto :SNXLTT
 setlocal enabledelayedexpansion
-set FILSTR="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%SNXPRF%%PRDCOD%%PRDSUF%!SNXREV[%SNXDEX%]!_!SNXDAT[%SNXDEX%]!"
+set FILSTR="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%!SNXREV[%SNXDEX%]!_!SNXDAT[%SNXDEX%]!"
 endlocal & set FILSTR="%FILSTR:"=%\%SNXBIN%.%SNXEXT%"
 goto :RUNDLL
 :SNXLTT
@@ -30,7 +30,7 @@ echo ###########################################################
 set CMDSTR="%CMDSTR:"=%%MOBTYP%"
 if "%MOBDEX%"=="%UPGLTT%" goto :MOBLTT
 setlocal enabledelayedexpansion
-set FILSTR="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%MOBPRF%%PRDCOD%%PRDSUF%!MOBREV[%MOBDEX%]!_!MOBDAT[%MOBDEX%}!"
+set FILSTR="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%MOBPRF%%PRDCOD%%FMWSUF%!MOBREV[%MOBDEX%]!_!MOBDAT[%MOBDEX%]!"
 endlocal & set FILSTR="%FILSTR:"=%\%MOBBIN%.%MOBEXT%"
 goto :RUNDLL
 :MOBLTT

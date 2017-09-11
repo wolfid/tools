@@ -22,7 +22,7 @@ for /f "tokens=*" %%i in (%CFGPTH:"=%) do set BLDVER=%%i
 echo ###########################################################
 echo ### Build Version: %BLDVER%
 echo ###########################################################
-set BLDVER=%BLDVER:~25,-7%
+set BLDVER=%BLDVER:~25,-8%
 goto :PRDCOD
 :VERDET
 call %ENVCHK% JSTDIT %VERDET% %1
