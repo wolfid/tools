@@ -15,7 +15,7 @@ echo ###########################################################
 echo ### WiFi Firmware Upgrade
 echo ###########################################################
 set CMDSTR="%CMDSTR:"=%%SNXTYP%"
-if "%SNXDEX%"=="%UPGLTT%" goto :SNXLTT
+if not "%2"=="" goto :SNXLTT
 setlocal enabledelayedexpansion
 set FILSTR="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%!SNXREV[%SNXDEX%]!_!SNXDAT[%SNXDEX%]!"
 endlocal & set FILSTR="%FILSTR:"=%\%SNXBIN%.%SNXEXT%"
@@ -28,7 +28,7 @@ echo ###########################################################
 echo ### MotorBoard Firmware Upgrade
 echo ###########################################################
 set CMDSTR="%CMDSTR:"=%%MOBTYP%"
-if "%MOBDEX%"=="%UPGLTT%" goto :MOBLTT
+if not "%2"=="" goto :MOBLTT
 setlocal enabledelayedexpansion
 set FILSTR="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%MOBPRF%%PRDCOD%%FMWSUF%!MOBREV[%MOBDEX%]!_!MOBDAT[%MOBDEX%]!"
 endlocal & set FILSTR="%FILSTR:"=%\%MOBBIN%.%MOBEXT%"

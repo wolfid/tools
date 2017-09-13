@@ -29,7 +29,7 @@ if not "%SVNBRA%"=="" (set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"
 call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH%
 if "%SVNREV%"=="%SVNUNV%" set SVNREV=%SVNDEF%
 :PRDTYP
-if not "%PRDCOD%"=="" if "%SVNREV%"=="%SVNDEF%" (goto :GETDAT) else goto :BLDVER
+if not "%PRDCOD%"=="" goto :CHKREV
 set PRDTYP=%DEFTYP%
 if not "%ALTCFG%"=="" goto :PRDCOD
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
@@ -42,14 +42,17 @@ echo ###########################################################
 setlocal enabledelayedexpansion
 set PRDCOD=!CODLST[%PRDTYP%]!
 endlocal & set PRDCOD=%PRDCOD%
-if not "%SVNREV%"="%SVNDEF%" goto :BLDVER
+:CHKREV
+if "%SVNREV%"=="%SVNDEF%" goto :GETDAT
+if "%SVNREV%"=="%SVNLTT%" goto :GETDAT
+goto :BLDVER
 :GETDAT
 call %ENVCHK% JSTDIT %GETDAT% %1
 echo ###########################################################
 echo ### Current Date: %dd%%mmm%%yyyy%_%hour%%min%
 echo ###########################################################
 :BLDVER
-set BLDVER=%FMWPRF%%SNXPRF%%PRDCOD%_%SNXSUF%%SVNREV%_%dd%%mmm%%yyyy%_%hour%%min%
+set BLDVER=%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%%SVNREV%_%dd%%mmm%%yyyy%_%hour%%min%
 echo ###########################################################
 echo ### BLD Version: %BLDVER%
 echo ###########################################################

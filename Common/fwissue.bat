@@ -23,10 +23,15 @@ echo ###########################################################
 echo ### Build Version: %BLDVER%
 echo ###########################################################
 set BLDVER=%BLDVER:~25,-8%
-goto :PRDCOD
+if not "%BLDVER:~15,5%"=="%SVNDEF%" goto :PRDCOD
+set SVNREV=%BLDVER:~15,5%
+goto :VERERR
 :VERDET
 call %ENVCHK% JSTDIT %VERDET% %1
 set BLDVER=%BLDVER:~0,-5%
+if not "%BLDVER%"=="%SVNDEF%" goto :PRDCOD
+set SVNREV=%BLDVER%
+goto :VERERR
 :PRDCOD
 if not "%PRDDIR%"=="" goto :PRDDIR
 setlocal enabledelayedexpansion
@@ -49,6 +54,9 @@ set ISSPTH="%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%BLDVER%"
 if "%DEVBRA%"=="%DEVTRK%" (set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
 ) else set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
 if "%RMEFIL%"=="" goto :NOREADME
+echo ###########################################################
+echo ### Generate "%RMEFIL%"
+echo ###########################################################
 if not "%SVNBRA%"=="" (set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNBRA:"=%%DEVBRA%"
 ) else set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
 call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH% %BINPTH%\%RMEFIL%
@@ -56,7 +64,7 @@ call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH% %BINPTH%\%RMEFIL%
 echo ###########################################################
 echo ### SVN Revision: %SVNREV%
 echo ###########################################################
-if "%SVNREV%"=="%SVNUNV%" goto :NOREADME
+if "%SVNREV%"=="%SVNUNV%" goto :VERERR
 call :DOCOPY "%ISSPTH:"=%" %BINPTH% %ISSLST:"=% %RMEFIL%
 goto :END
 :NOREADME
@@ -91,4 +99,10 @@ exit /b 0
 echo ###########################################################
 echo ### Empty Issue File List: ISSLST
 echo ###########################################################
+goto :END
+:VERERR
+echo ###########################################################
+echo ### Revision Marked as: %SVNREV% not for Issue
+echo ###########################################################
+goto :END
 :END
