@@ -4,6 +4,7 @@ set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
 set GETREV="%~dp0..\%DEVCOM%\getrev%~x0"
 set SETPRD="%~dp0..\%DEVCOM%\setprd%~x0"
 set VERDET="%~dp0..\%DEVCOM%\verdet%~x0"
+set DOCOPY="%~dp0..\%DEVCOM%\docopy%~x0"
 echo ###########################################################
 echo ###                                ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
@@ -57,7 +58,7 @@ if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP:"=
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"
 if exist %CFGPTH% type %CFGPTH%
 endlocal
-goto :END
+goto :ISSCHK
 :SDKVER
 if "%MAKVMD%"=="LOCAL" goto :LOCAL
 if "%SDVNAM%"=="" goto :BLDVER
@@ -65,12 +66,42 @@ if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP%\%
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%\%SDVNAM%.%VEREXT%"
 type %CFGPTH%
 :BLDVER
-if "%BDVNAM%"=="" goto :END
+if "%BDVNAM%"=="" goto :ISSCHK
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
 type %CFGPTH%
-goto :END
+goto :ISSCHK
 :LOCAL
 echo SDK VERSION: %SDKVER%
 echo BLD VERSION: %BLDVER%
+:ISSCHK
+if not "%2"=="" goto :END
+if "%ISSLST:"=%"=="" goto :END
+if not "%PRDDIR%"=="" goto :PRDDIR
+setlocal enabledelayedexpansion
+set PRDDIR=!DIRLST[%PRDTYP%]!
+endlocal & set PRDDIR=%PRDDIR%
+:PRDDIR
+echo ###########################################################
+echo ### Product Directory: %PRDDIR:"=%
+echo ###########################################################
+set ISSPTH="%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%BLDVER:~0,-5%"
+if "%DEVBRA%"=="%DEVTRK%" (set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
+) else set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
+if "%RMEFIL%"=="" goto :NOREADME
+echo ###########################################################
+echo ### Generate "%RMEFIL%"
+echo ###########################################################
+if not "%SVNBRA%"=="" (set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNBRA:"=%%DEVBRA%"
+) else set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
+call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH% %BINPTH%\%RMEFIL%
+:SVNREV
+echo ###########################################################
+echo ### SVN Revision: %SVNREV%
+echo ###########################################################
+if "%SVNREV%"=="%SVNUNV%" goto :END
+call %ENVCHK% JSTDIT %DOCOPY% %1 "%ISSPTH:"=%" %BINPTH% %ISSLST:"=% %RMEFIL%
+goto :END
+:NOREADME
+call %ENVCHK% JSTDIT %DOCOPY% %1 "%ISSPTH:"=%" %BINPTH% %ISSLST:"=%
 :END

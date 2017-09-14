@@ -4,6 +4,7 @@ set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
 set GETREV="%~dp0..\%DEVCOM%\getrev%~x0"
 set SETPRD="%~dp0..\%DEVCOM%\setprd%~x0"
 set VERDET="%~dp0..\%DEVCOM%\verdet%~x0"
+set DOCOPY="%~dp0..\%DEVCOM%\docopy%~x0"
 echo ###########################################################
 echo ###                                ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
@@ -65,10 +66,10 @@ echo ###########################################################
 echo ### SVN Revision: %SVNREV%
 echo ###########################################################
 if "%SVNREV%"=="%SVNUNV%" goto :VERERR
-call :DOCOPY "%ISSPTH:"=%" %BINPTH% %ISSLST:"=% %RMEFIL%
+call %ENVCHK% JSTDIT %DOCOPY% "%ISSPTH:"=%" %BINPTH% %ISSLST:"=% %RMEFIL%
 goto :END
 :NOREADME
-call :DOCOPY "%ISSPTH:"=%" %BINPTH% %ISSLST:"=%
+call %ENVCHK% JSTDIT %DOCOPY% "%ISSPTH:"=%" %BINPTH% %ISSLST:"=%
 goto :END
 :DOCOPY
 echo ###########################################################
