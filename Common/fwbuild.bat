@@ -52,6 +52,10 @@ echo ### Building %DEVPRJ% Firmware in ~/%SRCPTH:"=% on %BLDTGT%
 echo ###########################################################
 if "%INTMOD%"=="y" pause
 setlocal EnableDelayedExpansion
+if "%2"=="" goto :BUILD
+:CLEAN
+%PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd "~/%SRCPTH:"=%"; %CLNCMD:~1,-1%
+:BUILD
 %PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd "~/%SRCPTH:"=%"; %MAKCMD:~1,-1%
 if "%DETHTM%"=="" goto :SDKVER
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"
@@ -85,10 +89,16 @@ endlocal & set PRDDIR=%PRDDIR%
 echo ###########################################################
 echo ### Product Directory: %PRDDIR:"=%
 echo ###########################################################
-set ISSPTH="%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%BLDVER:~0,-5%"
 if "%DEVBRA%"=="%DEVTRK%" (set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
 ) else set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
-if "%RMEFIL%"=="" goto :NOREADME
+if "%ISSDRV%"=="" goto :GDVDRV
+set ISSPTH="%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%BLDVER:~0,-5%"
+goto :RMEFIL
+:GDVDRV
+set ISSPTH="%GDVDRV%:\%GDVHOM:"=%\%GDVUSR:"=%\%GDVDIR:"=%\%GDVTEM:"=%\%GDVPRJ:"=%\%PRDDIR:"=%\%GDVDLV:"=%\%GDVFMW:"=%\%BLDVER:~0,-5%"
+set GDVDRV=
+:RMEFIL
+if "%RMEFIL%"=="" goto :NORDME
 echo ###########################################################
 echo ### Generate "%RMEFIL%"
 echo ###########################################################
@@ -101,7 +111,9 @@ echo ### SVN Revision: %SVNREV%
 echo ###########################################################
 if "%SVNREV%"=="%SVNUNV%" goto :END
 call %ENVCHK% JSTDIT %DOCOPY% %1 "%ISSPTH:"=%" %BINPTH% %ISSLST:"=% %RMEFIL%
+if not "%GDVDRV%"=="" goto :GDVDRV
 goto :END
-:NOREADME
+:NORDME
 call %ENVCHK% JSTDIT %DOCOPY% %1 "%ISSPTH:"=%" %BINPTH% %ISSLST:"=%
+if not "%GDVDRV%"=="" goto :GDVDRV
 :END

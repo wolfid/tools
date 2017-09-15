@@ -9,32 +9,34 @@ echo ###########################################################
 call %ENVCHK% TGTADR %SETENV%
 if "%INTMOD%"=="y" call %ENVCHK% JSTDIT %REVCHK%
 set CMDSTR="http://%TGTADR%/ajax/command.json^?command1^=file_upload()^&uploadtype="
-if not "%UPGMOD%"=="1" goto :MOBUPG
-:SNXUPG
-echo ###########################################################
-echo ### WiFi Firmware Upgrade
-echo ###########################################################
-set CMDSTR="%CMDSTR:"=%%SNXTYP%"
-if not "%2"=="" goto :SNXLTT
-setlocal enabledelayedexpansion
-set FILSTR="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%!SNXREV[%SNXDEX%]!_!SNXDAT[%SNXDEX%]!"
-endlocal & set FILSTR="%FILSTR:"=%\%SNXBIN%.%SNXEXT%"
-goto :RUNDLL
-:SNXLTT
-set FILSTR="file=@%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%\%SNXBIN%.%SNXEXT%"
-goto :RUNDLL
+if "%3"=="1" goto :SNXUPG
 :MOBUPG
 echo ###########################################################
 echo ### MotorBoard Firmware Upgrade
 echo ###########################################################
 set CMDSTR="%CMDSTR:"=%%MOBTYP%"
-if not "%2"=="" goto :MOBLTT
+if "%2"=="%SVNDEF%" goto :MOBLTT
+if not "%2"=="" set MOBDEX=%2
 setlocal enabledelayedexpansion
 set FILSTR="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%MOBPRF%%PRDCOD%%FMWSUF%!MOBREV[%MOBDEX%]!_!MOBDAT[%MOBDEX%]!"
 endlocal & set FILSTR="%FILSTR:"=%\%MOBBIN%.%MOBEXT%"
 goto :RUNDLL
 :MOBLTT
 set FILSTR="file=@%MOBDRV%:%MOBDIR:"=%\%MOBBRA%%MOBSCR%\%MOBBIN%.%MOBEXT%"
+goto :RUNDLL
+:SNXUPG
+echo ###########################################################
+echo ### WiFi Firmware Upgrade
+echo ###########################################################
+set CMDSTR="%CMDSTR:"=%%SNXTYP%"
+if "%2"=="%SVNDEF%" goto :SNXLTT
+if not "%2"=="" set SNXDEX=%2
+setlocal enabledelayedexpansion
+set FILSTR="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%!SNXREV[%SNXDEX%]!_!SNXDAT[%SNXDEX%]!"
+endlocal & set FILSTR="%FILSTR:"=%\%SNXBIN%.%SNXEXT%"
+goto :RUNDLL
+:SNXLTT
+set FILSTR="file=@%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%\%SNXBIN%.%SNXEXT%"
 :RUNDLL
 echo ###########################################################
 echo ### Clearing Internet Form Data
