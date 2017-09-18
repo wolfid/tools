@@ -24,13 +24,13 @@ echo ###########################################################
 echo ### Build Version: %BLDVER%
 echo ###########################################################
 set BLDVER=%BLDVER:~25,-8%
-if not "%BLDVER:~15,5%"=="%SVNDEF%" goto :PRDCOD
+if not "%BLDVER:~15,5%"=="%SVNDBG%" goto :PRDCOD
 set SVNREV=%BLDVER:~15,5%
 goto :VERERR
 :VERDET
 call %ENVCHK% JSTDIT %VERDET% %1
 set BLDVER=%BLDVER:~0,-5%
-if not "%BLDVER%"=="%SVNDEF%" goto :PRDCOD
+if not "%BLDVER%"=="%SVNDBG%" goto :PRDCOD
 set SVNREV=%BLDVER%
 goto :VERERR
 :PRDCOD

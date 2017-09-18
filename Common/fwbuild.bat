@@ -21,7 +21,7 @@ goto :SVNREV
 if not "%SVNBRA%"=="" (set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNBRA:"=%%DEVBRA%"
 ) else set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
 call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH%
-if "%SVNREV%"=="%SVNUNV%" set SVNREV=%SVNDEF%
+if "%SVNREV%"=="%SVNUNV%" set SVNREV=%SVNDBG%
 :SVNREV
 echo ###########################################################
 echo ### SVN Revision: %SVNREV% (Sometimes needed by MAKCMD)

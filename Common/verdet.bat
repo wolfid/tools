@@ -27,7 +27,7 @@ if not "%SVNREV%"=="" goto :PRDTYP
 if not "%SVNBRA%"=="" (set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNBRA:"=%%DEVBRA%"
 ) else set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
 call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH%
-if "%SVNREV%"=="%SVNUNV%" set SVNREV=%SVNDEF%
+if "%SVNREV%"=="%SVNUNV%" set SVNREV=%SVNDBG%
 :PRDTYP
 if not "%PRDCOD%"=="" goto :CHKREV
 set PRDTYP=%DEFTYP%
@@ -43,7 +43,7 @@ setlocal enabledelayedexpansion
 set PRDCOD=!CODLST[%PRDTYP%]!
 endlocal & set PRDCOD=%PRDCOD%
 :CHKREV
-if "%SVNREV%"=="%SVNDEF%" goto :GETDAT
+if "%SVNREV%"=="%SVNDBG%" goto :GETDAT
 if "%SVNREV%"=="%SVNLTT%" goto :GETDAT
 goto :BLDVER
 :GETDAT
