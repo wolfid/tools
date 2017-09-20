@@ -8,70 +8,69 @@ echo ###########################################################
 echo ###                            ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %ENVCHK% UPGMOD %SETENV%
+call %ENVCHK% TGTADR %SETENV%
+if not "%4"=="" set UPGTYP=%4
+if not "%3"=="" set UPGMOD=%3
 echo ###########################################################
-echo ### Current Firmware Upgrade Mode: %UPGMOD%
+echo ### Firmware Upgrade Mode: %UPGMOD%
 echo ###########################################################
-if "%UPGIMG%"=="" goto :INTMOD
-echo ###########################################################
-echo ### Using Upgrade Image: %UPGIMG%
-echo ###########################################################
-set SRCPTH="%UPGIMG:"=%"
-goto :DOFWUPGRADE
-:INTMOD
 if not "%INTMOD%"=="y" goto :UPGMOD
 echo ###########################################################
 set /p UPGMOD= ### Upgrade Mode(%UPGMOD%)?
 echo ###########################################################
 :UPGMOD
-if "%UPGMOD%"=="0" goto :FLIGHTBOARD
-:WIFIBOARD
+if "%UPGMOD%"=="0" goto :FLBUPG
+:SNXUPG
 echo ###########################################################
 echo ### Upgrading Wi-Fi Board Firmware...
 echo ###########################################################
-if "%SNXDEX%"=="%UPGLTT%" goto :USE_LATEST
-if "%UPGTYP%"=="" (call :DRONETYPE
+if "%2"=="%SVNDBG%" goto :SNXLTT
+if not "%2"=="%SVNDEF%" set SNXDEX=%2
+if "%UPGTYP%"=="" (call :DRNTYP
 ) else set SELENT=%UPGTYP%
 set SELENT=%SELENT:"=%
 setlocal enabledelayedexpansion
 set SNXDIR=!DIRLST[%SELENT%]!
 set SNXCOD=!CODLST[%SELENT%]!
-set SNXREV=!SNXREV[%SELENT%][%SNXDEX%]!
-set SNXDAT=!SNXDAT[%SELENT%][%SNXDEX%]!
-endlocal & set SRCPTH="%SVNDIR:"=%\%ISSDIR:"=%\%SNXDIR:"=%\%FMWPRF%%SNXPRF%%SNXCOD%%SNXSUF%%SNXREV%_%SNXDAT%\%SNXBIN%.%SNXEXT%"
-if not "%ISSDRV%"=="" set SRCPTH="%ISSDRV:"=%:\%SRCPTH:"=%"
-goto :DOFWUPGRADE
-:USE_LATEST
+set SNXREV=!SNXREV[%SNXDEX%]!
+set SNXDAT=!SNXDAT[%SNXDEX%]!
+set BINPTH="%SVNDIR:"=%\%ISSDIR:"=%\%SNXDIR:"=%\%FMWPRF%%SNXPRF%%SNXCOD%%SNXSUF%%SNXREV%_%SNXDAT%\%SNXBIN%.%SNXEXT%"
+endlocal & set BINPTH=%BINPTH%
+goto :ISSDRV
+:SNXLTT
 echo ###########################################################
 echo ### Using Most Recent Build...
 echo ###########################################################
-set SRCPTH=%SUBDIR%
-if not "%DEVBRA%"=="%DEVTRK%" set SRCPTH="%SRCPTH:"=%\%DEVBRA%"
-if not "%PRJDRV%"=="" set SRCPTH="%PRJDRV%:\%SRCPTH:"=%"
-if not "%SDKDIR%"=="" set SRCPTH="%SRCPTH:"=%\%SDKDIR:"=%"
-if not "%IMGDIR%"=="" set SRCPTH="%SRCPTH:"=%\%IMGDIR:"=%"
-if not "%IMGTYP%"=="" set SRCPTH="%SRCPTH:"=%\%IMGTYP:"=%"
-set SRCPTH="%SRCPTH:"=%\%SNXBIN%.%SNXEXT%"
-goto :DOFWUPGRADE
-:FLIGHTBOARD
+set BINPTH=%SUBDIR%
+if not "%DEVBRA%"=="%DEVTRK%" set BINPTH="%BINPTH:"=%\%DEVBRA%"
+if not "%PRJDRV%"=="" set BINPTH="%PRJDRV%:\%BINPTH:"=%"
+if not "%SDKDIR%"=="" set BINPTH="%BINPTH:"=%\%SDKDIR:"=%"
+if not "%IMGDIR%"=="" set BINPTH="%BINPTH:"=%\%IMGDIR:"=%"
+if not "%IMGTYP%"=="" set BINPTH="%BINPTH:"=%\%IMGTYP:"=%"
+set BINPTH="%BINPTH:"=%\%SNXBIN%.%SNXEXT%"
+goto :BINPTH
+:FLBUPG
 echo ###########################################################
 echo ### Upgrading Flight Board Firmware...
 echo ###########################################################
-if "%UPGTYP%"=="" (call :DRONETYPE
+if not "%2"=="%SVNDEF%" set FLBDEX=%2
+if "%UPGTYP%"=="" (call :DRNTYP
 ) else set SELENT=%UPGTYP%
 set SELENT=%SELENT:"=%
 setlocal enabledelayedexpansion
 set FLBDIR=!DIRLST[%SELENT%]!
 set FLBCOD=!CODLST[%SELENT%]!
-set FLBREV=!FLBREV[%SELENT%][%FLBDEX%]!
-set FLBDAT=!FLBDAT[%SELENT%][%FLBDEX%]!
-endlocal & set SRCPTH="%SVNDIR:"=%\%ISSDIR:"=%\%FLBDIR:"=%\%FMWPRF%%FLBPRF%%FLBCOD%%FLBSUF%%FLBREV%_%FLBDAT%.%FLBEXT%"
-if not "%ISSDRV%"=="" set SRCPTH="%ISSDRV:"=%:\%SRCPTH:"=%"
-:DOFWUPGRADE
-set SRCPTH=%SRCPTH:/=\%
-call :FWUPGRADE %SRCPTH%
+set FLBREV=!FLBREV[%FLBDEX%]!
+set FLBDAT=!FLBDAT[%FLBDEX%]!
+set BINPTH="%SVNDIR:"=%\%ISSDIR:"=%\%FLBDIR:"=%\%FMWPRF%%FLBPRF%%FLBCOD%%FLBSUF%%FLBREV%_%FLBDAT%.%FLBEXT%"
+endlocal & set BINPTH=%BINPTH%
+:ISSDRV
+if not "%ISSDRV%"=="" set BINPTH="%ISSDRV:"=%:\%BINPTH:"=%"
+:BINPTH
+set BINPTH=%BINPTH:/=\%
+call :FMWUPG %BINPTH%
 goto :END
-:FWUPGRADE
+:FMWUPG
 echo ###########################################################
 echo ### Firmware to be sent: %1
 echo ###########################################################
@@ -85,7 +84,7 @@ echo ###########################################################
 if "%INTMOD%"=="y" pause
 %NCTEXE% -n -w%RSPTIM% %TGTADR% %RSPPRT% < %1
 exit /b 0
-:DRONETYPE
+:DRNTYP
 echo ###########################################################
 echo ### Current Drone Type: %DEFTYP:"=%
 echo ###########################################################
