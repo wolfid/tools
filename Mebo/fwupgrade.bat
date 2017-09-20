@@ -2,6 +2,7 @@
 set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
 set REVCHK="%~dp0..\%DEVPRJ%\revchk%~x0"
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
+set LATREV="%~dp0..\%DEVPRJ%\latrev
 echo ###########################################################
 echo ###                                ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
@@ -31,10 +32,14 @@ echo ### Sonix Board Firmware Upgrade
 echo ###########################################################
 set CMDSTR="%CMDSTR:"=%%SNXTYP%"
 if "%2"=="%SVNDBG%" goto :SNXLTT
-if not "%2"=="%SVNDEF%" set SNXDEX=%2
+if "%2"=="%SVNDEF%" goto :LATREV
 setlocal enabledelayedexpansion
 set BINPTH="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%!SNXREV[%SNXDEX%]!_!SNXDAT[%SNXDEX%]!\%SNXBIN%.%SNXEXT%"
 endlocal & set BINPTH=%BINPTH%
+goto :RUNDLL
+:LATREV
+for /f "tokens=*" %%i in (%LATREV:"=%) do set BLDVER=%%i
+set BINPTH="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%BLDVER: =%\%SNXBIN%.%SNXEXT%"
 goto :RUNDLL
 :SNXLTT
 set BINPTH="file=@%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%\%SNXBIN%.%SNXEXT%"

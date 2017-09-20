@@ -5,6 +5,7 @@ set GETREV="%~dp0..\%DEVCOM%\getrev%~x0"
 set SETPRD="%~dp0..\%DEVCOM%\setprd%~x0"
 set VERDET="%~dp0..\%DEVCOM%\verdet%~x0"
 set DOCOPY="%~dp0..\%DEVCOM%\docopy%~x0"
+set LATREV="%~dp0..\%DEVPRJ%\latrev
 echo ###########################################################
 echo ###                                ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
@@ -52,7 +53,7 @@ echo ### Building %DEVPRJ% Firmware in ~/%SRCPTH:"=% on %BLDTGT%
 echo ###########################################################
 if "%INTMOD%"=="y" pause
 setlocal EnableDelayedExpansion
-if "%2"=="" goto :BUILD
+if "%SVNREV%"=="%SVNDBG%" goto :BUILD
 :CLEAN
 %PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd "~/%SRCPTH:"=%"; %CLNCMD:~1,-1%
 :BUILD
@@ -79,7 +80,8 @@ goto :ISSCHK
 echo SDK VERSION: %SDKVER%
 echo BLD VERSION: %BLDVER%
 :ISSCHK
-if not "%2"=="" goto :END
+if "%SVNREV%"=="%SVNDBG%" goto :END
+echo %BLDVER:~0,-5% > %LATREV%
 if "%ISSLST:"=%"=="" goto :END
 if not "%PRDDIR%"=="" goto :PRDDIR
 setlocal enabledelayedexpansion
