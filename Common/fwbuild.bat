@@ -17,6 +17,7 @@ echo ### Development Branch: %DEVBRA%
 echo ###########################################################
 if "%2"=="" goto :SVNPTH
 set SVNREV=%2
+if "%SVNREV%"=="SVNDBG" set SVNREV=%SVNDBG%
 goto :SVNREV
 :SVNPTH
 if not "%SVNBRA%"=="" (set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNBRA:"=%%DEVBRA%"

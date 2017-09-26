@@ -11,14 +11,16 @@ call %ENVCHK% TGTADR %SETENV%
 if "%INTMOD%"=="y" call %ENVCHK% JSTDIT %REVCHK%
 set CMDSTR="http://%TGTADR%/ajax/command.json^?command1=file_upload()^&uploadtype="
 if not "%3"=="" set UPGMOD=%3
+set SVNREV=%2
+if "%SVNREV%"=="SVNDBG" set SVNREV=%SVNDBG%
 if "%UPGMOD%"=="1" goto :SNXUPG
 :MOBUPG
 echo ###########################################################
 echo ### Motor Board Firmware Upgrade
 echo ###########################################################
 set CMDSTR="%CMDSTR:"=%%MOBTYP%"
-if "%2"=="%SVNDBG%" goto :MOBLTT
-if not "%2"=="%SVNDEF%" set MOBDEX=%2
+if "%SVNREV%"=="%SVNDBG%" goto :MOBLTT
+if not "%SVNREV%"=="%SVNDEF%" set MOBDEX=%2
 setlocal enabledelayedexpansion
 set BINPTH="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%MOBPRF%%PRDCOD%%FMWSUF%!MOBREV[%MOBDEX%]!_!MOBDAT[%MOBDEX%]!\%MOBBIN%.%MOBEXT%"
 endlocal & set BINPTH=%BINPTH%
@@ -31,10 +33,11 @@ echo ###########################################################
 echo ### Sonix Board Firmware Upgrade
 echo ###########################################################
 set CMDSTR="%CMDSTR:"=%%SNXTYP%"
-if "%2"=="%SVNDBG%" goto :SNXLTT
-if "%2"=="%SVNDEF%" goto :LATREV
+if "%SVNREV%"=="%SVNDBG%" goto :SNXLTT
+if "%SVNREV%"=="%SVNDEF%" goto :LATREV
 setlocal enabledelayedexpansion
-set BINPTH="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%!SNXREV[%SNXDEX%]!_!SNXDAT[%SNXDEX%]!\%SNXBIN%.%SNXEXT%"
+set BINPTH="file=@%GDVDRV%:\%GDVHOM:"=%\%GDVUSR:"=%\%GDVDIR:"=%\%GDVTEM:"=%\%GDVPRJ:"=%\%PRDDIR:"=%\%GDVDLV:"=%\%GDVFMW:"=%\%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%!SNXREV[%SNXDEX%]!_!SNXDAT[%SNXDEX%]!\%SNXBIN%.%SNXEXT%"
+rem set BINPTH="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%!SNXREV[%SNXDEX%]!_!SNXDAT[%SNXDEX%]!\%SNXBIN%.%SNXEXT%"
 endlocal & set BINPTH=%BINPTH%
 goto :RUNDLL
 :LATREV
