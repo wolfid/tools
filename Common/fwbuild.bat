@@ -5,7 +5,7 @@ set GETREV="%~dp0..\%DEVCOM%\getrev%~x0"
 set SETPRD="%~dp0..\%DEVCOM%\setprd%~x0"
 set VERDET="%~dp0..\%DEVCOM%\verdet%~x0"
 set DOCOPY="%~dp0..\%DEVCOM%\docopy%~x0"
-set LATREV="%~dp0..\%DEVPRJ%\latrev
+set SVNLTT="%~dp0..\%DEVPRJ%\svnlat
 echo ###########################################################
 echo ###                                ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
@@ -82,7 +82,7 @@ echo SDK VERSION: %SDKVER%
 echo BLD VERSION: %BLDVER%
 :ISSCHK
 if "%SVNREV%"=="%SVNDBG%" goto :END
-echo %BLDVER:~0,-5% > %LATREV%
+echo %BLDVER:~0,-5% > %SVNLTT%
 if "%ISSLST:"=%"=="" goto :END
 if not "%PRDDIR%"=="" goto :PRDDIR
 setlocal enabledelayedexpansion

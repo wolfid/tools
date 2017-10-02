@@ -19,13 +19,13 @@ echo ###########################################################
 set /p UPGMOD= ### Upgrade Mode(%UPGMOD%)?
 echo ###########################################################
 :UPGMOD
-if "%UPGMOD%"=="0" goto :FLBUPG
+if "%UPGMOD%"=="0" goto :CTLUPG
 :SNXUPG
 echo ###########################################################
 echo ### Upgrading Wi-Fi Board Firmware...
 echo ###########################################################
 if "%2"=="%SVNDBG%" goto :SNXLTT
-if not "%2"=="%SVNDEF%" set SNXDEX=%2
+if not "%2"=="SVNDEF" set SNXDEX=%2
 if "%UPGTYP%"=="" (call :DRNTYP
 ) else set SELENT=%UPGTYP%
 set SELENT=%SELENT:"=%
@@ -45,16 +45,16 @@ if not "%IMGDIR%"=="" set BINPTH="%BINPTH:"=%\%IMGDIR:"=%"
 if not "%IMGTYP%"=="" set BINPTH="%BINPTH:"=%\%IMGTYP:"=%"
 set BINPTH="%BINPTH:"=%\%SNXBIN%.%SNXEXT%"
 goto :BINPTH
-:FLBUPG
+:CTLUPG
 echo ###########################################################
 echo ### Upgrading Flight Board Firmware...
 echo ###########################################################
-if not "%2"=="%SVNDEF%" set FLBDEX=%2
+if not "%2"=="SVNDEF" set CTLDEX=%2
 if "%UPGTYP%"=="" (call :DRNTYP
 ) else set SELENT=%UPGTYP%
 set SELENT=%SELENT:"=%
 setlocal enabledelayedexpansion
-set BINPTH="%SVNDIR:"=%\%ISSDIR:"=%\!DIRLST[%SELENT%]:"=!\%FMWPRF%%FLBPRF%!CODLST[%SELENT%]!%FLBSUF%!FLBREV[%FLBDEX%]!_!FLBDAT[%FLBDEX%]!.%FLBEXT%"
+set BINPTH="%SVNDIR:"=%\%ISSDIR:"=%\!DIRLST[%SELENT%]:"=!\%FMWPRF%%CTLPRF%!CODLST[%SELENT%]!%CTLSUF%!CTLREV[%CTLDEX%]!_!CTLDAT[%CTLDEX%]!.%CTLEXT%"
 endlocal & set BINPTH=%BINPTH%
 :ISSDRV
 if not "%ISSDRV%"=="" set BINPTH="%ISSDRV:"=%:\%BINPTH:"=%"

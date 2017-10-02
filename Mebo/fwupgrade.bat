@@ -2,7 +2,7 @@
 set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
 set REVCHK="%~dp0..\%DEVPRJ%\revchk%~x0"
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
-set LATREV="%~dp0..\%DEVPRJ%\latrev
+set SVNLTT="%~dp0..\%DEVPRJ%\svnlat
 echo ###########################################################
 echo ###                                ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
@@ -11,40 +11,43 @@ call %ENVCHK% TGTADR %SETENV%
 if "%INTMOD%"=="y" call %ENVCHK% JSTDIT %REVCHK%
 set CMDSTR="http://%TGTADR%/ajax/command.json^?command1=file_upload()^&uploadtype="
 if not "%3"=="" set UPGMOD=%3
-set SVNREV=%2
-if "%SVNREV%"=="SVNDBG" set SVNREV=%SVNDBG%
-if "%UPGMOD%"=="1" goto :SNXUPG
-:MOBUPG
+if not "%3"=="" set SVNREV=%2
+if "%UPGMOD%"=="%SNXUPG%" goto :SNXUPG
+:CTLUPG
 echo ###########################################################
 echo ### Motor Board Firmware Upgrade
 echo ###########################################################
-set CMDSTR="%CMDSTR:"=%%MOBTYP%"
-if "%SVNREV%"=="%SVNDBG%" goto :MOBLTT
-if not "%SVNREV%"=="%SVNDEF%" set MOBDEX=%2
+set CMDSTR="%CMDSTR:"=%%CTLTYP%"
+if "%SVNREV%"=="SVNDBG" goto :CTLLTT
+if not "%SVNREV%"=="SVNDEF" set CTLDEX=%SVNREV%
 setlocal enabledelayedexpansion
-set BINPTH="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%MOBPRF%%PRDCOD%%FMWSUF%!MOBREV[%MOBDEX%]!_!MOBDAT[%MOBDEX%]!\%MOBBIN%.%MOBEXT%"
+set BINPTH="%FMWPRF%%CTLPRF%%PRDCOD%%FMWSUF%!CTLREV[%CTLDEX%]!_!CTLDAT[%CTLDEX%]!\%CTLBIN%.%CTLEXT%"
 endlocal & set BINPTH=%BINPTH%
+if not "%USEGDV%"=="y" (set BINPTH="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%BINPTH:"=%"
+) else set BINPTH="file=@%GDVDRV%:\%GDVHOM:"=%\%GDVUSR:"=%\%GDVDIR:"=%\%GDVTEM:"=%\%GDVPRJ:"=%\%PRDDIR:"=%\%GDVDLV:"=%\%GDVFMW:"=%\%BINPTH:"=%"
 goto :RUNDLL
-:MOBLTT
-set BINPTH="file=@%MOBDRV%:%MOBDIR:"=%\%MOBBRA%%MOBSCR%\%MOBBIN%.%MOBEXT%"
+:CTLLTT
+set BINPTH="file=@%CTLDRV%:%CTLDIR:"=%\%CTLBRA%%CTLSCR%\%CTLBIN%.%CTLEXT%"
 goto :RUNDLL
 :SNXUPG
 echo ###########################################################
 echo ### Sonix Board Firmware Upgrade
 echo ###########################################################
 set CMDSTR="%CMDSTR:"=%%SNXTYP%"
-if "%SVNREV%"=="%SVNDBG%" goto :SNXLTT
-if "%SVNREV%"=="%SVNDEF%" goto :LATREV
+if "%SVNREV%"=="SVNDBG" goto :SVNDBG
+if "%SVNREV%"=="SVNLTT" goto :SVNLTT
+if not "%SVNREV%"=="SVNDEF" set SNXDEX=%SVNREV%
 setlocal enabledelayedexpansion
-set BINPTH="file=@%GDVDRV%:\%GDVHOM:"=%\%GDVUSR:"=%\%GDVDIR:"=%\%GDVTEM:"=%\%GDVPRJ:"=%\%PRDDIR:"=%\%GDVDLV:"=%\%GDVFMW:"=%\%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%!SNXREV[%SNXDEX%]!_!SNXDAT[%SNXDEX%]!\%SNXBIN%.%SNXEXT%"
-rem set BINPTH="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%!SNXREV[%SNXDEX%]!_!SNXDAT[%SNXDEX%]!\%SNXBIN%.%SNXEXT%"
+set BINPTH="%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%!SNXREV[%SNXDEX%]!_!SNXDAT[%SNXDEX%]!\%SNXBIN%.%SNXEXT%"
 endlocal & set BINPTH=%BINPTH%
+if not "%USEGDV%"=="y" (set BINPTH="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%BINPTH:"=%"
+) else set BINPTH="file=@%GDVDRV%:\%GDVHOM:"=%\%GDVUSR:"=%\%GDVDIR:"=%\%GDVTEM:"=%\%GDVPRJ:"=%\%PRDDIR:"=%\%GDVDLV:"=%\%GDVFMW:"=%\%BINPTH:"=%"
 goto :RUNDLL
-:LATREV
-for /f "tokens=*" %%i in (%LATREV:"=%) do set BLDVER=%%i
+:SVNLTT
+for /f "tokens=*" %%i in (%SVNLTT:"=%) do set BLDVER=%%i
 set BINPTH="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%BLDVER: =%\%SNXBIN%.%SNXEXT%"
 goto :RUNDLL
-:SNXLTT
+:SVNDBG
 set BINPTH="file=@%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%\%SNXBIN%.%SNXEXT%"
 :RUNDLL
 echo ###########################################################
