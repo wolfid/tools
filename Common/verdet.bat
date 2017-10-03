@@ -43,8 +43,8 @@ setlocal enabledelayedexpansion
 set PRDCOD=!CODLST[%PRDTYP%]!
 endlocal & set PRDCOD=%PRDCOD%
 :CHKREV
-if "%SVNREV%"=="SVNDBG" goto :GETDAT
-if "%SVNREV%"=="SVNLTT" goto :GETDAT
+if "%SVNREV%"=="%SVNDBG%" goto :GETDAT
+if "%SVNREV%"=="%SVNLTT%" goto :GETDAT
 goto :BLDVER
 :GETDAT
 call %ENVCHK% JSTDIT %GETDAT% %1

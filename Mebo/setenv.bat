@@ -94,6 +94,7 @@ set SDVNAM=sdk_version
 set VEREXT=c
 set SVNUNV=Unversioned
 set SVNDBG=99995
+set SVNLTT=SVNLTT
 set TMPDIR="C:\Source\Temp"
 set RMEFIL=readme.txt
 set USEGDV=y
