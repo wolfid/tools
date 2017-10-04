@@ -5,7 +5,7 @@ set GETREV="%~dp0..\%DEVCOM%\getrev%~x0"
 set SETPRD="%~dp0..\%DEVCOM%\setprd%~x0"
 set VERDET="%~dp0..\%DEVCOM%\verdet%~x0"
 set DOCOPY="%~dp0..\%DEVCOM%\docopy%~x0"
-set SVNLTT="%~dp0..\%DEVPRJ%\svnlat
+set SVNLAT="%~dp0..\%DEVPRJ%\svnlat
 echo ###########################################################
 echo ###                                ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
@@ -16,6 +16,7 @@ echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
 if "%2"=="" goto :SVNPTH
+if "%2"=="%SVNLTT%" goto :SVNPTH
 set SVNREV=%2
 if "%SVNREV%"=="SVNDBG" set SVNREV=%SVNDBG%
 goto :SVNREV
@@ -55,6 +56,7 @@ echo ###########################################################
 if "%INTMOD%"=="y" pause
 setlocal EnableDelayedExpansion
 if "%SVNREV%"=="%SVNDBG%" goto :BUILD
+if "%2"=="%SVNLTT%" goto :BUILD
 :CLEAN
 %PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd "~/%SRCPTH:"=%"; %CLNCMD:~1,-1%
 :BUILD
@@ -82,7 +84,8 @@ echo SDK VERSION: %SDKVER%
 echo BLD VERSION: %BLDVER%
 :ISSCHK
 if "%SVNREV%"=="%SVNDBG%" goto :END
-echo %BLDVER:~0,-5% > %SVNLTT%
+echo %BLDVER:~0,-5% > %SVNLAT%
+if "%2"=="%SVNLTT%" goto :END
 if "%ISSLST:"=%"=="" goto :END
 if not "%PRDDIR%"=="" goto :PRDDIR
 setlocal enabledelayedexpansion
