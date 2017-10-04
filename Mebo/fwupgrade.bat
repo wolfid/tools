@@ -2,7 +2,6 @@
 set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
 set REVCHK="%~dp0..\%DEVPRJ%\revchk%~x0"
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
-set SVNLTT="%~dp0..\%DEVPRJ%\svnlat
 echo ###########################################################
 echo ###                                ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
@@ -11,7 +10,7 @@ call %ENVCHK% TGTADR %SETENV%
 if "%INTMOD%"=="y" call %ENVCHK% JSTDIT %REVCHK%
 set CMDSTR="http://%TGTADR%/ajax/command.json^?command1=file_upload()^&uploadtype="
 if not "%3"=="" set UPGMOD=%3
-if not "%3"=="" set SVNREV=%2
+if not "%2"=="" set SVNREV=%2
 if "%UPGMOD%"=="%SNXUPG%" goto :SNXUPG
 :CTLUPG
 echo ###########################################################
@@ -19,7 +18,7 @@ echo ### Motor Board Firmware Upgrade
 echo ###########################################################
 set CMDSTR="%CMDSTR:"=%%CTLTYP%"
 if "%SVNREV%"=="SVNDBG" goto :CTLLTT
-if not "%SVNREV%"=="SVNDEF" set CTLDEX=%SVNREV%
+if not "%SVNREV%"=="SVNLTT" set CTLDEX=%SVNREV%
 setlocal enabledelayedexpansion
 set BINPTH="%FMWPRF%%CTLPRF%%PRDCOD%%FMWSUF%!CTLREV[%CTLDEX%]!_!CTLDAT[%CTLDEX%]!\%CTLBIN%.%CTLEXT%"
 endlocal & set BINPTH=%BINPTH%
@@ -35,17 +34,12 @@ echo ### Sonix Board Firmware Upgrade
 echo ###########################################################
 set CMDSTR="%CMDSTR:"=%%SNXTYP%"
 if "%SVNREV%"=="SVNDBG" goto :SVNDBG
-if "%SVNREV%"=="SVNLTT" goto :SVNLTT
-if not "%SVNREV%"=="SVNDEF" set SNXDEX=%SVNREV%
+if not "%SVNREV%"=="SVNLTT" set SNXDEX=%SVNREV%
 setlocal enabledelayedexpansion
 set BINPTH="%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%!SNXREV[%SNXDEX%]!_!SNXDAT[%SNXDEX%]!\%SNXBIN%.%SNXEXT%"
 endlocal & set BINPTH=%BINPTH%
 if not "%USEGDV%"=="y" (set BINPTH="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%BINPTH:"=%"
 ) else set BINPTH="file=@%GDVDRV%:\%GDVHOM:"=%\%GDVUSR:"=%\%GDVDIR:"=%\%GDVTEM:"=%\%GDVPRJ:"=%\%PRDDIR:"=%\%GDVDLV:"=%\%GDVFMW:"=%\%BINPTH:"=%"
-goto :RUNDLL
-:SVNLTT
-for /f "tokens=*" %%i in (%SVNLTT:"=%) do set BLDVER=%%i
-set BINPTH="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%BLDVER: =%\%SNXBIN%.%SNXEXT%"
 goto :RUNDLL
 :SVNDBG
 set BINPTH="file=@%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%\%SNXBIN%.%SNXEXT%"
