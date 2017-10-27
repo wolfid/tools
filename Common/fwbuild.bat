@@ -14,16 +14,19 @@ call %ENVCHK% DEVBRA %SETENV% %1
 echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
-if "%2"=="" goto :SVNPTH
-if "%2"=="%SVNLTT%" goto :SVNPTH
-set SVNREV=%2
-if "%SVNREV%"=="SVNDBG" set SVNREV=%SVNDBG%
+set FMWSUF=
+if "%2"=="" (set FMWSUF=%FMWSDB%
+) else if "%2"=="%SVNDBG%" (set FMWSUF=%FMWSDB%
+) else if "%2"=="%SVNREL%" (set FMWSUF=%FMWSRC%
+) else if "%2"=="%SVNPRD%" set FMWSUF=%FMWSPD%
+if not "%FMWSUF%"=="%FMWSDB%" goto :SVNPTH
+set SVNREV=%3
 goto :SVNREV
 :SVNPTH
 if not "%SVNBRA%"=="" (set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNBRA:"=%%DEVBRA%"
 ) else set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
 call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH%
-if "%SVNREV%"=="%SVNUNV%" set SVNREV=%SVNDBG%
+if "%SVNREV%"=="%SVNUNV%" set SVNREV=%SVNDEF%
 :SVNREV
 echo ###########################################################
 echo ### SVN Revision: %SVNREV% (Sometimes needed by MAKCMD)
@@ -31,11 +34,11 @@ echo ###########################################################
 if "%MAKVMD%"=="LOCAL" call %ENVCHK% JSTDIT %VERDET% %1
 if not "%PRDCOD%"=="" goto :SRCPTH
 set PRDTYP=%DEFTYP%
-if "%ALTCFG%"=="" goto :PRDCOD
+if "%ALTCFG%"=="" goto :PRDTYP
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
 call %ENVCHK% JSTDIT %SETPRD% %1 %CFGPTH% %ALTCFG% %ALTSET% %ALTTYP%
-:PRDCOD
+:PRDTYP
 echo ###########################################################
 echo ### Product Type: %PRDTYP%
 echo ###########################################################
@@ -54,8 +57,7 @@ echo ### Building %DEVPRJ% Firmware in ~/%SRCPTH:"=% on %BLDTGT%
 echo ###########################################################
 if "%INTMOD%"=="y" pause
 setlocal EnableDelayedExpansion
-if "%SVNREV%"=="%SVNDBG%" goto :BUILD
-if "%2"=="%SVNLTT%" goto :BUILD
+if "%FMWSUF%"=="%FMWSDB%" goto :BUILD
 :CLEAN
 %PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd "~/%SRCPTH:"=%"; %CLNCMD:~1,-1%
 :BUILD
@@ -82,9 +84,12 @@ goto :ISSCHK
 echo SDK VERSION: %SDKVER%
 echo BLD VERSION: %BLDVER%
 :ISSCHK
-if "%SVNREV%"=="%SVNDBG%" goto :END
-if "%2"=="%SVNLTT%" goto :END
+if "%FMWSUF%"=="%FMWSDB%" goto :END
 if "%ISSLST:"=%"=="" goto :END
+echo ###########################################################
+echo ### BINARY ISSUE CURRENTLY DISABLED...
+echo ###########################################################
+goto :END
 if not "%PRDDIR%"=="" goto :PRDDIR
 setlocal enabledelayedexpansion
 set PRDDIR=!DIRLST[%PRDTYP%]!

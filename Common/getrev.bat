@@ -5,7 +5,7 @@ if not "%MODRET%"=="" shift
 echo ###########################################################
 echo ### Get Source Control Revison from: %1
 echo ###########################################################
-if "%1"=="" goto :EOF
+if "%~1"=="" goto :EOF
 set SVNREV=
 call :GETREV %1
 if "%SVNREV%"=="" goto :EOF
