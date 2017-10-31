@@ -40,11 +40,11 @@ echo ###########################################################
 echo ### Product Type: %PRDTYP%
 echo ###########################################################
 setlocal enabledelayedexpansion
-set PRDCOD=!CODLST[%PRDTYP%]!
+set PRDCOD=!PRDCOD[%PRDTYP%]!
 endlocal & set PRDCOD=%PRDCOD%
 :CHKREV
 if "%SVNREV%"=="%SVNDEF%" goto :GETDAT
-if "%FMWSUF%"=="%FMWSDB%" goto :GETDAT
+if "%FMWSUF%"=="%FMWSPD%" goto :GETDAT
 goto :BLDVER
 :GETDAT
 call %ENVCHK% JSTDIT %GETDAT% %1

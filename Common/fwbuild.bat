@@ -15,11 +15,11 @@ echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
 set FMWSUF=
-if "%2"=="" (set FMWSUF=%FMWSDB%
-) else if "%2"=="%SVNDBG%" (set FMWSUF=%FMWSDB%
+if "%2"=="" (set FMWSUF=%FMWSPD%
+) else if "%2"=="%SVNDBG%" (set FMWSUF=%FMWSPD%
 ) else if "%2"=="%SVNREL%" (set FMWSUF=%FMWSRC%
-) else if "%2"=="%SVNPRD%" set FMWSUF=%FMWSPD%
-if not "%FMWSUF%"=="%FMWSDB%" goto :SVNPTH
+) else if "%2"=="%SVNPRD%" set FMWSUF=%FMWSFL%
+if not "%FMWSUF%"=="%FMWSPD%" goto :SVNPTH
 set SVNREV=%3
 goto :SVNREV
 :SVNPTH
@@ -43,7 +43,7 @@ echo ###########################################################
 echo ### Product Type: %PRDTYP%
 echo ###########################################################
 setlocal enabledelayedexpansion
-set PRDCOD=!CODLST[%PRDTYP%]!
+set PRDCOD=!PRDCOD[%PRDTYP%]!
 endlocal & set PRDCOD=%PRDCOD%
 :SRCPTH
 set SRCPTH=%PRJDIR:\=/%
@@ -57,7 +57,7 @@ echo ### Building %DEVPRJ% Firmware in ~/%SRCPTH:"=% on %BLDTGT%
 echo ###########################################################
 if "%INTMOD%"=="y" pause
 setlocal EnableDelayedExpansion
-if "%FMWSUF%"=="%FMWSDB%" goto :BUILD
+if "%FMWSUF%"=="%FMWSPD%" goto :BUILD
 :CLEAN
 %PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd "~/%SRCPTH:"=%"; %CLNCMD:~1,-1%
 :BUILD
@@ -84,7 +84,7 @@ goto :ISSCHK
 echo SDK VERSION: %SDKVER%
 echo BLD VERSION: %BLDVER%
 :ISSCHK
-if "%FMWSUF%"=="%FMWSDB%" goto :END
+if "%FMWSUF%"=="%FMWSPD%" goto :END
 if "%ISSLST:"=%"=="" goto :END
 echo ###########################################################
 echo ### BINARY ISSUE CURRENTLY DISABLED...

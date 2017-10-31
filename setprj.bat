@@ -1,1 +1,1 @@
-set DEVPRJ=Mebo
+set DEVPRJ=Mebo2

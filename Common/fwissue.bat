@@ -36,7 +36,7 @@ goto :VERERR
 :PRDCOD
 if not "%PRDDIR%"=="" goto :PRDDIR
 setlocal enabledelayedexpansion
-set PRDCOD=!CODLST[%ALTTYP%]!
+set PRDCOD=!PRDCOD[%ALTTYP%]!
 endlocal & set PRDCOD=%PRDCOD%
 if "%BLDVER:~6,-19%"=="%PRDCOD%" goto :ALTDIR
 setlocal enabledelayedexpansion
