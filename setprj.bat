@@ -1,1 +1,1 @@
-set DEVPRJ=Mebo2
+set DEVPRJ=SkyViper

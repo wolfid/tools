@@ -1,7 +1,4 @@
 @echo off
-set MODCHK="%~dp0..\Common\modchk%~x0"
-call %MODCHK% %1 %QMDLST%_%NMDLST%
-if not "%MODRET%"=="" shift
 echo ###########################################################
 echo ### Search for %2 in %1
 echo ###########################################################

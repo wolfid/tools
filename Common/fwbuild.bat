@@ -23,7 +23,7 @@ if not "%FMWSUF%"=="%FMWSPD%" goto :SVNPTH
 set SVNREV=%3
 goto :SVNREV
 :SVNPTH
-if not "%SVNBRA%"=="" (set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNBRA:"=%%DEVBRA%"
+if not "%SVNBRA%"=="" (set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNBRA:"=%/%DEVBRA%"
 ) else set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
 call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH%
 if "%SVNREV%"=="%SVNUNV%" set SVNREV=%SVNDEF%
@@ -32,20 +32,24 @@ echo ###########################################################
 echo ### SVN Revision: %SVNREV% (Sometimes needed by MAKCMD)
 echo ###########################################################
 if "%MAKVMD%"=="LOCAL" call %ENVCHK% JSTDIT %VERDET% %1
-if not "%PRDCOD%"=="" goto :SRCPTH
-set PRDTYP=%DEFTYP%
-if "%ALTCFG%"=="" goto :PRDTYP
-if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
-) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
-call %ENVCHK% JSTDIT %SETPRD% %1 %CFGPTH% %ALTCFG% %ALTSET% %ALTTYP%
-:PRDTYP
+set PRDDEX=1
+setlocal enabledelayedexpansion
+set PRDTYP=!PRDTYP[%PRDDEX%]!
+goto :PRDCHK
+:PRDLPP
+set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
+call %SETPRD% %CFGPTH% !CFGLST[%PRDDEX%]! !CFGSET[%PRDDEX%]! !PRDTYP[%PRDDEX%]!
+:PRDCHK
+set /a PRDDEX+=1
+if not "!CFGLST[%PRDDEX%]!"=="" goto :PRDLPP
 echo ###########################################################
 echo ### Product Type: %PRDTYP%
 echo ###########################################################
-setlocal enabledelayedexpansion
 set PRDCOD=!PRDCOD[%PRDTYP%]!
-endlocal & set PRDCOD=%PRDCOD%
-:SRCPTH
+endlocal & set PRDCOD=%PRDCOD% & set PRDTYP=%PRDTYP%
+echo ###########################################################
+echo ### Product Code: %PRDCOD%
+echo ###########################################################
 set SRCPTH=%PRJDIR:\=/%
 set SRCPTH="%PRJDIR:"=%/%SUBDIR:"=%"
 if not "%DEVBRA%"=="%DEVTRK%" set SRCPTH="%SRCPTH:"=%/%DEVBRA%"
@@ -79,6 +83,8 @@ if "%BDVNAM%"=="" goto :ISSCHK
 if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
 ) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
 type %CFGPTH%
+for /f "tokens=*" %%i in (%CFGPTH:"=%) do set BLDVER=%%i
+set BLDVER=%BLDVER:~25,-2%
 goto :ISSCHK
 :LOCAL
 echo SDK VERSION: %SDKVER%
@@ -86,15 +92,9 @@ echo BLD VERSION: %BLDVER%
 :ISSCHK
 if "%FMWSUF%"=="%FMWSPD%" goto :END
 if "%ISSLST:"=%"=="" goto :END
-echo ###########################################################
-echo ### BINARY ISSUE CURRENTLY DISABLED...
-echo ###########################################################
-goto :END
-if not "%PRDDIR%"=="" goto :PRDDIR
 setlocal enabledelayedexpansion
-set PRDDIR=!DIRLST[%PRDTYP%]!
+set PRDDIR=!PRDDIR[%PRDTYP%]!
 endlocal & set PRDDIR=%PRDDIR%
-:PRDDIR
 echo ###########################################################
 echo ### Product Directory: %PRDDIR:"=%
 echo ###########################################################
@@ -113,16 +113,16 @@ echo ### Generate "%RMEFIL%"
 echo ###########################################################
 if not "%SVNBRA%"=="" (set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNBRA:"=%%DEVBRA%"
 ) else set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
-call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH% %BINPTH%\%RMEFIL%
+echo call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH% %BINPTH%\%RMEFIL%
 :SVNREV
 echo ###########################################################
 echo ### SVN Revision: %SVNREV%
 echo ###########################################################
 if "%SVNREV%"=="%SVNUNV%" goto :END
-call %ENVCHK% JSTDIT %DOCOPY% %1 "%ISSPTH:"=%" %BINPTH% %ISSLST:"=% %RMEFIL%
+echo call %ENVCHK% JSTDIT %DOCOPY% %1 "%ISSPTH:"=%" %BINPTH% %ISSLST:"=% %RMEFIL%
 if not "%GDVDRV%"=="" goto :GDVDRV
 goto :END
 :NORDME
-call %ENVCHK% JSTDIT %DOCOPY% %1 "%ISSPTH:"=%" %BINPTH% %ISSLST:"=%
+echo call %ENVCHK% JSTDIT %DOCOPY% %1 "%ISSPTH:"=%" %BINPTH% %ISSLST:"=%
 if not "%GDVDRV%"=="" goto :GDVDRV
 :END

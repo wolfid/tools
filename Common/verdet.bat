@@ -29,20 +29,21 @@ if not "%SVNBRA%"=="" (set SVNPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"
 call %ENVCHK% JSTDIT %GETREV% %1 %SVNPTH%
 if "%SVNREV%"=="%SVNUNV%" set SVNREV=%SVNDEF%
 :PRDTYP
-if not "%PRDCOD%"=="" goto :CHKREV
-set PRDTYP=%DEFTYP%
-if not "%ALTCFG%"=="" goto :PRDCOD
-if "%DEVBRA%"=="%DEVTRK%" (set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
-) else set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
-call %ENVCHK% JSTDIT %SETPRD% %1 %CFGPTH% %ALTCFG% %ALTSET% %ALTTYP%
-:PRDCOD
+set PRDDEX=1
+setlocal enabledelayedexpansion
+set PRDTYP=!PRDTYP[%PRDDEX%]!
+goto :PRDCHK
+:PRDLPP
+set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
+call %SETPRD% %CFGPTH% !CFGLST[%PRDDEX%]! !CFGSET[%PRDDEX%]! !PRDTYP[%PRDDEX%]!
+:PRDCHK
+set /a PRDDEX+=1
+if not "!CFGLST[%PRDDEX%]!"=="" goto :PRDLPP
 echo ###########################################################
 echo ### Product Type: %PRDTYP%
 echo ###########################################################
-setlocal enabledelayedexpansion
 set PRDCOD=!PRDCOD[%PRDTYP%]!
 endlocal & set PRDCOD=%PRDCOD%
-:CHKREV
 if "%SVNREV%"=="%SVNDEF%" goto :GETDAT
 if "%FMWSUF%"=="%FMWSPD%" goto :GETDAT
 goto :BLDVER

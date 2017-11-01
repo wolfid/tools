@@ -24,30 +24,22 @@ echo ###########################################################
 echo ### Build Version: %BLDVER%
 echo ###########################################################
 set BLDVER=%BLDVER:~25,-8%
-if not "%BLDVER:~15,5%"=="%SVNDBG%" goto :PRDCOD
-set SVNREV=%BLDVER:~15,5%
-goto :VERERR
+if "%BLDVER:~11,4%"=="%FMWSPD%" goto :VERERR
+:goto :PRDCOD
 :VERDET
 call %ENVCHK% JSTDIT %VERDET% %1
-set BLDVER=%BLDVER:~0,-5%
-if not "%BLDVER%"=="%SVNDBG%" goto :PRDCOD
-set SVNREV=%BLDVER%
-goto :VERERR
+if "%BLDVER:~11,4%"=="%FMWSPD%" goto :VERERR
 :PRDCOD
-if not "%PRDDIR%"=="" goto :PRDDIR
+set PRDCOD=%BLDVER:~6,5%"
+set PRDDEX=0
 setlocal enabledelayedexpansion
-set PRDCOD=!PRDCOD[%ALTTYP%]!
-endlocal & set PRDCOD=%PRDCOD%
-if "%BLDVER:~6,-19%"=="%PRDCOD%" goto :ALTDIR
-setlocal enabledelayedexpansion
-set PRDDIR=!DIRLST[%DEFTYP%]!
+:PRDLPP
+set /a PRDDEX+=1
+set PRDTYP=!PRDTYP[%PRDDEX%]!
+:PRDCHK
+if not "%PRDCOD%"=="!PRDCOD[%PRDTYP%]!" goto :PRDLPP
+set PRDDIR=!PRDDIR[%PRDTYP%]!
 endlocal & set PRDDIR=%PRDDIR%
-goto :PRDDIR
-:ALTDIR
-setlocal enabledelayedexpansion
-set PRDDIR=!DIRLST[%ALTTYP%]!
-endlocal & set PRDDIR=%PRDDIR%
-:PRDDIR
 echo ###########################################################
 echo ### Product Directory: %PRDDIR:"=%
 echo ###########################################################
@@ -75,6 +67,7 @@ goto :END
 echo ###########################################################
 if "%3"=="" goto :DOCOPY_ERR
 echo ### Copying(Zipping) files to %~1(.zip):
+exit /b 0
 if "%INTMOD%"=="y" pause
 if not exist %1 md %1
 set CPYDST=%1
@@ -103,7 +96,7 @@ echo ###########################################################
 goto :END
 :VERERR
 echo ###########################################################
-echo ### Revision Marked as: %SVNREV% not for Issue
+echo ### Build: %BLDVER% not for Issue
 echo ###########################################################
 goto :END
 :END
