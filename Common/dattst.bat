@@ -1,0 +1,10 @@
+@echo off
+ALTSET GETDAT="%~dp0..\Common\getdat%~x0"
+call %GETDAT%
+echo %dd%
+echo %mmm%
+echo %yyyy%
+echo %hour%
+echo %min%
+echo %sec%
+echo %timezone%

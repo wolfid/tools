@@ -11,20 +11,20 @@ echo ### Get Latest Tag From: %TAGLST:"=% %SVNPTH:"=%
 echo ###########################################################
 set SVNTAG=0.0
 for /f %%i in ('%TAGLST:"=% %SVNPTH:"=%') do set SVNTAG=%%i
-if "%SVNTAG%"=="0.0" if not "%FMWSUF%"=="%FMWSPD%" goto :ERRTAG
+if "%SVNTAG%"=="0.0" if not "%BLDLVL%"=="%BLDLPD%" goto :ERRTAG
 echo ###########################################################
 echo ### SVN Tag: %SVNTAG%
 echo ###########################################################
-if "%SVNTAG:~-1,1%"=="0" (if "%FMWSUF%"=="%FMWSRC%" goto :ERRREL) else if "%FMWSUF%"=="%FMWSFL%" goto :ERRFNL
+if "%SVNTAG:~-1,1%"=="0" (if "%BLDLVL%"=="%BLDLRC%" goto :ERRREL) else if "%BLDLVL%"=="%BLDLFL%" goto :ERRFNL
 if "%BDTNAM%"=="" goto :END
 set SVNTAG=%SVNTAG%.%SVNREV%
-if "%FMWSUF%"=="%FMWSPD%" (set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSBRA%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDTNAM%.%VEREXT%"
+if "%BLDLVL%"=="%BLDLPD%" (set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSBRA%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDTNAM%.%VEREXT%"
 ) else set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSTAG%\%TAGREL%\%SVNTAG%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDTNAM%.%VEREXT%"
 echo ###########################################################
 echo ### Build Version File: %VERPTH%
 echo ###########################################################
 call %ENVCHK% JSTDIT %GETDAT% %1
-set BLDVER=%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%%SVNTAG%_%dd%%mmm%%yyyy%_%hour%%min%
+set BLDVER=%BLDTYP%_%BRDCOD%_%PRDCOD%%BLDLVL%%SVNTAG%_%dd%%mmm%%yyyy%_%hour%%min%
 echo ###########################################################
 echo ### Build Version: %BLDVER%
 echo ###########################################################

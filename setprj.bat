@@ -1,1 +1,1 @@
-set DEVPRJ=SkyViper
+set DEVPRJ=Test

@@ -20,7 +20,7 @@ set CMDSTR="%CMDSTR:"=%%CTLTYP%"
 if "%SVNREV%"=="SVNDBG" goto :CTLLTT
 if not "%SVNREV%"=="SVNLTT" set CTLDEX=%SVNREV%
 setlocal enabledelayedexpansion
-set BINPTH="%FMWPRF%%CTLPRF%%PRDCOD%%FMWSUF%!CTLREV[%CTLDEX%]!_!CTLDAT[%CTLDEX%]!\%CTLBIN%.%CTLEXT%"
+set BINPTH="%BLDTYP%_%CTLPRF%%PRDCOD%%BLDLVL%!CTLREV[%CTLDEX%]!_!CTLDAT[%CTLDEX%]!\%CTLBIN%.%CTLEXT%"
 endlocal & set BINPTH=%BINPTH%
 if not "%USEGDV%"=="y" (set BINPTH="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%BINPTH:"=%"
 ) else set BINPTH="file=@%GDVDRV%:\%GDVHOM:"=%\%GDVUSR:"=%\%GDVDIR:"=%\%GDVTEM:"=%\%GDVPRJ:"=%\%PRDDIR:"=%\%GDVDLV:"=%\%GDVFMW:"=%\%BINPTH:"=%"
@@ -36,7 +36,7 @@ set CMDSTR="%CMDSTR:"=%%SNXTYP%"
 if "%SVNREV%"=="SVNDBG" goto :SVNDBG
 if not "%SVNREV%"=="SVNLTT" set SNXDEX=%SVNREV%
 setlocal enabledelayedexpansion
-set BINPTH="%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%!SNXREV[%SNXDEX%]!_!SNXDAT[%SNXDEX%]!\%SNXBIN%.%SNXEXT%"
+set BINPTH="%BLDTYP%_%BRDCOD%_%PRDCOD%%BLDLVL%!SNXREV[%SNXDEX%]!_!SNXDAT[%SNXDEX%]!\%SNXBIN%.%SNXEXT%"
 endlocal & set BINPTH=%BINPTH%
 if not "%USEGDV%"=="y" (set BINPTH="file=@%ISSDRV%:\%SVNDIR:"=%\%ISSDIR:"=%\%PRDDIR:"=%\%BINPTH:"=%"
 ) else set BINPTH="file=@%GDVDRV%:\%GDVHOM:"=%\%GDVUSR:"=%\%GDVDIR:"=%\%GDVTEM:"=%\%GDVPRJ:"=%\%PRDDIR:"=%\%GDVDLV:"=%\%GDVFMW:"=%\%BINPTH:"=%"

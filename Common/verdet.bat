@@ -45,7 +45,7 @@ echo ###########################################################
 set PRDCOD=!PRDCOD[%PRDTYP%]!
 endlocal & set PRDCOD=%PRDCOD%
 if "%SVNREV%"=="%SVNDEF%" goto :GETDAT
-if "%FMWSUF%"=="%FMWSPD%" goto :GETDAT
+if "%BLDLVL%"=="%BLDLPD%" goto :GETDAT
 goto :BLDVER
 :GETDAT
 call %ENVCHK% JSTDIT %GETDAT% %1
@@ -53,7 +53,7 @@ echo ###########################################################
 echo ### Current Date: %dd%%mmm%%yyyy%_%hour%%min%
 echo ###########################################################
 :BLDVER
-set BLDVER=%FMWPRF%%SNXPRF%%PRDCOD%%FMWSUF%%SVNREV%_%dd%%mmm%%yyyy%_%hour%%min%
+set BLDVER=%BLDTYP%_%BRDCOD%_%PRDCOD%%BLDLVL%%SVNREV%_%dd%%mmm%%yyyy%_%hour%%min%
 echo ###########################################################
 echo ### BLD Version: %BLDVER%
 echo ###########################################################

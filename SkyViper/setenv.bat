@@ -45,7 +45,7 @@ set MAKDIR="buildscript"
 set MAKCMD="make; if [ $? -eq 0 ]; then make install; fi"
 set MAKVMD=REMOTE
 set MAKVER=1
-set MAKCMD="make MAKVER=!MAKVER! SVNREV=!SVNREV! PRDCOD=!PRDCOD! FMWSUF=!FMWSUF!"; if [ $? -eq 0 ]; then make install; fi"
+set MAKCMD="make MAKVER=!MAKVER! SVNREV=!SVNREV! PRDCOD=!PRDCOD! BLDLVL=!BLDLVL! SVNTAG=!SVNTAG!"; if [ $? -eq 0 ]; then make install; fi"
 set CLNCMD="make clean"
 set CFGDIR="include\config"
 set CFGEXT=conf
@@ -58,8 +58,8 @@ set SNXFEX=_F
 set SNXPHY=PHY-SF
 set SNXEXT=bin
 set ISSLST="%SNXBIN%.%SNXEXT% %SNXBIN%%SNXFEX%.%SNXEXT% %SNXPHY%.%SNXEXT%"
-set FMWPRF=FW_
-set SNXPRF=SX_
+set BLDTYP=FW
+set BRDCOD=SX
 set SNXSUF=_PD_
 set CTLPRF=FB_
 set CTLSUF=_OF_

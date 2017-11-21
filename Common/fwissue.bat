@@ -24,11 +24,11 @@ echo ###########################################################
 echo ### Build Version: %BLDVER%
 echo ###########################################################
 set BLDVER=%BLDVER:~25,-8%
-if "%BLDVER:~11,4%"=="%FMWSPD%" goto :VERERR
+if "%BLDVER:~11,4%"=="%BLDLPD%" goto :VERERR
 :goto :PRDCOD
 :VERDET
 call %ENVCHK% JSTDIT %VERDET% %1
-if "%BLDVER:~11,4%"=="%FMWSPD%" goto :VERERR
+if "%BLDVER:~11,4%"=="%BLDLPD%" goto :VERERR
 :PRDCOD
 set PRDCOD=%BLDVER:~6,5%"
 set PRDDEX=0

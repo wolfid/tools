@@ -29,5 +29,5 @@ set SNXPHY=
 set SNXEXT=
 set PRDCOD=RECOIL_
 set PRDDIR="recoil"
-set FMWPRF=FW_
-set SNXPRF=BS_
+set BLDTYP=FW
+set BRDCOD=BS_

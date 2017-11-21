@@ -15,11 +15,13 @@ set hour=%SVNDAT:~10,2%
 set min=%SVNDAT:~13,2%
 set sec=%SVNDAT:~16,2%
 set timezone=(UTC%SVNDAT:~18,3%:%SVNDAT:~21,2%)
-set dd=%SVNDAT:~28,2%
+set dd=%SVNDAT:~8,2%
+set mm=%SVNDAT:~5,2%
+set yyyy=%SVNDAT:~0,4%
 set mmm=%SVNDAT:~30,3%
-set yyyy=%SVNDAT:~33,4%
 set SVNREV=%SVNREV:~1,5%
-if "%2"=="" goto :EOF
+if "%~2"=="" goto :EOF
+echo %2
 %SVNLOG:"=% %SVNLPR:"=% %SVNREV% %1 > %2
 goto :EOF
 :GETREV
