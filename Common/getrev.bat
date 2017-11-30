@@ -21,7 +21,6 @@ set yyyy=%SVNDAT:~0,4%
 set mmm=%SVNDAT:~30,3%
 set SVNREV=%SVNREV:~1,5%
 if "%~2"=="" goto :EOF
-echo %2
 %SVNLOG:"=% %SVNLPR:"=% %SVNREV% %1 > %2
 goto :EOF
 :GETREV
