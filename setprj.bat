@@ -1,1 +1,1 @@
-set DEVPRJ=Test
+set DEVPRJ=Pomsies

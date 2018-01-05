@@ -26,5 +26,5 @@ set BLDVER=%PRDCOD%_%BLDTYP%_%BRDCOD%_%BLDLVL%_%SVNTAG%.%SVNREV%_%yyyy%%mm%%dd%
 echo ###########################################################
 echo ### BLD Version: %BLDVER%
 echo ###########################################################
-echo const char *%BDVNAM%="%BLDVER%"; > "%VERPTH:"=%\%BDVNAM:"=%.%VEREXT:"=%"
+if not "%BDVNAM%"=="" echo const char *%BDVNAM%="%BLDVER%"; > "%VERPTH:"=%\%BDVNAM:"=%.%VEREXT:"=%"
 :END
