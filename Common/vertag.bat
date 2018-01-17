@@ -1,5 +1,4 @@
 @echo off
-set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
 set GETDAT="%~dp0..\%DEVCOM%\getdat%~x0"
 echo ###########################################################
 echo ###                                 ~\%DEVCOM%\%~nx0 ###
@@ -23,7 +22,7 @@ if "%BLDLVL%"=="%BLDLPD%" (set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSBRA%\%
 echo ###########################################################
 echo ### Build Version File: %VERPTH%
 echo ###########################################################
-call %ENVCHK% JSTDIT %GETDAT% %1
+call %GETDAT% %1
 set BLDVER=%BLDTYP%_%BRDCOD%_%PRDCOD%%BLDLVL%%SVNTAG%_%dd%%mmm%%yyyy%_%hour%%min%
 echo ###########################################################
 echo ### Build Version: %BLDVER%

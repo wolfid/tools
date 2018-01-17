@@ -17,8 +17,8 @@ if "%1"=="" goto :DOCOPY_END
 set /a CPYCNT+=1
 echo ### %CPYCNT%: %CPYSRC:"=%\%1
 if "%INTMOD%"=="y" pause
-%CPYCMD% %CPYFLG:"=% "%CPYSRC:"=%\%1" %CPYDST%
-%ZIPEXE% a %CPYDST%.zip "%CPYSRC:"=%\%1"
+if not "%CPYFLG%"=="n" %CPYCMD% "%CPYSRC:"=%\%1" %CPYDST%
+if not "%ZIPFLG%"=="n" %ZIPEXE% a %CPYDST%.zip "%CPYSRC:"=%\%1"
 goto :DOCOPY_CHK
 :DOCOPY_ERR
 echo ### Not Enough Copy Parameters
