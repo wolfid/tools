@@ -1,23 +1,32 @@
 @echo off
-echo ###########################################################
-echo ###                                 ~\%DEVCOM%\%~nx0 ###
-echo ###                                    %~t0 ###
-echo ###########################################################
-if "%BLDLVL%"=="%BLDLDB%" goto :DBGTAG
-if "%BLDLVL%"=="%BLDLPD%" goto :DBGTAG
-set SVNURL="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%DEVPRJ:"=%/%SCSTAG:"=%/%TAGREL:"=%"
-goto :SVNURL
-:DBGTAG
-set SVNURL="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%DEVPRJ:"=%/%SCSTAG:"=%/%TAGDBG:"=%"
-:SVNURL
-echo ###########################################################
-echo ### Repo Location: %SVNURL:"=%
-echo ###########################################################
-for /f %%i in ('%SVNLST:"=% %SVNURL:"=%') do set SVNTAG=%%i
-if "%SVNTAG%"=="" (if "%BLDLVL%"=="%BLDLDB%" (set SVNTAG=%TAGDEF%
-) else set SVNTAG=%TAGNUL%
-) else set SVNTAG=%SVNTAG:~0,-1%
-echo ###########################################################
-echo ### SVN Tag: %SVNTAG:"=%
-echo ###########################################################
+set MODCHK="%~dp0..\%DEVCOM%\modchk%~x0"
+call %MODCHK% %1 %QMDLST%_%NMDLST%
+if not "%MODRET%"=="" shift
+set SVNURL=%1
+set CURMAJ=0
+set CURMIN=0
+for /f %%i in ('%SVNLST:"=% %SVNURL:"=%') do call :SVNTAG %%i
+goto :END
+:SVNTAG
+set NEWTAG=%1
+set NEWTAG=%NEWTAG:~0,-1%
+set TAGDEX=1
+setlocal enabledelayedexpansion
+:SVNLOP
+if "!NEWTAG:~%TAGDEX%,1!"=="." goto :SVNDOT
+set /a TAGDEX+=1
+goto :SVNLOP
+:SVNDOT
+set NEWMAJ=!NEWTAG:~0,%TAGDEX%!
+set /a TAGDEX+=1
+set NEWMIN=!NEWTAG:~%TAGDEX%!
+endlocal & set NEWMAJ=%NEWMAJ% & set NEWMIN=%NEWMIN%
+set NEWMAJ=%NEWMAJ: =%
+set NEWMIN=%NEWMIN: =%
+if %NEWMAJ% LSS %CURMAJ% exit /b 0
+if %NEWMIN% LSS %CURMIN% exit /b 0
+set CURMAJ=%NEWMAJ%
+set CURMIN=%NEWMIN%
+set SVNTAG=%NEWTAG%
+exit /b 0
 :END
