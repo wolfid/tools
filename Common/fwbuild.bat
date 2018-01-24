@@ -16,7 +16,7 @@ echo ###########################################################
 set BLDLVL=
 if not "%2"=="" goto :BLDLVL
 set BLDLVL=%BLDLDB%
-goto :PRDCHK
+goto :SVNURL
 :BLDLVL
 if "%2"=="%SVNDBG%" (set BLDLVL=%BLDLDB%
 ) else if "%2"=="%SVNPRD%" (set BLDLVL=%BLDLPD%
@@ -24,21 +24,38 @@ if "%2"=="%SVNDBG%" (set BLDLVL=%BLDLDB%
 ) else if "%2"=="%SVNFIN%" set BLDLVL=%BLDLFL%
 if "%BLDLVL%"=="" set BLDLVL=%BLDLDB%
 if not "%3"== "" if "%3"=="%BLDSKP%" (set MAKSKP=%BLDSKP%) else set SVNREV=%3
-:PRDCHK
-call %PRDCHK%
+:SVNURL
+setlocal EnableDelayedExpansion
+set SVNURL=!SVNURL[%BLDLVL%]!
+set VERPTH=!VERPTH[%BLDLVL%]!
+set SRCPTH=!SRCPTH[%BLDLVL%]!
+endlocal & set SVNURL=%SVNURL%& set VERPTH=%VERPTH%& set SRCPTH=%SRCPTH%
 :MAKVMD
-call %BLDTAG%
+if not "%SVNTAG%"=="" goto :SVNTAG
+call %BLDTAG% %1 %SVNURL%
 if "%SVNTAG%"=="%TAGNUL%" if not "%BLDLVL%"=="%BLDLDB%" goto :ERRTAG
 if "%SVNTAG:~-1,1%"=="0" if not "%BLDLVL%"=="%BLDLFL%" goto :ERRTAG
-if "%MAKVMD%"=="LOCAL" call %BLDVER% %1
+:SVNTAG
+if not "%MAKVMD%"=="LOCAL" goto :BLDVER
+if not "%RMEFIL%"=="" set RMEFIL="%VERPTH:"=%\%RMEFIL:"=%"
+call %BLDVER% %1
+echo ###########################################################
+echo ### BLD Version: %BLDVER%
+echo ###########################################################
+echo const char *sdk_version="%SDKVER%"; > "%VERPTH:"=%\%SDKDIR:"=%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%SDVNAM%.%VEREXT%"
+echo const char *bld_version="%SDKVER%"; > "%VERPTH:"=%\%SDKDIR:"=%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
+if "%DETHTM%"=="" goto :BLDVER
+set CFGPTH="%VERPTH:"=%\%SDKDIR:"=%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"
+echo ^<!DOCTYPE HTML^> > %CFGPTH%
+echo ^<html^> >> %CFGPTH%
+echo ^<body^> >> %CFGPTH%
+echo ^<b^>SDK:^</b^> %SDKVER% >> %CFGPTH%
+echo ^<p^> >> %CFGPTH%
+echo ^<b^>BLD:^</b^> %BLDVER% >> %CFGPTH%
+echo ^</body^> >> %CFGPTH%
+echo ^</html^> >> %CFGPTH%
+:BLDVER
 if "%MAKSKP%"=="%BLDSKP%" goto :DETHTM
-set SRCPTH=%PRJDIR:\=/%
-set SRCPTH="%PRJDIR:"=%/%SUBDIR:"=%"/%DEVPRJ:"=%
-if "%BLDLVL%"=="%BLDLDB%" (set SRCPTH="%SRCPTH:"=%/%SCSBRA%/%DEVBRA%"
-) else if "%BLDLVL%"=="%BLDLPD%" (set SRCPTH="%SRCPTH:"=%/%SCSTAG%/%TAGDBG%/%SVNTAG%"
-) else set SRCPTH="%SRCPTH:"=%/%SCSTAG%/%TAGREL%/%SVNTAG%"
-if not "%SDKDIR%"=="" set SRCPTH="%SRCPTH:"=%/%SDKDIR:"=%"
-if not "%MAKDIR%"=="" set SRCPTH="%SRCPTH:"=%/%MAKDIR:"=%"
 echo ###########################################################
 echo ### Building %DEVPRJ% Firmware in ~/%SRCPTH:"=% on %BLDTGT%
 echo ###########################################################
@@ -58,11 +75,11 @@ goto :ISSCHK
 :SDKVER
 if "%MAKVMD%"=="LOCAL" goto :LOCAL
 if "%SDVNAM%"=="" goto :BLDVER
-set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%\%SDVNAM%.%VEREXT%"
+set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SCSBRA%\%DEVBRA%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%\%SDVNAM%.%VEREXT%"
 type %CFGPTH%
 :BLDVER
 if "%BDVNAM%"=="" goto :ISSCHK
-set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
+set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSBRA%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
 type %CFGPTH%
 for /f "tokens=*" %%i in (%CFGPTH:"=%) do set BLDVER=%%i
 set BLDVER=%BLDVER:~25,-2%

@@ -45,3 +45,7 @@ set TAGREL=release
 set TAGDBG=debug
 set TAGNUL=0.0
 set TAGDEF=0.1
+set ISSDBG=DB
+set ISSPRD=PD
+set ISSPRC=RC
+set ISSFIN=FL

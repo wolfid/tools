@@ -24,7 +24,4 @@ if "%~2"=="" goto :EOF
 %SVNLOG:"=% %SVNLPR:"=% %SVNREV% %1 > %2
 goto :EOF
 :GETREV
-echo ###########################################################
-echo ### Parse %SVNLOG% in Function Allows Loop to be Broken
-echo ###########################################################
 for /f "tokens=* eol=%SVNEOL:"=%" %%i in ('%SVNLOG:"=% %1') do set SVNREV=%%i & exit /b

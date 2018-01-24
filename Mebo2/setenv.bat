@@ -1,6 +1,6 @@
 @echo off
 echo ###########################################################
-echo ###                                   ~\%DEVPRJ%\%~nx0 ###
+echo ###                                  ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
 set DEVTRK=Trunk
@@ -20,8 +20,8 @@ set DEVPRT=2017
 set SDCDRV=E
 set SDCDIR="\"
 set PRJDRV=Z
-set PRJDIR="Projects"
-set SUBDIR="sonix_firmware"
+set PRJDIR=Projects
+set SUBDIR=sonix_firmware
 set ISSDRV=T
 set SVNDIR="SkyRocketToys"
 set SVNPRJ="Mebo"
@@ -51,9 +51,20 @@ set IMGDIR="image"
 set BLDTYP=FW
 set BLDLVL=_PD_
 set UPGLTT=UPGLTT
-set SVNREV=5
 set UPGMOD=1
 set SNXTYP=sonix
+set SVNURL[DB]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
+set SVNURL[PD]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
+set SVNURL[RC]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
+set SVNURL[FL]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
+set VERPTH[DB]="%PRJDRV%:\%SUBDIR%\%DEVBRA%"
+set VERPTH[PD]="%PRJDRV%:\%SUBDIR%\%DEVBRA%"
+set VERPTH[RC]="%PRJDRV%:\%SUBDIR%\%DEVBRA%"
+set VERPTH[FL]="%PRJDRV%:\%SUBDIR%\%DEVBRA%"
+set SRCPTH[DB]="%PRJDIR%/%SUBDIR%/%DEVBRA%/%SDKDIR%/%MAKDIR%"
+set SRCPTH[PD]="%PRJDIR%/%SUBDIR%/%DEVBRA%/%SDKDIR%/%MAKDIR%"
+set SRCPTH[RC]="%PRJDIR%/%SUBDIR%/%DEVBRA%/%SDKDIR%/%MAKDIR%"
+set SRCPTH[FL]="%PRJDIR%/%SUBDIR%/%DEVBRA%/%SDKDIR%/%MAKDIR%"
 set SNXUPG=1
 set SNXDEX=6
 set SNXREV[1]=15266
@@ -111,3 +122,4 @@ set GDVDLV="Deliverables"
 set GDVFMW="Firmware"
 set MBOPWD="12345678"
 set MBOCHN="7"
+set SVNTAG=0.1
