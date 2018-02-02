@@ -1,6 +1,7 @@
 @echo off
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
 set BLDVER="%~dp0..\%DEVCOM%\bldver%~x0"
+set VERDET="%~dp0..\%DEVCOM%\verdet%~x0"
 set BLDTAG="%~dp0..\%DEVCOM%\bldtag%~x0"
 set PRDCHK="%~dp0..\%DEVCOM%\prdchk%~x0"
 set DOCOPY="%~dp0..\%DEVCOM%\docopy%~x0"
@@ -39,18 +40,10 @@ call %BLDVER% %1
 echo ###########################################################
 echo ### BLD Version: %BLDVER%
 echo ###########################################################
-echo const char *sdk_version="%SDKVER%"; > "%VERPTH:"=%\%SDKDIR:"=%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%SDVNAM%.%VEREXT%"
-echo const char *bld_version="%SDKVER%"; > "%VERPTH:"=%\%SDKDIR:"=%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
+echo const char *sdk_version="%SDKVER%"; > "%VERPTH:"=%\%SDVNAM%.%VEREXT%"
+echo const char *bld_version="%SDKVER%"; > "%VERPTH:"=%\%BDVNAM%.%VEREXT%"
 if "%DETHTM%"=="" goto :BLDVER
-set CFGPTH="%VERPTH:"=%\%SDKDIR:"=%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"
-echo ^<!DOCTYPE HTML^> > %CFGPTH%
-echo ^<html^> >> %CFGPTH%
-echo ^<body^> >> %CFGPTH%
-echo ^<b^>SDK:^</b^> %SDKVER% >> %CFGPTH%
-echo ^<p^> >> %CFGPTH%
-echo ^<b^>BLD:^</b^> %BLDVER% >> %CFGPTH%
-echo ^</body^> >> %CFGPTH%
-echo ^</html^> >> %CFGPTH%
+call %VERDET% %1
 :BLDVER
 if "%MAKSKP%"=="%BLDSKP%" goto :DETHTM
 echo ###########################################################
@@ -68,19 +61,19 @@ endlocal
 if "%DETHTM%"=="" goto :SDKVER
 set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"
 if exist %CFGPTH% type %CFGPTH%
-goto :ISSCHK
+goto :END
 :SDKVER
 if "%MAKVMD%"=="LOCAL" goto :LOCAL
 if "%SDVNAM%"=="" goto :BLDVER
 set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SCSBRA%\%DEVBRA%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%\%SDVNAM%.%VEREXT%"
 type %CFGPTH%
 :BLDVER
-if "%BDVNAM%"=="" goto :ISSCHK
+if "%BDVNAM%"=="" goto :END
 set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSBRA%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
 type %CFGPTH%
 for /f "tokens=*" %%i in (%CFGPTH:"=%) do set BLDVER=%%i
 set BLDVER=%BLDVER:~25,-2%
-goto :ISSCHK
+goto :END
 :LOCAL
 if not "%SDVNAM%"=="" echo SDK VERSION: %SDKVER%
 if not "%BDVNAM%"=="" echo BLD VERSION: %BLDVER%
