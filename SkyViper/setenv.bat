@@ -5,6 +5,7 @@ echo ###                                    %~t0 ###
 echo ###########################################################
 set DEVTRK=trunk
 set DEVBRA=WPA2
+set DEVDIR=Drones
 set SDKVER=SN986_1.20_85a_20170120_1237
 set BLDTGT=192.168.56.101
 set BLDUSR=sonix_user
@@ -27,14 +28,17 @@ set SVNDIR="SkyRocketToys"
 set SVNPRJ="SkyViperVideoProto"
 set SNXFMW="Sonix_Firmware"
 set SVNBRA=branch
+set SVNTGS=tags
+set SVNDBG=Debug
+set SVNREL=Release
 set SDKDIR=snx_sdk
 set MAKDIR=buildscript
 set CFGDIR=include\config
 set CFGEXT=conf
-set SVNURL[DB]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNBRA:"=%/%DEVBRA%"
-set SVNURL[PD]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNBRA:"=%/%DEVBRA%"
-set SVNURL[RC]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNBRA:"=%/%DEVBRA%"
-set SVNURL[FL]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNBRA:"=%/%DEVBRA%"
+set SVNURL[DB]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNDBG%"
+set SVNURL[PD]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNDBG%"
+set SVNURL[RC]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNREL%"
+set SVNURL[FL]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNREL%%"
 set VERPTH[DB]="%PRJDRV%:\%SUBDIR%\%DEVPRJ%\%SVNBRA%\%DEVBRA%"
 set VERPTH[PD]="%PRJDRV%:\%SUBDIR%\%DEVPRJ%\%SVNBRA%\%DEVBRA%"
 set VERPTH[RC]="%PRJDRV%:\%SUBDIR%\%DEVPRJ%\%DEVTRK%"
@@ -49,14 +53,19 @@ set CFGPTH[RC]="%PRJDRV%:\%SUBDIR%\%DEVPRJ%\%DEVTRK%\%SDKDIR%\%MAKDIR%\%CFGDIR%\
 set CFGPTH[FL]="%PRJDRV%:\%SUBDIR%\%DEVPRJ%\%DEVTRK%\%SDKDIR%\%MAKDIR%\%CFGDIR%\%SDKDIR%.%CFGEXT%"
 set CFGLST[1]=CONFIG_APP_SPIDERDRONE
 set CFGLST[2]=CONFIG_APP_STREAMING
+set CFGLST[3]=CONFIG_APP_HYBRID
 set CFGSET[1]=y
 set CFGSET[2]=y
+set CFGSET[3]=y
 set PRDTYP[1]=SpiderDrone_WiFi
 set PRDTYP[2]=Streaming
+set PRDTYP[3]=Hybrid
 set PRDDIR[SpiderDrone_WiFi]="SpiderDrone_WiFi"
 set PRDDIR[Streaming]="Streaming"
+set PRDDIR[Hybrid]="Hybrid"
 set PRDCOD[SpiderDrone_WiFi]=01749
 set PRDCOD[Streaming]=01735
+set PRDCOD[Hybrid]=01735H
 set ISSMOD=ALL
 set SVNDRV=Z
 set BRADIR=
@@ -74,6 +83,8 @@ set SNXFEX=_F
 set SNXPHY=PHY-SF
 set SNXEXT=bin
 set ISSLST="%SNXBIN%.%SNXEXT% %SNXBIN%%SNXFEX%.%SNXEXT% %SNXPHY%.%SNXEXT%"
+set ISSPTH="C:\Users\%USERNAME%\Google Drive\FW Docs\2017 Projects\%DEVDIR%\Deliverables\Firmware"
+set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SVNBRA%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
 set BLDTYP=FW
 set BRDCOD=SX
 set SNXSUF=_PD_
@@ -94,4 +105,4 @@ set BDVNAM=bld_version
 set BDTNAM=bdt_version
 set SDVNAM=sdk_version
 set VEREXT=c
-set SVNTAG=0.1
+set ISSDEF=PD

@@ -8,16 +8,8 @@ set PRDDEX=1
 setlocal enabledelayedexpansion
 set PRDTYP=!PRDTYP[%PRDDEX%]!
 call :PRDCHK
-echo ###########################################################
-echo ### Product Type: %PRDTYP%
-echo ###########################################################
 set PRDCOD=!PRDCOD[%PRDTYP%]!
-endlocal & set PRDCOD=%PRDCOD% & set PRDTYP=%PRDTYP%
-set PRDCOD=%PRDCOD: =%
-set PRDTYP=%PRDTYP: =%
-echo ###########################################################
-echo ### Product Code: %PRDCOD%
-echo ###########################################################
+endlocal & set PRDCOD=%PRDCOD%& set PRDTYP=%PRDTYP%
 goto :END
 :PRDCHK
 set /a PRDDEX+=1

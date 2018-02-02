@@ -38,7 +38,7 @@ echo ###########################################################
 echo ### Using Most Recent Build...
 echo ###########################################################
 set BINPTH=%SUBDIR%
-if not "%DEVBRA%"=="%DEVTRK%" set BINPTH="%BINPTH:"=%\%DEVBRA%"
+if not "%DEVBRA%"=="%DEVTRK%" set BINPTH="%BINPTH:"=%\%DEVPRJ%\%SVNBRA%\%DEVBRA%"
 if not "%PRJDRV%"=="" set BINPTH="%PRJDRV%:\%BINPTH:"=%"
 if not "%SDKDIR%"=="" set BINPTH="%BINPTH:"=%\%SDKDIR:"=%"
 if not "%IMGDIR%"=="" set BINPTH="%BINPTH:"=%\%IMGDIR:"=%"

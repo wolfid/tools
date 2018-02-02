@@ -1,8 +1,8 @@
 @echo off
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
-set PRDCHK="%~dp0..\%DEVCOM%\prdchk%~x0"
 set BLDVER="%~dp0..\%DEVCOM%\bldver%~x0"
 set BLDTAG="%~dp0..\%DEVCOM%\bldtag%~x0"
+set PRDCHK="%~dp0..\%DEVCOM%\prdchk%~x0"
 set DOCOPY="%~dp0..\%DEVCOM%\docopy%~x0"
 echo ###########################################################
 echo ###                                ~\%DEVCOM%\%~nx0 ###
@@ -13,15 +13,11 @@ call %SETENV% %1
 echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
-set BLDLVL=
-if not "%2"=="" goto :BLDLVL
-set BLDLVL=%BLDLDB%
-goto :SVNURL
 :BLDLVL
-if "%2"=="%SVNDBG%" (set BLDLVL=%BLDLDB%
-) else if "%2"=="%SVNPRD%" (set BLDLVL=%BLDLPD%
+if "%2"=="%BLDLDB%" (set BLDLVL=%BLDLDB%
+) else if "%2"=="%BLDLPD%" (set BLDLVL=%BLDLPD%
 ) else if "%2"=="%SVNREL%" (set BLDLVL=%BLDLRC%
-) else if "%2"=="%SVNFIN%" set BLDLVL=%BLDLFL%
+) else if "%2"=="%BLDLRC%" set BLDLVL=%BLDLFL%
 if "%BLDLVL%"=="" set BLDLVL=%BLDLDB%
 if not "%3"== "" if "%3"=="%BLDSKP%" (set MAKSKP=%BLDSKP%) else set SVNREV=%3
 :SVNURL
@@ -33,9 +29,10 @@ endlocal & set SVNURL=%SVNURL%& set VERPTH=%VERPTH%& set SRCPTH=%SRCPTH%
 :MAKVMD
 if not "%SVNTAG%"=="" goto :SVNTAG
 call %BLDTAG% %1 %SVNURL%
-if "%SVNTAG%"=="%TAGNUL%" if not "%BLDLVL%"=="%BLDLDB%" goto :ERRTAG
-if "%SVNTAG:~-1,1%"=="0" if not "%BLDLVL%"=="%BLDLFL%" goto :ERRTAG
 :SVNTAG
+echo ###########################################################
+echo ### SVN Tag: %SVNTAG%
+echo ###########################################################
 if not "%MAKVMD%"=="LOCAL" goto :BLDVER
 if not "%RMEFIL%"=="" set RMEFIL="%VERPTH:"=%\%RMEFIL:"=%"
 call %BLDVER% %1
@@ -87,19 +84,6 @@ goto :ISSCHK
 :LOCAL
 if not "%SDVNAM%"=="" echo SDK VERSION: %SDKVER%
 if not "%BDVNAM%"=="" echo BLD VERSION: %BLDVER%
-:ISSCHK
-if "%BLDLVL%"=="%BLDLDB%" goto :END
-if "%ISSLST%"=="" goto :END
-if "%ISSDRV%"=="" goto :END
-setlocal enabledelayedexpansion
-set PRDDIR=!PRDDIR[%PRDTYP%]!
-endlocal & set PRDDIR=%PRDDIR%
-echo ###########################################################
-echo ### Product Directory: %PRDDIR:"=%
-echo ###########################################################
-set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
-set ISSPTH="%ISSDRV%:\%ISSHOM:"=%\%ISSUSR:"=%\%ISSDIR:"=%\%ISSTEM:"=%\%ISSPRJ:"=%\%PRDDIR:"=%\%ISSDLV:"=%\%ISSFMW:"=%\%BLDVER%"
-call %DOCOPY% %1 "%ISSPTH:"=%" %BINPTH% %ISSLST:"=% %RMEFIL%
 goto :END
 :ERRTAG
 echo ###########################################################
