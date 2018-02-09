@@ -53,10 +53,10 @@ set BLDLVL=_PD_
 set UPGLTT=UPGLTT
 set UPGMOD=1
 set SNXTYP=sonix
-set SVNURL[DB]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
-set SVNURL[PD]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
-set SVNURL[RC]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
-set SVNURL[FL]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
+set SCSPTH[DB]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
+set SCSPTH[PD]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
+set SCSPTH[RC]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
+set SCSPTH[FL]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%DEVBRA%"
 set VERPTH[DB]="%PRJDRV%:\%SUBDIR%\%DEVBRA%"
 set VERPTH[PD]="%PRJDRV%:\%SUBDIR%\%DEVBRA%"
 set VERPTH[RC]="%PRJDRV%:\%SUBDIR%\%DEVBRA%"

@@ -87,10 +87,10 @@ set IMGDIR=image
 set IMGAPP=app
 set IMGTYP=dashcam
 set IMGSRC=src
-set SVNURL[DB]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNDBG%"
-set SVNURL[PD]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNDBG%"
-set SVNURL[RC]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNREL%"
-set SVNURL[FL]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNREL%"
+set SCSPTH[DB]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNDBG%"
+set SCSPTH[PD]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNDBG%"
+set SCSPTH[RC]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNREL%"
+set SCSPTH[FL]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNREL%"
 set VERPTH[DB]="%PRJDRV%:\%SUBDIR%\%DEVPRJ%\%SVNBRA%\%DEVBRA%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%"
 set VERPTH[PD]="%PRJDRV%:\%SUBDIR%\%DEVPRJ%\%SVNBRA%\%DEVBRA%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%"
 set VERPTH[RC]="%PRJDRV%:\%SUBDIR%\%DEVPRJ%\%DEVTRK%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%"
