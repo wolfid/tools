@@ -40,7 +40,7 @@ echo ###########################################################
 echo const char *sdk_version="%SDKVER%"; > "%VERPTH:"=%\%SDVNAM%.%VEREXT%"
 echo const char *bld_version="%BLDVER%"; > "%VERPTH:"=%\%BDVNAM%.%VEREXT%"
 if "%DETHTM%"=="" goto :BLDVER
-call %VERDET% %1
+call %VERDET% "%VERPTH:"=%\%DETHTM:"=%" %SDKVER% %BLDVER%
 :BLDVER
 if "%MAKSKP%"=="%BLDSKP%" goto :DETHTM
 echo ###########################################################
@@ -56,20 +56,15 @@ if "%BLDLVL%"=="%BLDLDB%" goto :BUILD
 endlocal
 :DETHTM
 if "%DETHTM%"=="" goto :SDKVER
-set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%DETHTM:"=%"
-if exist %CFGPTH% type %CFGPTH%
+if exist "%VERPTH:"=%\%DETHTM:"=%" type "%VERPTH:"=%\%DETHTM:"=%"
 goto :END
 :SDKVER
 if "%MAKVMD%"=="LOCAL" goto :LOCAL
 if "%SDVNAM%"=="" goto :BLDVER
-set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%SCSBRA%\%DEVBRA%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%\%SDVNAM%.%VEREXT%"
-type %CFGPTH%
+type "%VERPTH:"=%\%SDVNAM%.%VEREXT%"
 :BLDVER
 if "%BDVNAM%"=="" goto :END
-set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSBRA%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
-type %CFGPTH%
-for /f "tokens=*" %%i in (%CFGPTH:"=%) do set BLDVER=%%i
-set BLDVER=%BLDVER:~25,-2%
+type "%VERPTH:"=%\%BDVNAM%.%VEREXT%"
 goto :END
 :LOCAL
 if not "%SDVNAM%"=="" echo SDK VERSION: %SDKVER%

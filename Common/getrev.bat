@@ -8,8 +8,13 @@ echo ###########################################################
 if "%~1"=="" goto :END
 set SCSREV=
 if "%SCSGIT%"=="y" goto :SCSGIT
+if not "%SCSTAG%"=="" goto :GOTTAG
 call :GETTAG %1
 call :GETREV "%~1/%SCSTAG:"=%"
+goto :SCSREV
+:GOTTAG
+call :GETREV "%~1"
+:SCSREV
 if "%SCSREV%"=="" goto :END
 for /f "delims=| tokens=1,2,3" %%a in ("%SCSREV%") do set SVNDAT=%%c
 set SVNDAT=%SVNDAT: =%

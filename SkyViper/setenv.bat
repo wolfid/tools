@@ -23,10 +23,10 @@ set PRJDIR=Projects
 set SUBDIR=sonix_firmware
 set ISSDRV=T
 set ISSDIR="Firmware2017"
-set SVNADR="46.31.169.162:8443"
-set SVNDIR="SkyRocketToys"
-set SVNPRJ="SkyViperVideoProto"
-set SNXFMW="Sonix_Firmware"
+set SVNADR=46.31.169.162:8443
+set SVNDIR=SkyRocketToys
+set SVNPRJ=SkyViperVideoProto
+set SNXFMW=Sonix_Firmware
 set SVNBRA=branch
 set SVNTGS=tags
 set SVNDBG=Debug
@@ -87,10 +87,10 @@ set IMGDIR=image
 set IMGAPP=app
 set IMGTYP=dashcam
 set IMGSRC=src
-set SCSPTH[DB]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNDBG%"
-set SCSPTH[PD]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNDBG%"
-set SCSPTH[RC]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNREL%"
-set SCSPTH[FL]="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%SVNPRJ:"=%/%SNXFMW:"=%/%SVNTGS:"=%/%SVNREL%"
+set SCSPTH[DB]="https://%SVNADR%/svn/%SVNDIR%/%SVNPRJ%/%SNXFMW%/%SVNBRA%/%DEVBRA%"
+set SCSPTH[PD]="https://%SVNADR%/svn/%SVNDIR%/%SVNPRJ%/%SNXFMW%/%SVNBRA%/%DEVBRA%"
+set SCSPTH[RC]="https://%SVNADR%/svn/%SVNDIR%/%SVNPRJ%/%SNXFMW%/%SVNBRA%/%DEVBRA%"
+set SCSPTH[FL]="https://%SVNADR%/svn/%SVNDIR%/%SVNPRJ%/%SNXFMW%/%SVNBRA%/%DEVBRA%"
 set VERPTH[DB]="%PRJDRV%:\%SUBDIR%\%DEVPRJ%\%SVNBRA%\%DEVBRA%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%"
 set VERPTH[PD]="%PRJDRV%:\%SUBDIR%\%DEVPRJ%\%SVNBRA%\%DEVBRA%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%"
 set VERPTH[RC]="%PRJDRV%:\%SUBDIR%\%DEVPRJ%\%DEVTRK%\%SDKDIR%\%IMGAPP%\%IMGTYP%\%IMGSRC%"
@@ -106,3 +106,4 @@ set CFGPTH[FL]="%PRJDRV%:\%SUBDIR%\%DEVPRJ%\%DEVTRK%\%SDKDIR%\%MAKDIR%\%CFGDIR%\
 set ISSLST="%SNXBIN%.%SNXEXT% %SNXBIN%%SNXFEX%.%SNXEXT% %SNXPHY%.%SNXEXT%"
 set ISSPTH="C:\Users\%USERNAME%\Google Drive\FW Docs\2017 Projects\%DEVDIR%\Deliverables\Firmware"
 set BINPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SVNBRA%\%DEVBRA%\%SDKDIR%\%IMGDIR:"=%\%IMGTYP:"=%"
+set SCSTAG=0.1
