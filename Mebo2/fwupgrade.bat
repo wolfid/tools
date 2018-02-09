@@ -6,8 +6,8 @@ echo ###########################################################
 echo ###                                ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %ENVCHK% TGTADR %SETENV%
-if "%INTMOD%"=="y" call %ENVCHK% JSTDIT %REVCHK%
+call %SETENV% %1
+if "%INTMOD%"=="y" call %REVCHK% %1
 set CMDSTR="http://%TGTADR%/ajax/command.json^?command1=file_upload()^&uploadtype="
 if not "%3"=="" set UPGMOD=%3
 if not "%2"=="" set SCSREV=%2
@@ -17,7 +17,7 @@ echo ###########################################################
 echo ### Motor Board Firmware Upgrade
 echo ###########################################################
 set CMDSTR="%CMDSTR:"=%%CTLTYP%"
-if "%SCSREV%"=="SVNDBG" goto :CTLLTT
+if "%SCSREV%"=="ISSDBG" goto :CTLLTT
 if not "%SCSREV%"=="SVNLTT" set CTLDEX=%SCSREV%
 setlocal enabledelayedexpansion
 set BINPTH="%BLDTYP%_%CTLPRF%%PRDCOD%%BLDLVL%!CTLREV[%CTLDEX%]!_!CTLDAT[%CTLDEX%]!\%CTLBIN%.%CTLEXT%"
