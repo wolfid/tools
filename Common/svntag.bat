@@ -2,18 +2,18 @@
 set MODCHK="%~dp0..\%DEVCOM%\modchk%~x0"
 call %MODCHK% %1 %QMDLST%_%NMDLST%
 if not "%MODRET%"=="" shift
-set SVNURL=%1
+set SCSPTH=%1
 echo ###########################################################
-echo ### Repo Location: %SVNURL:"=%
+echo ### Repo Location: %SCSPTH:"=%
 echo ###########################################################
 set CURMAJ=0
 set CURMIN=0
-for /f %%i in ('%SVNLST:"=% %SVNURL:"=%') do call :SVNTAG %%i
+for /f %%i in ('%SVNLST:"=% %SCSPTH:"=%') do call :SCSTAG %%i
 echo ###########################################################
-echo ### SVN Tag: %SVNTAG:"=%
+echo ### SVN Tag: %SCSTAG:"=%
 echo ###########################################################
 goto :END
-:SVNTAG
+:SCSTAG
 set NEWTAG=%1
 set NEWTAG=%NEWTAG:~0,-1%
 set TAGDEX=1
@@ -33,6 +33,6 @@ if %NEWMAJ% LSS %CURMAJ% exit /b 0
 if %NEWMIN% LSS %CURMIN% exit /b 0
 set CURMAJ=%NEWMAJ%
 set CURMIN=%NEWMIN%
-set SVNTAG=%NEWTAG%
+set SCSTAG=%NEWTAG%
 exit /b 0
 :END

@@ -122,4 +122,4 @@ set GDVDLV="Deliverables"
 set GDVFMW="Firmware"
 set MBOPWD="12345678"
 set MBOCHN="7"
-set SVNTAG=0.1
+set SCSTAG=0.1

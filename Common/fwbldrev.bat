@@ -10,8 +10,8 @@ set SRCURL="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%DEVPRJ:"=%/%SCSTAG:"=%"/%TAGREL
 echo ###########################################################
 echo ### Repo Location: %SRCURL:"=%
 echo ###########################################################
-for /f %%i in ('%SVNLST:"=% %SRCURL:"=%') do set SVNTAG=%%i
+for /f %%i in ('%SVNLST:"=% %SRCURL:"=%') do set SCSTAG=%%i
 echo ###########################################################
-echo ### SVN Tag: %SVNTAG%
+echo ### SVN Tag: %SCSTAG%
 echo ###########################################################
-call %BDLTAG% %1 %SVNTAG%
+call %BDLTAG% %1 %SCSTAG%

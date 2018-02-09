@@ -15,16 +15,16 @@ set SRCPTH="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%DEVPRJ:"=%/%SCSTAG:"=%"/%TAGREL
 echo ###########################################################
 echo ### Repo Location: %SRCPTH:"=%
 echo ###########################################################
-for /f %%i in ('%SVNLST:"=% %SRCPTH:"=%') do set SVNTAG=%%i
-if not "%SVNTAG:~-1,1%"=="0" goto :ERRTAG
+for /f %%i in ('%SVNLST:"=% %SRCPTH:"=%') do set SCSTAG=%%i
+if not "%SCSTAG:~-1,1%"=="0" goto :ERRTAG
 echo ###########################################################
-echo ### SVN Tag: %SVNTAG%
+echo ### SVN Tag: %SCSTAG%
 echo ###########################################################
-set SRCPTH=%SRCPTH:"=%/%SVNTAG%
+set SRCPTH=%SRCPTH:"=%/%SCSTAG%
 call %GETREV% %SRCPTH%
-if "%SVNREV%"=="" goto :ERRREV
+if "%SCSREV%"=="" goto :ERRREV
 echo ###########################################################
-echo ### SVN Revision: %SVNREV%
+echo ### SVN Revision: %SCSREV%
 echo ###########################################################
 set PRDDEX=1
 setlocal enabledelayedexpansion
@@ -47,11 +47,11 @@ echo ###########################################################
 echo ### Product Code: %PRDCOD%
 echo ###########################################################
 if "%BDVNAM%"=="" goto :END
-set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSTAG%\%TAGREL%\%SVNTAG%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
+set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSTAG%\%TAGREL%\%SCSTAG%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDVNAM%.%VEREXT%"
 echo ###########################################################
 echo ### Build Version File: %VERPTH%
 echo ###########################################################
-set BLDVER=%BLDTYP%_%BRDCOD%_%PRDCOD%%BLDLFL%%SVNTAG%.%SVNREV%_%dd%%mmm%%yyyy%_%hour%%min%
+set BLDVER=%BLDTYP%_%BRDCOD%_%PRDCOD%%BLDLFL%%SCSTAG%.%SCSREV%_%dd%%mmm%%yyyy%_%hour%%min%
 echo ###########################################################
 echo ### Build Version: %BLDVER%
 echo ###########################################################
@@ -69,7 +69,7 @@ setlocal EnableDelayedExpansion
 :BUILD
 %PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd "~/%SRCPTH:"=%"; %MAKCMD:~1,-1%
 endlocal
-%SVNCPY% "https://%SVNADR:"=%/svn/%SVNDIR:"=%/%DEVPRJ:"=%/%SCSTRK:"=%" "https://%SVNADR:"=%/svn/%SVNDIR:"=%/%DEVPRJ:"=%/%SCSTAG:"=%"/%TAGREL%/%SVNTAG% -m "Tagging trunk at %SVNREV%"
+%SVNCPY% "https://%SVNADR:"=%/svn/%SVNDIR:"=%/%DEVPRJ:"=%/%SCSTRK:"=%" "https://%SVNADR:"=%/svn/%SVNDIR:"=%/%DEVPRJ:"=%/%SCSTAG:"=%"/%TAGREL%/%SCSTAG% -m "Tagging trunk at %SCSREV%"
 :ISSCHK
 if "%ISSLST:"=%"=="" goto :END
 setlocal enabledelayedexpansion

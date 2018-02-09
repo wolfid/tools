@@ -11,22 +11,22 @@ echo ###                                    %~t0 ###
 echo ###########################################################
 call %SETENV%
 call %MODCHK% %1 %QMDLST%
-set SVNTAG=%2
+set SCSTAG=%2
 echo ###########################################################
-echo ### SVN Tag: %SVNTAG%
+echo ### SVN Tag: %SCSTAG%
 echo ###########################################################
-set SRCURL="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%DEVPRJ:"=%/%SCSTAG:"=%/%TAGREL%/%SVNTAG%"
+set SRCURL="https://%SVNADR:"=%/svn/%SVNDIR:"=%/%DEVPRJ:"=%/%SCSTAG:"=%/%TAGREL%/%SCSTAG%"
 echo ###########################################################
 echo ### Repo Location: %SRCURL:"=%
 echo ###########################################################
-set SRCPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSTAG%\%TAGREL%\%SVNTAG%"
+set SRCPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSTAG%\%TAGREL%\%SCSTAG%"
 if exist "%SRCPTH%" (svn update "%SRCPTH%"
 ) else svn co %SRCURL% "%SRCPTH%"
 call %GETREV% %1 %SRCURL%
-:SVNREV
-if "%SVNREV%"=="" goto :ERRREV
+:SCSREV
+if "%SCSREV%"=="" goto :ERRREV
 echo ###########################################################
-echo ### SVN Revision: %SVNREV%
+echo ### SVN Revision: %SCSREV%
 echo ###########################################################
 :PRDTYP
 set PRDDEX=1
@@ -34,7 +34,7 @@ setlocal enabledelayedexpansion
 set PRDTYP=!PRDTYP[%PRDDEX%]!
 goto :PRDCHK
 :PRDLPP
-set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSTAG%\%TAGREL%\%SVNTAG%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
+set CFGPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSTAG%\%TAGREL%\%SCSTAG%\%SDKDIR%\%MAKDIR:"=%\%CFGDIR:"=%\%SDKDIR%.%CFGEXT%"
 call %SETPRD% %CFGPTH% !CFGLST[%PRDDEX%]! !CFGSET[%PRDDEX%]! !PRDTYP[%PRDDEX%]!
 :PRDCHK
 set /a PRDDEX+=1
@@ -50,19 +50,19 @@ echo ###########################################################
 echo ### Product Code: %PRDCOD%
 echo ###########################################################
 if "%BDVNAM%"=="" goto :END
-set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSTAG%\%TAGREL%\%SVNTAG%\%BDVNAM%.%VEREXT%"
+set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSTAG%\%TAGREL%\%SCSTAG%\%BDVNAM%.%VEREXT%"
 echo ###########################################################
 echo ### Build Version File: %VERPTH%
 echo ###########################################################
-if "%SVNTAG:~-1%"=="0" (set BLDLVL=%BLDLFL%) else set BLDLVL=%BLDLRC%
-set BLDVER=%BLDTYP%_%BRDCOD%_%PRDCOD%%BLDLVL%%SVNTAG%.%SVNREV%_%dd%%mmm%%yyyy%_%hour%%min%
+if "%SCSTAG:~-1%"=="0" (set BLDLVL=%BLDLFL%) else set BLDLVL=%BLDLRC%
+set BLDVER=%BLDTYP%_%BRDCOD%_%PRDCOD%%BLDLVL%%SCSTAG%.%SCSREV%_%dd%%mmm%%yyyy%_%hour%%min%
 echo ###########################################################
 echo ### Build Version: %BLDVER%
 echo ###########################################################
 echo const char *%BDVNAM%="%BLDVER%"; > %VERPTH%
 type %VERPTH%
 :MAKCMD
-set SRCPTH="%PRJDIR%/%SUBDIR:"=%/%DEVPRJ%/%SCSTAG%/%TAGREL%/%SVNTAG%"
+set SRCPTH="%PRJDIR%/%SUBDIR:"=%/%DEVPRJ%/%SCSTAG%/%TAGREL%/%SCSTAG%"
 echo ###########################################################
 echo ### Building %DEVPRJ% Firmware in ~/%SRCPTH:"=% on %BLDTGT%
 echo ###########################################################

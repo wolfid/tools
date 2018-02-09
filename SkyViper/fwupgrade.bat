@@ -25,7 +25,7 @@ echo ###########################################################
 echo ### Upgrading Wi-Fi Board Firmware...
 echo ###########################################################
 if "%2"=="%SVNDBG%" goto :SNXLTT
-if not "%2"=="SVNDEF" set SNXDEX=%2
+if not "%2"=="SCSDEF" set SNXDEX=%2
 if "%UPGTYP%"=="" (call :DRNTYP
 ) else set SELENT=%UPGTYP%
 set SELENT=%SELENT:"=%
@@ -49,7 +49,7 @@ goto :BINPTH
 echo ###########################################################
 echo ### Upgrading Flight Board Firmware...
 echo ###########################################################
-if not "%2"=="SVNDEF" set CTLDEX=%2
+if not "%2"=="SCSDEF" set CTLDEX=%2
 if "%UPGTYP%"=="" (call :DRNTYP
 ) else set SELENT=%UPGTYP%
 set SELENT=%SELENT:"=%

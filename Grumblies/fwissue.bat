@@ -7,20 +7,20 @@ echo ###########################################################
 call %SETENV% %1
 
 set CURTAG=0
-for /f %%i in ('svn ls %SVNPTH%') do call :SVNTAG %%i
+for /f %%i in ('svn ls %SVNPTH%') do call :SCSTAG %%i
 
-echo SVNTAG: %SVNTAG%
+echo SCSTAG: %SCSTAG%
 
-call :GETREV %SVNPTH%/%SVNTAG%
+call :GETREV %SVNPTH%/%SCSTAG%
 
-set SVNREV=%SVNREV:~1,5%
-echo SVNREV: %SVNREV%
+set SCSREV=%SCSREV:~1,5%
+echo SCSREV: %SCSREV%
 
 set yyyy=%DATE:~6,4%4
 set mm=%DATE:~3,2%
 set dd=%DATE:~0,2%
 
-set ISSDIR=%DEVDIR%_FW_GP_PD_%SVNTAG%.%SVNREV%_%yyyy%%mm%%dd%
+set ISSDIR=%DEVDIR%_FW_GP_PD_%SCSTAG%.%SCSREV%_%yyyy%%mm%%dd%
 
 call :CHKCOPY %BINPTH% %ISSLST:"=%
 
@@ -35,15 +35,15 @@ call :DOCOPY "%ISSPTH:"=%\%ISSDIR%" %BINPTH% %ISSLST:"=%
 
 goto :EOF
 :GETREV
-for /f "tokens=* eol=-" %%i in ('svn log %1') do set SVNREV=%%i & exit /b
+for /f "tokens=* eol=-" %%i in ('svn log %1') do set SCSREV=%%i & exit /b
 
-:SVNTAG
+:SCSTAG
 set NEWTAG=%1
 set NEWTAG=%NEWTAG:~2,-1%
 if %NEWTAG% LSS %CURTAG% exit /b 0
 set CURTAG=%NEWTAG%
-set SVNTAG=%1
-set SVNTAG=%SVNTAG:~0,-1%
+set SCSTAG=%1
+set SCSTAG=%SCSTAG:~0,-1%
 exit /b 0
 
 :CHKCOPY
