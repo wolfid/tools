@@ -56,8 +56,10 @@ set CTLEXT=hex
 set UPGMOD=0
 set UPGLTT=UPGLTT
 set CPYFLG="/Y"
+set REVDEF="const char *"
+set REVEQU="="
+set REVTRM=";"
 set BDVNAM=bld_version
-set BDTNAM=bdt_version
 set SDVNAM=sdk_version
 set VEREXT=c
 set ISSDEF=PD
