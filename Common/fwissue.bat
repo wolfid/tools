@@ -19,9 +19,9 @@ echo ###########################################################
 if "%BDVNAM%"=="" goto :SCSPTH
 setlocal EnableDelayedExpansion
 set VERPTH=!VERPTH[%BLDLVL%]!
-endlocal & set VERPTH=%VERPTH%
 for /f "tokens=*" %%i in (%VERPTH:"=%\%BDVNAM%.%VEREXT%) do set BLDVER=%%i
-set BLDVER=%BLDVER:~25,-3%
+set BLDVER=!BLDVER:~%REVBEG%,-%REVEND%!
+endlocal & set BLDVER=%BLDVER%
 goto :DOCOPY
 :SCSPTH
 setlocal EnableDelayedExpansion
@@ -30,9 +30,7 @@ endlocal & set SCSPTH=%SCSPTH%
 echo ###########################################################
 echo ### Repo Location: %SCSPTH:"=%
 echo ###########################################################
-call %GETREV% %1 %SCSPTH%
-if "%PRDCOD%"=="" call %PRDCHK%
-set BLDVER=%PRDCOD%_FW_%BRDCOD%_%BLDLVL%_%SCSTAG%.%SCSREV%_%yyyy%%mm%%dd%
+call %GENREV% %1 %SCSPTH%
 :DOCOPY
 echo ###########################################################
 echo ### Build Version: %BLDVER%

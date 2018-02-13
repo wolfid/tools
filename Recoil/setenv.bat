@@ -30,4 +30,4 @@ set SNXEXT=
 set PRDCOD=RECOIL_
 set PRDDIR="recoil"
 set BLDTYP=FW
-set BRDCOD=BS_
+set BRDCOD=BS

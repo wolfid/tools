@@ -3,9 +3,9 @@ echo ###########################################################
 echo ###                                 ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-if "%DETHTM%"=="" goto :SDKVER
-if not exist "%VERPTH:"=%\%DETHTM:"=%" goto :SDKVER
-type "%VERPTH:"=%\%DETHTM:"=%"
+if "%VERHTM%"=="" goto :SDKVER
+if not exist "%VERPTH:"=%\%VERHTM:"=%" goto :SDKVER
+type "%VERPTH:"=%\%VERHTM:"=%"
 goto :END
 :SDKVER
 if "%MAKVMD%"=="LOCAL" goto :LOCAL

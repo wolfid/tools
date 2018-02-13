@@ -81,7 +81,13 @@ set CTLDAT[3]=15sep2017
 set CTLREV[4]=15765
 set CTLDAT[4]=20Sep2017
 set CPYFLG="/Y"
+set REVDEF="const char *"
+set REVEQU="="
+set REVTRM=";"
+set REVBEG=25
+set REVEND=3
 set BDVNAM=bld_version
+set SDVNAM=sdk_version
 set VEREXT=c
 set TMPDIR="C:\Source\Temp"
 set RMEFIL=readme.txt
