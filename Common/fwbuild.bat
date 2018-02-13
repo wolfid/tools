@@ -27,7 +27,7 @@ set SRCPTH=!SRCPTH[%BLDLVL%]!
 endlocal & set SCSPTH=%SCSPTH%& set VERPTH=%VERPTH%& set SRCPTH=%SRCPTH%
 :GENREV
 if "%MAKVMD%"=="LOCAL" call %GENREV% %1 %SCSPTH% %VERPTH% %RMEFIL%
-if "%MAKCMD%"=="" goto :DSPREV
+if "%MAKCMD:"=%"=="n" goto :DSPREV
 echo ###########################################################
 echo ### Building %DEVPRJ% Firmware in ~/%SRCPTH:"=% on %BLDTGT%
 echo ###########################################################

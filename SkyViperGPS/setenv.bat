@@ -58,7 +58,7 @@ set UPGLTT=UPGLTT
 set CPYFLG="/Y"
 set REVDEF="const char *"
 set REVEQU="="
-set REVTRM=";"
+set REVTRM=;
 set REVBEG=25
 set REVEND=3
 set BDVNAM=bld_version
