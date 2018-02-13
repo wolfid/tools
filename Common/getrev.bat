@@ -40,11 +40,15 @@ set NEWMAJ=!NEWTAG:~0,%TAGDEX%!
 set /a TAGDEX+=1
 set NEWMIN=!NEWTAG:~%TAGDEX%!
 endlocal & set NEWMAJ=%NEWMAJ%& set NEWMIN=%NEWMIN%
-if %NEWMAJ% LSS %CURMAJ% exit /b 0
-if %NEWMIN% LSS %CURMIN% exit /b 0
+if %NEWMAJ% lss %CURMAJ% exit /b 0
+if %NEWMAJ% equ %CURMAJ% goto :SVNMIN
 set CURMAJ=%NEWMAJ%
+set CURMIN=0
+:SVNMIN
+if %NEWMIN% leq %CURMIN% goto :SVNRET
 set CURMIN=%NEWMIN%
-set SCSTAG=%NEWTAG%
+:SVNRET
+set SCSTAG=%CURMAJ%.%CURMIN%
 exit /b 0
 :GETREV
 for /f "tokens=* eol=%SVNEOL:"=%" %%i in ('%SVNLOG:"=% %1') do set SCSREV=%%i & exit /b 0

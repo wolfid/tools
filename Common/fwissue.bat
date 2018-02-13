@@ -11,14 +11,21 @@ call %SETENV% %1
 echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
-if not "%2"=="" (set BLDLVL=%2
-) else set BLDLVL=%ISSDEF%
+:BLDLVL
+if "%2"=="%BLDLDB%" (set BLDLVL=%BLDLDB%
+) else if "%2"=="%BLDLPD%" (set BLDLVL=%BLDLPD%
+) else if "%2"=="%BLDLRC%" (set BLDLVL=%BLDLRC%
+) else if "%2"=="%BLDLFL%" set BLDLVL=%BLDLFL%
+if "%BLDLVL%"=="" set BLDLVL=%BLDDEF%
 echo ###########################################################
 echo ### Issue Type: %BLDLVL%
 echo ###########################################################
 if "%BDVNAM%"=="" goto :SCSPTH
 setlocal EnableDelayedExpansion
 set VERPTH=!VERPTH[%BLDLVL%]!
+echo ###########################################################
+echo ### Get Build Version Details From: %VERPTH:"=%\%BDVNAM%.%VEREXT%
+echo ###########################################################
 for /f "tokens=*" %%i in (%VERPTH:"=%\%BDVNAM%.%VEREXT%) do set BLDVER=%%i
 set BLDVER=!BLDVER:~%REVBEG%,-%REVEND%!
 endlocal & set BLDVER=%BLDVER%
@@ -28,7 +35,7 @@ setlocal EnableDelayedExpansion
 set SCSPTH=!SCSPTH[%BLDLVL%]!
 endlocal & set SCSPTH=%SCSPTH%
 echo ###########################################################
-echo ### Repo Location: %SCSPTH:"=%
+echo ### Generate Build Version Details From: %SCSPTH:"=%
 echo ###########################################################
 call %GENREV% %1 %SCSPTH%
 :DOCOPY

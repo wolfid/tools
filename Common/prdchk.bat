@@ -1,5 +1,4 @@
 @echo off
-set SETPRD="%~dp0..\%DEVCOM%\setprd%~x0"
 echo ###########################################################
 echo ###                                 ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
@@ -15,6 +14,12 @@ goto :END
 set /a PRDDEX+=1
 if "!CFGLST[%PRDDEX%]!"=="" exit /b 0
 set CFGPTH=!CFGPTH[%BLDLVL%]!
-call %SETPRD% %CFGPTH% !CFGLST[%PRDDEX%]! !CFGSET[%PRDDEX%]! !PRDTYP[%PRDDEX%]!
+call :SETPRD %CFGPTH% !CFGLST[%PRDDEX%]! !CFGSET[%PRDDEX%]! !PRDTYP[%PRDDEX%]!
 goto :PRDCHK
+:SETPRD
+for /f "tokens=1,2 delims== eol=#" %%i in (%~1) do if "%%i"=="%2" (
+if "%%j"=="%3" (
+set PRDTYP=%4
+exit /b 0
+))
 :END
