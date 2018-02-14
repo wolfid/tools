@@ -1,20 +1,19 @@
 @echo off
-set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
-set MODCHK="%~dp0..\%DEVCOM%\modchk%~x0"
 set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
+set MODCHK="%~dp0..\%DEVCOM%\modchk%~x0"
 set RETOUT="%~dp0..\%DEVPRJ%\%~n0.out"
 echo ###########################################################
 echo ###                                 ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %ENVCHK% TGTADR %SETENV% %1
+call %SETENV% %1
 echo ###########################################################
 echo ### Target Address: %TGTADR%
 echo ###########################################################
-if "%1"=="" goto :JSNERR
+if "%1"=="" goto :ARGERR
 call %MODCHK% %1 "%QMDLST:"=%_%NMDLST:"=%"
 if not "%MODRET%"=="" shift
-if "%1"=="" goto :JSNERR
+if "%1"=="" goto :ARGERR
 if "%TGTTIM%"=="" goto :TGTERR
 if "%TGTADR%"=="" goto :TGTERR
 if "%TGTPRT%"=="" goto :TGTERR
@@ -48,7 +47,7 @@ echo ###########################################################
 echo ### Invalid response - make sure you are connected...
 echo ###########################################################
 goto :END
-:JSNERR
+:ARGERR
 echo ###########################################################
 echo ### Need at least one argument...
 echo ###########################################################
