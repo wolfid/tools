@@ -93,6 +93,8 @@ set REVEQU="="
 set REVTRM=;
 set REVBEG=25
 set REVEND=3
+set LVLBEG=37
+set LVLLEN=2
 set BDVNAM=bld_version
 set SDVNAM=sdk_version
 set VEREXT=c
