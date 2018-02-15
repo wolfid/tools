@@ -71,6 +71,7 @@ goto :END
 echo ###########################################################
 echo ### Netcat parameter (TGTTIM/TGTADR/TGTPRT) not set...
 echo ###########################################################
+goto :END
 :ARGERR
 echo ###########################################################
 echo ### Need at least one argument...

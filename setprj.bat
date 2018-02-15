@@ -1,1 +1,1 @@
-set DEVPRJ=SkyViperGPS
+set DEVPRJ=Mebo2

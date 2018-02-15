@@ -8,11 +8,12 @@ echo ### Get Source Control Revision from: %1
 echo ###########################################################
 set SCSREV=
 if "%SCSGIT%"=="y" goto :SCSGIT
-if not "%SCSTAG%"=="" goto :GOTTAG
+if not "!SCSTAG[%BLDLVL%]!"=="" goto :GOTTAG
 call :GETTAG %1
 call :GETREV "%~1/%SCSTAG:"=%"
 goto :SCSREV
 :GOTTAG
+set SCSTAG=!SCSTAG[%BLDLVL%]!
 call :GETREV "%~1"
 :SCSREV
 if "%SCSREV%"=="" goto :END
@@ -57,7 +58,8 @@ exit /b 0
 set SCSPTH=%~1
 if "%SCSPTH:~1,1%"==":" (%SCSPTH:~0,2% && cd %SCSPTH:~2%
 ) else cd %SCSPTH%
-if "%SCSTAG%"=="" for /f "tokens=*" %%i in ('git tag') do set SCSTAG=%%i
+if not "!SCSTAG[%BLDLVL%]!"=="" set SCSTAG=!SCSTAG[%BLDLVL%]!
+) else for /f "tokens=*" %%i in ('git tag') do set SCSTAG=%%i
 for /f "tokens=*" %%i in ('git log -1 --pretty^=format:"%%h"') do set SCSREV=%%i
 for /f "tokens=*" %%i in ('git log -1 --pretty^=format:"%%ai"') do set SCSDAT=%%i
 :SCSDAT
