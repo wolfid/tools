@@ -1,10 +1,10 @@
 @echo off
-set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
+set SETENV="%~dp0..\%DEVCOM%\setenv%~x0"
 echo ###########################################################
 echo ###                                 ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %SETENV% %1
+call %SETENV%
 echo ###########################################################
 echo ### Copying %BINPTH:"=%\%SNXBIN%%SNXFEX%.%SNXEXT% to %DSTPTH%
 echo ###########################################################

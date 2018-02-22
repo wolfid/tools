@@ -1,8 +1,3 @@
-@echo off
-echo ###########################################################
-echo ###                               ~\%DEVPRJ%\%~nx0 ###
-echo ###                                    %~t0 ###
-echo ###########################################################
 set DEVTRK=trunk
 set DEVBRA=WPA2
 set DEVDIR=Drones
@@ -50,11 +45,10 @@ set PRDCOD[Streaming]=01735
 set PRDCOD[Hybrid]=01735H
 set ISSMOD=ALL
 set SVNDRV=Z
-set BRADIR=
 set MAKCMD="make; if [ $? -eq 0 ]; then make install; fi"
 set MAKVMD=LOCAL
 set MAKVER=1
-set MAKCMD="make MAKVER=!MAKVER! SCSREV=!SCSREV! PRDCOD=!PRDCOD! BLDLVL=!BLDLVL! SCSTAG=!SCSTAG!"; if [ $? -eq 0 ]; then make install; fi"
+set MAKCMD="make MAKVER=!MAKVER! SCSREV=!SCSREV! PRDCOD=!PRDCOD! BLDLVL=!BLDLVL! SCSTAG=!SCSTAG!; if [ $? -eq 0 ]; then make install; fi"
 set CLNCMD="make clean"
 set SNXBIN=FIRMWARE_660R
 set SNXFEX=_F
@@ -73,7 +67,6 @@ set UPDBIN[0]=.%CTLEXT%
 set UPDBIN[1]=\%SNXBIN%.%SNXEXT%
 set CPYFLG="/Y"
 set REVDEF="const char *"
-set REVEQU="="
 set REVTRM=;
 set REVBEG=25
 set REVEND=3
@@ -82,7 +75,7 @@ set LVLLEN=2
 set BDVNAM=bld_version
 set SDVNAM=sdk_version
 set VEREXT=c
-set BLDDEF=%BLDLPD%
+set BLDDEF=%ISSPRD%
 set IMGDIR=image
 set IMGAPP=app
 set IMGTYP=dashcam

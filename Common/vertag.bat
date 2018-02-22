@@ -4,21 +4,21 @@ echo ###########################################################
 echo ###                                 ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-set SVNPTH="%SVNDRV%:\%SNXFMW:"=%\%DEVPRJ%\%SCSTAG:"=%\%TAGREL:"=%
+set SVNPTH="%SVNDRV%:\%SNXFMW:"=%\%DEVPRJ%\%SCSTAG:"=%\%SVNREL:"=%
 echo ###########################################################
 echo ### Get Latest Tag From: %TAGLST:"=% %SVNPTH:"=%
 echo ###########################################################
 set SCSTAG=0.0
 for /f %%i in ('%TAGLST:"=% %SVNPTH:"=%') do set SCSTAG=%%i
-if "%SCSTAG%"=="0.0" if not "%BLDLVL%"=="%BLDLPD%" goto :ERRTAG
+if "%SCSTAG%"=="0.0" if not "%BLDLVL%"=="%ISSPRD%" goto :ERRTAG
 echo ###########################################################
 echo ### SVN Tag: %SCSTAG%
 echo ###########################################################
-if "%SCSTAG:~-1,1%"=="0" (if "%BLDLVL%"=="%BLDLRC%" goto :ERRREL) else if "%BLDLVL%"=="%BLDLFL%" goto :ERRFNL
+if "%SCSTAG:~-1,1%"=="0" (if "%BLDLVL%"=="%ISSPRC%" goto :ERRREL) else if "%BLDLVL%"=="%ISSFIN%" goto :ERRFNL
 if "%BDTNAM%"=="" goto :END
 set SCSTAG=%SCSTAG%.%SCSREV%
-if "%BLDLVL%"=="%BLDLPD%" (set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSBRA%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDTNAM%.%VEREXT%"
-) else set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSTAG%\%TAGREL%\%SCSTAG%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDTNAM%.%VEREXT%"
+if "%BLDLVL%"=="%ISSPRD%" (set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSBRA%\%DEVBRA%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDTNAM%.%VEREXT%"
+) else set VERPTH="%PRJDRV%:\%SUBDIR:"=%\%DEVPRJ%\%SCSTAG%\%SVNREL%\%SCSTAG%\%SDKDIR%\%IMGAPP:"=%\%IMGTYP:"=%\%IMGSRC:"=%\%BDTNAM%.%VEREXT%"
 echo ###########################################################
 echo ### Build Version File: %VERPTH%
 echo ###########################################################

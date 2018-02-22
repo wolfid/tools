@@ -1,8 +1,3 @@
-@echo off
-echo ###########################################################
-echo ###                            ~\%DEVPRJ%\%~nx0 ###
-echo ###                                    %~t0 ###
-echo ###########################################################
 set DEVTRK=trunk
 set DEVBRA=H62-support
 set DEVDIR=Drones
@@ -17,7 +12,6 @@ set RSPPRT=49153
 set RSPTIM=120
 set DEVPRT=2017
 set DSTPTH=E:\
-set SDCDIR="\"
 set PRJDRV=W
 set PRJDIR=Projects
 set SUBDIR=sonix_firmware
@@ -39,7 +33,6 @@ set PRDDIR=SkyViperGPS
 set PRDCOD=SkyViperGPS
 set ISSMOD=ALL
 set SVNDRV=W
-set BRADIR=
 set MAKCMD="make; if [ $? -eq 0 ]; then make install; fi"
 set MAKVMD=LOCAL
 set MAKVER=1
@@ -57,7 +50,6 @@ set UPGMOD=0
 set UPGLTT=UPGLTT
 set CPYFLG="/Y"
 set REVDEF="const char *"
-set REVEQU="="
 set REVTRM=;
 set REVBEG=25
 set REVEND=3
@@ -66,7 +58,7 @@ set LVLLEN=2
 set BDVNAM=bld_version
 set SDVNAM=sdk_version
 set VEREXT=c
-set BLDDEF=%BLDLPD%
+set BLDDEF=%ISSPRD%
 set IMGDIR=image
 set IMGAPP=app
 set IMGTYP=dashcam

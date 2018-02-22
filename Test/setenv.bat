@@ -1,8 +1,3 @@
-@echo off
-echo ###########################################################
-echo ###                                   ~\%DEVPRJ%\%~nx0 ###
-echo ###                                    %~t0 ###
-echo ###########################################################
 set DEVTRK=trunk
 set DEVBRA=followme
 set SDKVER=TEST_SDK
@@ -15,16 +10,13 @@ set SVNADR=46.31.169.162:8443
 set SVNTGS=tags
 set SVNDBG=debug
 set SVNREL=release
-set BRADIR=
 set MAKVMD=LOCAL
-set MAKVER=
 set MAKCMD="n"
 set CLNCMD="make clean"
 set BLDTYP=FW
 set BRDCOD=NA
 set CPYFLG="/Y"
 set REVDEF="const char *"
-set REVEQU="="
 set REVTRM=;
 set REVBEG=25
 set REVEND=3
@@ -32,10 +24,9 @@ set LVLBEG=36
 set LVLLEN=2
 set BDVNAM=bld_version
 set SDVNAM=sdk_version
-set BLDDEF=%BLDLPD%
+set BLDDEF=%ISSPRD%
 set VEREXT=c
 set TMPDIR="C:\Source\Temp"
-set RMEFIL=
 set SCSPTH[DB]="https://%SVNADR%/svn/%SVNDIR%/%DEVPRJ%/%SVNTGS%/%SVNDBG%"
 set SCSPTH[PD]="https://%SVNADR%/svn/%SVNDIR%/%DEVPRJ%/%SVNTGS%/%SVNDBG%"
 set SCSPTH[RC]="https://%SVNADR%/svn/%SVNDIR%/%DEVPRJ%/%SVNTGS%/%SVNREL%"

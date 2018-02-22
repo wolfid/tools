@@ -1,15 +1,20 @@
 @echo off
-set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
+set SETENV="%~dp0..\%DEVCOM%\setenv%~x0"
 set REVCHK="%~dp0..\%DEVPRJ%\revchk%~x0"
-set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
 echo ###########################################################
 echo ###                                ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %SETENV% %1
+call %SETENV%
 if "%INTMOD%"=="y" call %REVCHK% %1
-if not "%3"=="" (set UPGMOD=%3) else set UPGMOD=1
 if not "%2"=="" (set BLDLVL=%2) else set BLDLVL=%ISSDBG%
+echo ###########################################################
+echo ### Issue Type: %BLDLVL%
+echo ###########################################################
+if not "%3"=="" (set UPGMOD=%3) else set UPGMOD=1
+echo ###########################################################
+echo ### Firmware Upgrade Mode: %UPGMOD%
+echo ###########################################################
 setlocal enabledelayedexpansion
 set CMDSTR="http://%TGTADR%/ajax/command.json^?command1=file_upload()^&uploadtype=!UPDTYP[%UPGMOD%]!"
 endlocal & set CMDSTR=%CMDSTR%

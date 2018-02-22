@@ -12,7 +12,8 @@ if "%SCSREV%"=="%SCSUNV%" set SCSREV=%SCSDEF%
 if "%PRDCOD%"=="" call %PRDCHK%
 set BLDVER=%PRDCOD%_%BLDTYP%_%BRDCOD%_%BLDLVL%_%SCSTAG%.%SCSREV%_%yyyy%%mm%%dd%
 if "%~3"=="" goto :END
-if not "%SDVNAM%"=="" echo %REVDEF:"=%%SDVNAM%%REVEQU:"=%"%SDKVER%"%REVTRM% > "%~3\%SDVNAM%.%VEREXT%"
-if not "%BDVNAM%"=="" echo %REVDEF:"=%%BDVNAM%%REVEQU:"=%"%BLDVER%"%REVTRM% > "%~3\%BDVNAM%.%VEREXT%"
+if "%REVEQU%"=="" set REVEQU="="
+if not "%SDVNAM%"=="" echo %REVDEF:"=%%SDVNAM%%REVEQU:"=%"%SDKVER%"%REVTRM:"=% > "%~3\%SDVNAM%.%VEREXT%"
+if not "%BDVNAM%"=="" echo %REVDEF:"=%%BDVNAM%%REVEQU:"=%"%BLDVER%"%REVTRM:"=% > "%~3\%BDVNAM%.%VEREXT%"
 if not "%VERHTM%"=="" call %VERDET% "%~3\%VERHTM:"=%" %SDKVER% %BLDVER%
 :END

@@ -1,6 +1,6 @@
 @echo off
-if "%2"=="%BLDLDB%" (set BLDLVL=%BLDLDB%
-) else if "%2"=="%BLDLPD%" (set BLDLVL=%BLDLPD%
-) else if "%2"=="%BLDLRC%" (set BLDLVL=%BLDLRC%
-) else if "%2"=="%BLDLFL%" set BLDLVL=%BLDLFL%
+if "%2"=="%ISSDBG%" (set BLDLVL=%ISSDBG%
+) else if "%2"=="%ISSPRD%" (set BLDLVL=%ISSPRD%
+) else if "%2"=="%ISSPRC%" (set BLDLVL=%ISSPRC%
+) else if "%2"=="%ISSFIN%" set BLDLVL=%ISSFIN%
 if "%BLDLVL%"=="" set BLDLVL=%BLDDEF%

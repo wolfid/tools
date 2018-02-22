@@ -4,11 +4,11 @@ echo ###########################################################
 echo ###                                        ~\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %MODCHK% %1 %QMDLST%
-if "%MODRET%"=="y" set DSPMOD=q
-call %MODCHK% %1 %NMDLST%
-if "%MODRET%"=="y" set DSPMOD=n
-call %MODCHK% %1 %IMDLST%
-if "%MODRET%"=="y" set INTMOD=y
-call %MODCHK% %1 %AMDLST%
-if "%MODRET%"=="y" set INTMOD=n
+call %MODCHK% %1 %4
+if "%MODRET%"=="y" set %2=q
+call %MODCHK% %1 %5
+if "%MODRET%"=="y" set %2=n
+call %MODCHK% %1 %6
+if "%MODRET%"=="y" set %3=y
+call %MODCHK% %1 %7
+if "%MODRET%"=="y" set %3=n

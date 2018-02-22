@@ -1,12 +1,12 @@
 @echo off
-set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
+set SETENV="%~dp0..\%DEVCOM%\setenv%~x0"
 set MODCHK="%~dp0..\%DEVCOM%\modchk%~x0"
 set RETOUT="%~dp0..\%DEVPRJ%\%~n0.out"
 echo ###########################################################
 echo ###                                 ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %SETENV% %1
+call %SETENV%
 echo ###########################################################
 echo ### Target Address: %TGTADR%
 echo ###########################################################

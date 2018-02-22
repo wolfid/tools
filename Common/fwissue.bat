@@ -1,5 +1,5 @@
 @echo off
-set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
+set SETENV="%~dp0..\%DEVCOM%\setenv%~x0"
 set GETLVL="%~dp0..\%DEVCOM%\getlvl%~x0"
 set GETREV="%~dp0..\%DEVCOM%\getrev%~x0"
 set PRDCHK="%~dp0..\%DEVCOM%\prdchk%~x0"
@@ -8,7 +8,7 @@ echo ###########################################################
 echo ###                                ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %SETENV% %1
+call %SETENV%
 echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################

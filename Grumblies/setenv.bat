@@ -1,8 +1,3 @@
-@echo off
-echo ###########################################################
-echo ###                              ~\%DEVPRJ%\%~nx0 ###
-echo ###                                    %~t0 ###
-echo ###########################################################
 set PRDCOD=%DEVPRJ%
 set BLDTYP=FW
 set BRDCOD=GP
@@ -27,7 +22,6 @@ set MAKCMD="n"
 set MAKVMD=LOCAL
 set REVDEF="#define "
 set REVEQU=" "
-set REVTRM=
 set REVBEG=21
 set REVEND=3
 set LVLBEG=37

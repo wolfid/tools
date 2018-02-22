@@ -1,8 +1,3 @@
-@echo off
-echo ###########################################################
-echo ###                                ~\%DEVPRJ%\%~nx0 ###
-echo ###                                    %~t0 ###
-echo ###########################################################
 set DEVPRJ=Pomsies
 set DEVDIR=%DEVPRJ%
 set SVNPRJ=Grumblies
@@ -17,7 +12,7 @@ set CPYFLG=y
 set BLDTYP=FW
 set BRDCOD=GP
 set PRDCOD=Pomsies
-set BLDDEF=%BLDLPD%
+set BLDDEF=%ISSPRD%
 set SCSPTH[DB]="https://%SVNADR%/svn/%SVNDIR%/%SVNPRJ%/%SVNTGS%/%SVNDBG%"
 set SCSPTH[PD]="https://%SVNADR%/svn/%SVNDIR%/%SVNPRJ%/%SVNTGS%/%SVNDBG%"
 set SCSPTH[RC]="https://%SVNADR%/svn/%SVNDIR%/%SVNPRJ%/%SVNTGS%/%SVNDREL%"
@@ -33,7 +28,6 @@ set MAKCMD="n"
 set MAKVMD=LOCAL
 set REVDEF="#define "
 set REVEQU=" "
-set REVTRM=
 set REVBEG=21
 set REVEND=3
 set LVLBEG=35

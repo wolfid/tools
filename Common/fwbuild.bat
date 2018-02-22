@@ -1,5 +1,5 @@
 @echo off
-set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
+set SETENV="%~dp0..\%DEVCOM%\setenv%~x0"
 set GETLVL="%~dp0..\%DEVCOM%\getlvl%~x0"
 set GENREV="%~dp0..\%DEVCOM%\genrev%~x0"
 set DSPREV="%~dp0..\%DEVCOM%\dsprev%~x0"
@@ -8,7 +8,7 @@ echo ###########################################################
 echo ###                                ~\%DEVCOM%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %SETENV% %1
+call %SETENV%
 echo ###########################################################
 echo ### Development Branch: %DEVBRA%
 echo ###########################################################
@@ -27,7 +27,7 @@ echo ###########################################################
 echo ### Building %DEVPRJ% Firmware in ~/%SRCPTH:"=% on %BLDTGT%
 echo ###########################################################
 if "%INTMOD%"=="y" pause
-if "%BLDLVL%"=="%BLDLDB%" goto :BUILD
+if "%BLDLVL%"=="%ISSDBG%" goto :BUILD
 %PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd "~/%SRCPTH:"=%"; %CLNCMD:~1,-1%
 :BUILD
 %PLKEXE% -pw %BLDPWD% %BLDUSR%@%BLDTGT% cd "~/%SRCPTH:"=%"; %MAKCMD:~1,-1%

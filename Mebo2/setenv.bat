@@ -1,8 +1,3 @@
-@echo off
-echo ###########################################################
-echo ###                                  ~\%DEVPRJ%\%~nx0 ###
-echo ###                                    %~t0 ###
-echo ###########################################################
 set DEVTRK=Trunk
 set DEVBRA=Mebo2.151a
 set SDKVER=SN986_1.20_151a_20170512_1950
@@ -33,7 +28,6 @@ set SVNADR=46.31.169.162:8443
 set SCSBRA=branch
 set MAKDIR=buildscript
 set MAKVMD=LOCAL
-set MAKVER=
 set MAKCMD="make; if [ $? -eq 0 ]; then make install; fi"
 set CLNCMD="make clean"
 set CFGDIR=include\config
@@ -86,7 +80,6 @@ set CTLREV[4]=15765
 set CTLDAT[4]=20Sep2017
 set CPYFLG="/Y"
 set REVDEF="const char *"
-set REVEQU="="
 set REVTRM=;
 set REVBEG=25
 set REVEND=3
@@ -119,4 +112,4 @@ set SCSTAG[DB]=0.1
 set SCSTAG[PD]=0.2
 set SCSTAG[RC]=0.3
 set SCSTAG[FL]=1.0
-set BLDDEF=%BLDLPD%
+set BLDDEF=%ISSPRD%

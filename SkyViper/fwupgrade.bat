@@ -1,5 +1,5 @@
 @echo off
-set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
+set SETENV="%~dp0..\%DEVCOM%\setenv%~x0"
 set DRNLST="%~dp0..\%DEVPRJ%\drnlst"
 set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
 set LSTCHK="%~dp0..\%DEVCOM%\lstchk%~x0"
@@ -8,7 +8,7 @@ echo ###########################################################
 echo ###                            ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %SETENV% %1
+call %SETENV%
 if not "%2"=="" set BLDLVL=%2
 if "%BLDLVL%"=="" set BLDLVL=DB
 if not "%3"=="" set UPGMOD=%3

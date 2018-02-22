@@ -1,12 +1,12 @@
 @echo off
 set ENVCHK="%~dp0..\%DEVCOM%\envchk%~x0"
 set REVCHK="%~dp0..\%DEVPRJ%\revchk%~x0"
-set SETENV="%~dp0..\%DEVPRJ%\setenv%~x0"
+set SETENV="%~dp0..\%DEVCOM%\setenv%~x0"
 echo ###########################################################
 echo ###                                ~\%DEVPRJ%\%~nx0 ###
 echo ###                                    %~t0 ###
 echo ###########################################################
-call %SETENV% %1
+call %SETENV%
 if "%INTMOD%"=="y" call %REVCHK% %1
 set CMDSTR="http://%TGTADR%/ajax/command.json^?command1=file_upload()^&uploadtype="
 if not "%3"=="" set UPGMOD=%3
