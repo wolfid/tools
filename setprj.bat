@@ -1,2 +1,1 @@
-call %NPPENV%
-for /f %%i in (%NPPCNF:"=%\%NPPSEL:"=%\DEVPRJ.ini) do set DEVPRJ=%%i
+for /f %%i in ('dir /b %CNFPTH:"=%\%CNFDIR:"=%\%CNFPRJ:"=%\*.ini') do for /f "tokens=*" %%j in (%CNFPTH:"=%\%CNFDIR:"=%\%CNFPRJ:"=%\%%i) do set %%~ni=%%j

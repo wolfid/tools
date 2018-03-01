@@ -17,7 +17,7 @@ if "%1"=="" goto :DOCOPY_END
 set /a CPYCNT+=1
 echo ### %CPYCNT%: %CPYSRC:"=%\%1
 if "%INTMOD%"=="y" pause
-if not "%CPYFLG%"=="n" %CPYCMD% "%CPYSRC:"=%\%1" %CPYDST%
+if not "%CPYFLG%"=="n" copy "%CPYSRC:"=%\%1" %CPYDST%
 if not "%ZIPFLG%"=="n" %ZIPEXE% a %CPYDST%.zip "%CPYSRC:"=%\%1"
 goto :DOCOPY_CHK
 :DOCOPY_ERR

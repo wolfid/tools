@@ -9,4 +9,4 @@ echo ###########################################################
 echo ### Copying %BINPTH:"=%\%SNXBIN%%SNXFEX%.%SNXEXT% to %DSTPTH%
 echo ###########################################################
 if "%INTMOD%"=="y" pause
-%CPYCMD% %CPYFLG:"=% "%BINPTH:"=%\%SNXBIN%%SNXFEX%.%SNXEXT%" "%DSTPTH:"=%"
+copy /Y "%BINPTH:"=%\%SNXBIN%%SNXFEX%.%SNXEXT%" "%DSTPTH:"=%"

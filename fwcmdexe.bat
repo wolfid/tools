@@ -25,8 +25,8 @@ if "%USRINP%"=="y" goto :CMDEXE
 goto :END
 :CMDEXE
 echo ###########################################################
-echo ### Call %~dp0%CMDPRF%%~1%~x0
+echo ### Call %~dp0fw%~1%~x0
 echo ###########################################################
-if exist "%~dp0%DEVPRJ%\%CMDPRF%%~1%~x0" (call %ENVCHK% JSTDIT "%~dp0%DEVPRJ%\%CMDPRF%%~1%~x0"
-) else call %ENVCHK% JSTDIT "%~dp0%DEVCOM%\%CMDPRF%%~1%~x0"
+if exist "%~dp0%DEVPRJ%\fw%~1%~x0" (call %ENVCHK% JSTDIT "%~dp0%DEVPRJ%\fw%~1%~x0"
+) else call %ENVCHK% JSTDIT "%~dp0%DEVCOM%\fw%~1%~x0"
 if "%INTMOD%"=="y" pause

@@ -19,16 +19,16 @@ set INTMOD=n
 call :CMDCHK %1
 goto :END
 :CMDCHK
-if not exist "%~dp0%DEVPRJ%\%CMDPRF%%~1%~x0" goto :CMDCOM
+if not exist "%~dp0%DEVPRJ%\fw%~1%~x0" goto :CMDCOM
 echo ###########################################################
-echo ### Executing "%~dp0%DEVPRJ%\%CMDPRF%%~1%~x0"
+echo ### Executing "%~dp0%DEVPRJ%\fw%~1%~x0"
 echo ###########################################################
-call %ENVCHK% JSTDIT "%~dp0%DEVPRJ%\%CMDPRF%%~1%~x0" %DSPMOD%
+call %ENVCHK% JSTDIT "%~dp0%DEVPRJ%\fw%~1%~x0" %DSPMOD%
 exit /b 0
 :CMDCOM
 echo ###########################################################
-echo ### Executing "%~dp0%DEVCOM%\%CMDPRF%%~1%~x0"
+echo ### Executing "%~dp0%DEVCOM%\fw%~1%~x0"
 echo ###########################################################
-call %ENVCHK% JSTDIT "%~dp0%DEVCOM%\%CMDPRF%%~1%~x0" %DSPMOD%
+call %ENVCHK% JSTDIT "%~dp0%DEVCOM%\fw%~1%~x0" %DSPMOD%
 exit /b 0
 :END

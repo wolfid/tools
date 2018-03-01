@@ -1,8 +1,8 @@
 @echo off
 call %~dp0nppenv%~x0
 call %~dp0setenv%~x0
-for /f "tokens=*" %%i in (%~dp0setenv%~x0) do call :GENENV "%%i" "%NPPCNF:"=%\%NPPTLS:"=%"
-for /f "tokens=*" %%i in (%~dp0prjlst) do call :PRJDIR "%%i" "%NPPCNF:"=%\%NPPPRJ:"=%" %%~dp0 %%~x0
+for /f "tokens=*" %%i in (%~dp0setenv%~x0) do call :GENENV "%%i" "%CNFPTH:"=%\%CNFTLS:"=%"
+for /f "tokens=*" %%i in (%~dp0prjlst) do call :PRJDIR "%%i" "%CNFPTH:"=%\%CNFDIR:"=%" %%~dp0 %%~x0
 goto :EOF
 :PRJDIR
 set DEVPRJ=%~1

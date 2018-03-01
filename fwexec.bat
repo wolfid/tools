@@ -1,19 +1,26 @@
 @echo off
 set DSPTTL="%~dp0dspttl%~x0"
-set SETMOD="%~dp0setmod%~x0"
+set SETCNF="%~dp0setcnf%~x0"
 set SETPRJ="%~dp0setprj%~x0"
 set SETENV="%~dp0setenv%~x0"
-set NPPENV="%~dp0nppenv%~x0"
+set SETMOD="%~dp0setmod%~x0"
 call %DSPTTL%
 echo ###########################################################
 echo ###                                        ~\%~nx0 ###
 echo ###                                    %~t0 ###
+echo ###########################################################
+call %SETCNF%
+echo ###########################################################
+echo ### Configuration Location: %CNFPTH%
 echo ###########################################################
 call %SETPRJ%
 echo ###########################################################
 echo ### Development Project: %DEVPRJ%
 echo ###########################################################
 call %SETENV%
+echo ###########################################################
+echo ### Display/Interactive Mode: %DSPMOD%/%INTMOD%
+echo ###########################################################
 if "%2"=="" (call %SETMOD% %1 DSPMOD INTMOD %QMDLST% %IMDLST% %NMDLST% %AMDLST%
 ) else call %SETMOD% %2 DSPMOD INTMOD %QMDLST% %IMDLST% %NMDLST% %AMDLST%
 if "%2"=="" goto :COMEXE
